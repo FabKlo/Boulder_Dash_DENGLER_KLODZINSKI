@@ -1,9 +1,12 @@
 package entitesvivantes;
 
+import java.util.ArrayList;
+
 public abstract class Personnage {
 
     private int positionX;
     private int positionY;
+    private ArrayList<String> casesTraversables = new ArrayList<String>();
 
     public int getPositionX() {
         return positionX;
@@ -19,6 +22,18 @@ public abstract class Personnage {
 
     public void setPositionY(int positionY) {
         this.positionY = positionY;
+    }
+
+    public ArrayList<String> getCasesTraversables() {
+        return casesTraversables;
+    }
+
+    public void addCasesTraversables(String casesTraversables) {
+        this.casesTraversables.add(casesTraversables);
+    }
+
+    public void setCasesTraversables(ArrayList<String> casesTraversables) {
+        this.casesTraversables = casesTraversables;
     }
 
 }

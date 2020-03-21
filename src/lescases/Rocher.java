@@ -13,7 +13,7 @@ public class Rocher extends Case {
 
     @Override
     public void mettrePersoSurCase(Personnage p) {
-
-    }
-    
+        System.out.println("Cette case est de type" + 
+        getClass().getSimpleName() +", le personnage "  + 
+        p.getClass().getSimpleName() + " ne peut pas être ici !");    }
 }

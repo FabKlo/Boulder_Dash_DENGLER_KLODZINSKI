@@ -1,5 +1,9 @@
 package entitesvivantes;
 
+import lescases.Diamant;
+import lescases.Terre;
+import lescases.Vide;
+
 public class Rockford extends Personnage {
 
     private int vie;
@@ -10,6 +14,9 @@ public class Rockford extends Personnage {
         setPositionY(y);
         setVie(3);
         setCompteurDiamant(0);
+        addCasesTraversables(Vide.class.getSimpleName());
+        addCasesTraversables(Diamant.class.getSimpleName());
+        addCasesTraversables(Terre.class.getSimpleName());
     } 
 
 public int getVie() {

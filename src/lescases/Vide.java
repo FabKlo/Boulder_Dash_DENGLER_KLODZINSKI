@@ -13,7 +13,13 @@ public class Vide extends Case {
 
     @Override
     public void mettrePersoSurCase(Personnage p) {
-
+        if(!this.estOccupee()) {
+            if(p.getCasesTraversables().contains(this.getClass().getSimpleName())) {
+                p.setPositionX(this.getPositionX());
+                p.setPositionY(this.getPositionY());
+                System.out.println("ton test assure de fou !");
+            }
+        }
     }
     
 }
