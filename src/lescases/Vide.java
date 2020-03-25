@@ -4,6 +4,11 @@ import entitesvivantes.Personnage;
 
 public class Vide extends Case {
 
+    public Vide() {
+        setPeutEtreTraverseeParMonstre(true);
+        setPeutEtreTraverseeParRockford(true);
+    }
+
     public Vide(int x, int y) {
         setPositionX(x);
         setPositionY(y);
@@ -17,7 +22,9 @@ public class Vide extends Case {
             if(p.getCasesTraversables().contains(this.getClass().getSimpleName())) {
                 p.setPositionX(this.getPositionX());
                 p.setPositionY(this.getPositionY());
-                System.out.println("ton test assure de fou !");
+                this.setEstIci(p);
+                System.out.println("Le personnage " + p.getClass().getSimpleName() + " est positionné sur la case " +
+                this.getClass().getSimpleName() + " de coordonnée : x = " + p.getPositionX() + ", y = " + p.getPositionY());
             }
         }
     }

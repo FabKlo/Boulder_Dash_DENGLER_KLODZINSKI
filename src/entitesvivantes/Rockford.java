@@ -9,9 +9,7 @@ public class Rockford extends Personnage {
     private int vie;
     private int compteurDiamant;
 
-    public Rockford(int x, int y) {
-        setPositionX(x);
-        setPositionY(y);
+    public Rockford() {
         setVie(3);
         setCompteurDiamant(0);
         addCasesTraversables(Vide.class.getSimpleName());

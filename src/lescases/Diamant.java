@@ -4,6 +4,11 @@ import entitesvivantes.Personnage;
 
 public class Diamant extends Case {
 
+    public Diamant() {
+        setPeutEtreTraverseeParMonstre(false);
+        setPeutEtreTraverseeParRockford(true);
+    }
+
     public Diamant(int x, int y) {
         setPositionX(x);
         setPositionY(y);
@@ -18,6 +23,7 @@ public class Diamant extends Case {
             if(p.getCasesTraversables().contains(this.getClass().getSimpleName())) {
                 p.setPositionX(this.getPositionX());
                 p.setPositionY(this.getPositionY());
+                this.setEstIci(p);
                 System.out.println("le personnage " + p.getClass().getSimpleName() + "peut être sur cette case qui est un diamant");
             }
             else

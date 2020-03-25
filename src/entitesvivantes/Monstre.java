@@ -6,9 +6,7 @@ public class Monstre extends Personnage {
 
     private int vie;
 
-    public Monstre(int x, int y){
-        setPositionX(x);
-        setPositionY(y);
+    public Monstre(){
         setVie(1);
         addCasesTraversables(Vide.class.getSimpleName());
     }

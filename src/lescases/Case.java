@@ -9,17 +9,16 @@ public abstract class Case {
     private boolean peutEtreTraverseeParRockford;
     private boolean peutEtreTraverseeParMonstre;
 
-
     private Personnage estIci;
 
-    public boolean estOccupee() {
+    public boolean estOccupee()  {
         if(getEstIci() == null)
             return false;
         else
             return true;
     }
 
-    public abstract void mettrePersoSurCase(Personnage p);
+    public abstract void mettrePersoSurCase(Personnage p) ;
 
 
     public int getPositionX() {
@@ -67,8 +66,9 @@ public abstract class Case {
         this.peutEtreTraverseeParMonstre = peutEtreTraverseeParMonstre;
     }
 
-    public Personnage getEstIci() {
-        return estIci;
+    public Personnage getEstIci()  {
+            return estIci;
+  
     }
 
     public void setEstIci(Personnage estIci) {
