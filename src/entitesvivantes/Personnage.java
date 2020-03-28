@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Personnage {
 
+    private int vie;
     private int positionX;
     private int positionY;
     private ArrayList<String> casesTraversables = new ArrayList<String>();
@@ -34,6 +35,14 @@ public abstract class Personnage {
 
     public void setCasesTraversables(ArrayList<String> casesTraversables) {
         this.casesTraversables = casesTraversables;
+    }
+
+    public int getVie() {
+        return vie;
+    }
+
+    public void setVie(int vie) {
+        this.vie = vie;
     }
 
 }

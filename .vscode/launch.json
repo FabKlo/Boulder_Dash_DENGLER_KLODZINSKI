@@ -6,16 +6,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Test",
-            "request": "launch",
-            "mainClass": "testintermediaire.Test",
-            "projectName": "Boulder_Dash_DENGLER_KLODZINSKI"
-        },
-        {
-            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
-            "mainClass": "application.FenetrePrincipale",
+            "mainClass": "testintermediaire.Test",
+            //"mainClass": "application.FenetrePrincipale",
             "projectName": "Boulder_Dash_DENGLER_KLODZINSKI",
             "console": "externalTerminal"
         }

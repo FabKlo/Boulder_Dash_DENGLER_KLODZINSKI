@@ -6,10 +6,10 @@ public abstract class Case {
 
     private int positionX;
     private int positionY;
-    private boolean peutEtreTraverseeParRockford;
-    private boolean peutEtreTraverseeParMonstre;
 
     private Personnage estIci;
+
+    private boolean estSoumisALaGravite;
 
     public boolean estOccupee()  {
         if(getEstIci() == null)
@@ -58,14 +58,6 @@ public abstract class Case {
         return true;
     }
 
-    public boolean isPeutEtreTraverseeParMonstre() {
-        return peutEtreTraverseeParMonstre;
-    }
-
-    public void setPeutEtreTraverseeParMonstre(boolean peutEtreTraverseeParMonstre) {
-        this.peutEtreTraverseeParMonstre = peutEtreTraverseeParMonstre;
-    }
-
     public Personnage getEstIci()  {
             return estIci;
   
@@ -74,13 +66,14 @@ public abstract class Case {
     public void setEstIci(Personnage estIci) {
         this.estIci = estIci;
     }
+  
 
-    public boolean isPeutEtreTraverseeParRockford() {
-        return peutEtreTraverseeParRockford;
+    public boolean isEstSoumisALaGravite() {
+        return estSoumisALaGravite;
     }
 
-    public void setPeutEtreTraverseeParRockford(boolean peutEtreTraverseeParRockford) {
-        this.peutEtreTraverseeParRockford = peutEtreTraverseeParRockford;
+    public void setEstSoumisALaGravite(boolean estSoumisALaGravite) {
+        this.estSoumisALaGravite = estSoumisALaGravite;
     }
     
 

@@ -10,9 +10,9 @@ import java.util.List;
 import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
-import javafx.scene.control.Tab;
 import lescases.*;
 import modele.exceptions.BoulderException;
+import modele.exceptions.BoulderMortException;
 
 public class Grille {
 
@@ -25,22 +25,185 @@ public class Grille {
         niveau = 2;
     }
 
-    public void transfoCaseEnVide() {
-        for(int i = 0; i < XMAX; i++) {
-            for(int j = 0; j < YMAX; j++) {
-                if(tableau[i][j].estOccupee()) {
-                    Personnage temp = tableau[i][j].getEstIci();
-                    if(!(tableau[i][j] instanceof Vide)) {
-                        tableau[i][j] = new Vide(i,j);
-                        tableau[i][j].mettrePersoSurCase(temp);
+    public void déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
+        if(tableau[cs][ls].estOccupee()) {
+            if((ct >= 0 && ct < XMAX) && (lt >= 0 && lt < YMAX)) {
+                if(ct == cs-1 || ct == cs+1) {
+                    if(lt == ls) {
+                        /*Si la case de destination est adjacente à la source
+                        et que celle-ci est traversable par l'unite vivante */
+                        if(tableau[cs][ls].getEstIci().getCasesTraversables().contains(tableau[ct][lt].getClass().getSimpleName())) {
+                            if(tableau[ct][lt].estOccupee()) {
+                                perdreVieParMonstre(cs, ls, ct, lt);
+                            }
+                            else {
+                                tableau[ct][lt].mettrePersoSurCase(tableau[cs][ls].getEstIci());
+                                transfoCaseEnVide(ct,lt);
+                                tableau[cs][ls].setEstIci(null);
+                            }
+                            System.out.println("tableau["+ct+"]["+lt+"] = " + tableau[ct][lt].getClass().getSimpleName() +
+                            ", personnage dessus : " + tableau[ct][lt].getEstIci());
+                            System.out.println("tableau["+cs+"]["+ls+"] = " + tableau[cs][ls].getClass().getSimpleName() +
+                            ", personnage dessus : " + tableau[cs][ls].getEstIci());        
+                        }
+                        /*Sinon si la case de destination est un rocher, on vérifie si on peut le déplacer*/
+                        else if(tableau[ct][lt] instanceof Rocher) {
+                            if(tableau[cs][ls].getEstIci() instanceof Rockford) {
+                                deplacerRocher(cs, ls, ct, lt);
+                            }
+                        }
+                        /*Sinon on ne fait rien*/
+                        else {
+                            System.out.println("la case " + tableau[ct][lt].getClass().getSimpleName() + " n'est pas traversable par " +
+                                tableau[cs][ls].getEstIci());
+                            System.out.println("tableau["+ct+"]["+lt+"] = " + tableau[ct][lt].getClass().getSimpleName() +
+                                ", personnage dessus : " + tableau[ct][lt].getEstIci());
+                            System.out.println("tableau["+cs+"]["+ls+"] = " + tableau[cs][ls].getClass().getSimpleName() +
+                                ", personnage dessus : " + tableau[cs][ls].getEstIci());
+                        }
+                    } else {
+                        System.out.println("La case de destination n'est pas adjacente à celle de départ"); }
+                /*
+                */
+                } else if(ct == cs) {
+                    if(lt == ls-1 || lt == ls+1) {
+                        /*Idem qu'au dessus, mais comme ici c'est un déplacement vertical,
+                        on ne bouge pas de rocher*/
+                        if(tableau[cs][ls].getEstIci().getCasesTraversables().contains(tableau[ct][lt].getClass().getSimpleName())) {
+                            if(tableau[ct][lt].estOccupee()) {
+                                perdreVieParMonstre(cs, ls, ct, lt);
+                            }
+                            else {
+                                tableau[ct][lt].mettrePersoSurCase(tableau[cs][ls].getEstIci());
+                                transfoCaseEnVide(ct,lt);
+                                tableau[cs][ls].setEstIci(null);
+                            }
+                            System.out.println("tableau["+ct+"]["+lt+"] = " + tableau[ct][lt].getClass().getSimpleName() +
+                            ", personnage dessus : " + tableau[ct][lt].getEstIci());
+                            System.out.println("tableau["+cs+"]["+ls+"] = " + tableau[cs][ls].getClass().getSimpleName() +
+                            ", personnage dessus : " + tableau[cs][ls].getEstIci());
+                        }
+
+                        else {
+                            System.out.println("la case " + tableau[ct][lt].getClass().getSimpleName() + " n'est pas traversable par " +
+                                tableau[cs][ls].getEstIci());
+                        }
+
                     }
+                    else {System.out.println("La case de destination n'est pas adjacente à celle de départ");}
                 }
-                    
+
+            } else {System.out.println("la case de destination est hors du tableau");}
+        } else {System.out.println("la case départ n'est pas occupée !");}
+    }
+
+    public void verifVieAll() throws BoulderMortException {
+        ArrayList<Personnage> pers = searchAllPers();
+        for (Personnage personnage : pers) {
+            if(personnage.getVie() == 0) {
+                gameOver(personnage);
+                tableau[personnage.getPositionX()][personnage.getPositionY()].setEstIci(null);
             }
         }
     }
 
-    public void searchAllPers() {
+    public void gameOver(Personnage pers) throws BoulderMortException {
+        if(pers instanceof Rockford) {
+            if(pers.getVie() == 0)
+                throw new BoulderMortException("Rockford est mort, c'est perdu !");
+        }
+    }
+
+    public void perdreVieParMonstre(int cs, int ls, int ct, int lt) throws BoulderMortException {
+        if(tableau[cs][ls].estOccupee()) {
+            if(tableau[cs][ls].getEstIci() instanceof Rockford) {
+                if(tableau[ct][lt].estOccupee()) {
+                    if(tableau[ct][lt].getEstIci() instanceof Monstre) {
+                        tableau[cs][ls].getEstIci().setVie(tableau[cs][ls].getEstIci().getVie() - 1);
+                        tableau[ct][lt].getEstIci().setVie(tableau[ct][lt].getEstIci().getVie() - 1);
+                        verifVieAll();
+                        tableau[ct][lt] = new Vide(ct, lt);
+                        Rockford temp = (Rockford) tableau[cs][ls].getEstIci();
+                        temp.setCompteurDiamant(temp.getCompteurDiamant() + 1);
+                        tableau[cs][ls].setEstIci(null);
+                        tableau[ct][lt].mettrePersoSurCase(temp);
+
+                        System.out.println("vie de rockford situé en x = " + ct + " y = " + lt +
+                        " : " + tableau[ct][lt].getEstIci().getVie());
+                    }
+                }
+            }
+            else if(tableau[cs][ls].getEstIci() instanceof Monstre) {
+                if(tableau[ct][lt].estOccupee()) {
+                    if(tableau[ct][lt].getEstIci() instanceof Rockford) {
+                        tableau[cs][ls].getEstIci().setVie(tableau[cs][ls].getEstIci().getVie() - 1);
+                        tableau[ct][lt].getEstIci().setVie(tableau[ct][lt].getEstIci().getVie() - 1);
+                        verifVieAll();
+                        tableau[cs][ls] = new Vide(cs, ls);
+                        Rockford temp = (Rockford) tableau[ct][lt].getEstIci();
+                        temp.setCompteurDiamant(temp.getCompteurDiamant() + 1);
+                        tableau[ct][lt].setEstIci(null);
+                        tableau[ct][lt].mettrePersoSurCase(temp);
+
+                        System.out.println("vie de rockford situé en x = " + ct + " y = " + lt +
+                        " : " + tableau[ct][lt].getEstIci().getVie());
+                    }
+                }
+            }
+        }
+    }
+
+    public void deplacerRocher(int xPers /*x de rockford*/, int yPers /*y de rockford*/,
+                                 int ct, int lt /*coord de la case de destination de rockford*/) {
+
+        int xPourRocher = ct + (ct - xPers);
+
+        if(xPourRocher >= 0 && xPourRocher < XMAX) {
+            if(tableau[xPourRocher][lt] instanceof Vide) {
+                tableau[xPourRocher][lt] = new Rocher(xPourRocher, lt);
+                tableau[ct][lt] = new Vide(ct, lt);
+                tableau[ct][lt].mettrePersoSurCase(tableau[xPers][yPers].getEstIci());
+                tableau[xPers][yPers].setEstIci(null);
+
+                System.out.println("test deplacement de rocher");
+
+                System.out.println("tableau["+xPers+"]["+yPers+"] = " + tableau[xPers][yPers].getClass().getSimpleName() +
+                ", perso dessus : " + tableau[xPers][yPers].getEstIci());
+                System.out.println("\ntableau["+ct+"]["+lt+"] = " + tableau[ct][lt].getClass().getSimpleName() +
+                ", perso dessus : " + tableau[ct][lt].getEstIci());
+                System.out.println("\ntableau["+xPourRocher+"]["+yPers+"] = " + tableau[xPourRocher][yPers].getClass().getSimpleName() +
+                ", perso dessus : " + tableau[xPourRocher][yPers].getEstIci());
+            }
+        }
+        else
+            System.out.println("le rocher aux coord x = " + ct + ", y = " + lt + " est en bord de tableau");
+    }
+
+    public void ajoutDiamant(int x, int y) {
+        if(tableau[x][y] instanceof Diamant && 
+            tableau[x][y].getEstIci() instanceof Rockford) {
+                Rockford temp = (Rockford) tableau[x][y].getEstIci();
+                System.out.println("nbr de diamant AVANT récup de rockford en x =" +x+", y = " +y+" : " +temp.getCompteurDiamant());
+                temp.setCompteurDiamant(temp.getCompteurDiamant() + 1);
+                tableau[x][y] = new Vide(x, y);
+                tableau[x][y].mettrePersoSurCase(temp);
+                System.out.println("nbr de diamant APRES récup de rockford en x =" +x+", y = " +y+" : " +temp.getCompteurDiamant());
+        }
+    }
+
+    public void transfoCaseEnVide(int i, int j) {
+        if(tableau[i][j].estOccupee() &&
+        tableau[i][j].getEstIci().getCasesTraversables().contains(tableau[i][j].getClass().getSimpleName())) {
+            ajoutDiamant(i,j);
+            Personnage temp = tableau[i][j].getEstIci();
+            if(!(tableau[i][j] instanceof Vide)) {
+                tableau[i][j] = new Vide(i,j);
+                tableau[i][j].mettrePersoSurCase(temp);
+            }
+        }
+    }
+
+    public ArrayList<Personnage> searchAllPers() {
         ArrayList<Personnage> pers = new ArrayList<Personnage>();
         for(int i = 0; i < XMAX; i++) {
             for(int j = 0; j < YMAX; j++) {
@@ -49,11 +212,13 @@ public class Grille {
             }
         }
         
-        for (Personnage c : pers) {
+        /*for (Personnage c : pers) {
             System.out.println("Personnage : " + c.getClass().getSimpleName() +
             " avec x = " + c.getPositionX() + ", y = " + c.getPositionY() + " qui correspond a une case : " + 
             getCaseDuTab(c.getPositionX(), c.getPositionY()).getClass().getSimpleName());  
-        }
+        }*/
+
+        return pers;
     }
 
     public Case getCaseDuTab(int x, int y) {
@@ -72,6 +237,9 @@ public class Grille {
         switch (c) {
         case 'T':
             typeDeCase = new Terre(x,y);
+            break;
+        case 'A':
+            typeDeCase = new Acier(x,y);
             break;
         case 'R':
             typeDeCase = new Rocher(x,y);
@@ -225,7 +393,7 @@ public class Grille {
      */
     public void creerGrille() throws IOException {
 
-        Path orderPath = Paths.get("plateaux/plateau"+niveau+".csv");
+        Path orderPath = Paths.get("plateaux/plateauTest.csv");
         String[] split = null;
         List<String> lines = null;
         int debLigne = 0;           //Cherche le début de ligne qui correspond au tableau

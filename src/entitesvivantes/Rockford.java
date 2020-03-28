@@ -6,7 +6,6 @@ import lescases.Vide;
 
 public class Rockford extends Personnage {
 
-    private int vie;
     private int compteurDiamant;
 
     public Rockford() {
@@ -16,14 +15,6 @@ public class Rockford extends Personnage {
         addCasesTraversables(Diamant.class.getSimpleName());
         addCasesTraversables(Terre.class.getSimpleName());
     } 
-
-public int getVie() {
-	return vie;
-}
-
-public void setVie(int vie) {
-	this.vie = vie;
-}
 
 public int getCompteurDiamant() {
 	return compteurDiamant;

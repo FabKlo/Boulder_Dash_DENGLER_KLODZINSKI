@@ -5,15 +5,13 @@ import entitesvivantes.Personnage;
 public class Rocher extends Case {
 
     public Rocher() {
-        setPeutEtreTraverseeParMonstre(false);
-        setPeutEtreTraverseeParRockford(false);
+        setEstSoumisALaGravite(true);
     }
 
     public Rocher(int x, int y) {
         setPositionX(x);
         setPositionY(y);
-        setPeutEtreTraverseeParMonstre(false);
-        setPeutEtreTraverseeParRockford(false);
+        setEstSoumisALaGravite(true);
     }
 
     @Override

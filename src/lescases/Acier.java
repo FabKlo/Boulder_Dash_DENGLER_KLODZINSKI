@@ -5,16 +5,13 @@ import entitesvivantes.Personnage;
 public class Acier extends Case {
 
     public Acier() {
-        setPeutEtreTraverseeParMonstre(false);
-        setPeutEtreTraverseeParRockford(false);
-
+        setEstSoumisALaGravite(false);
     }
 
     public Acier(int x, int y) {
         setPositionX(x);
         setPositionY(y);
-        setPeutEtreTraverseeParMonstre(false);
-        setPeutEtreTraverseeParRockford(false);
+        setEstSoumisALaGravite(false);
     }
 
     @Override
