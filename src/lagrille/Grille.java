@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import deplacementrockford.DeplacerRockfordCOR;
 import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
@@ -22,17 +23,17 @@ public class Grille {
     private int niveau;
 
     public Grille() {
-        niveau = 2;
+        niveau = 1;
     }
 
     public void déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
-        if(tableau[cs][ls].estOccupee()) {
+        /*if(tableau[cs][ls].estOccupee()) {
             if((ct >= 0 && ct < XMAX) && (lt >= 0 && lt < YMAX)) {
                 if(ct == cs-1 || ct == cs+1) {
-                    if(lt == ls) {
+                    if(lt == ls) {*/
                         /*Si la case de destination est adjacente à la source
-                        et que celle-ci est traversable par l'unite vivante */
-                        if(tableau[cs][ls].getEstIci().getCasesTraversables().contains(tableau[ct][lt].getClass().getSimpleName())) {
+                        et que celle-ci est traversable par l'unite vivante*/
+                        /*if(tableau[cs][ls].getEstIci().getCasesTraversables().contains(tableau[ct][lt].getClass().getSimpleName())) {
                             if(tableau[ct][lt].estOccupee()) {
                                 perdreVieParMonstre(cs, ls, ct, lt);
                             }
@@ -45,15 +46,15 @@ public class Grille {
                             ", personnage dessus : " + tableau[ct][lt].getEstIci());
                             System.out.println("tableau["+cs+"]["+ls+"] = " + tableau[cs][ls].getClass().getSimpleName() +
                             ", personnage dessus : " + tableau[cs][ls].getEstIci());        
-                        }
+                        }*/
                         /*Sinon si la case de destination est un rocher, on vérifie si on peut le déplacer*/
-                        else if(tableau[ct][lt] instanceof Rocher) {
+                        /*else if(tableau[ct][lt] instanceof Rocher) {
                             if(tableau[cs][ls].getEstIci() instanceof Rockford) {
                                 deplacerRocher(cs, ls, ct, lt);
                             }
-                        }
+                        }*/
                         /*Sinon on ne fait rien*/
-                        else {
+                        /*else {
                             System.out.println("la case " + tableau[ct][lt].getClass().getSimpleName() + " n'est pas traversable par " +
                                 tableau[cs][ls].getEstIci());
                             System.out.println("tableau["+ct+"]["+lt+"] = " + tableau[ct][lt].getClass().getSimpleName() +
@@ -62,14 +63,14 @@ public class Grille {
                                 ", personnage dessus : " + tableau[cs][ls].getEstIci());
                         }
                     } else {
-                        System.out.println("La case de destination n'est pas adjacente à celle de départ"); }
+                        System.out.println("La case de destination n'est pas adjacente à celle de départ"); }*/
                 /*
                 */
-                } else if(ct == cs) {
-                    if(lt == ls-1 || lt == ls+1) {
+                /*} else if(ct == cs) {
+                    if(lt == ls-1 || lt == ls+1) {*/
                         /*Idem qu'au dessus, mais comme ici c'est un déplacement vertical,
                         on ne bouge pas de rocher*/
-                        if(tableau[cs][ls].getEstIci().getCasesTraversables().contains(tableau[ct][lt].getClass().getSimpleName())) {
+                        /*if(tableau[cs][ls].getEstIci().getCasesTraversables().contains(tableau[ct][lt].getClass().getSimpleName())) {
                             if(tableau[ct][lt].estOccupee()) {
                                 perdreVieParMonstre(cs, ls, ct, lt);
                             }
@@ -94,7 +95,9 @@ public class Grille {
                 }
 
             } else {System.out.println("la case de destination est hors du tableau");}
-        } else {System.out.println("la case départ n'est pas occupée !");}
+        } else {System.out.println("la case départ n'est pas occupée !");}*/
+        DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
+        corRock.deplaceRockford(this, cs, ls, ct, lt);
     }
 
     public void verifVieAll() throws BoulderMortException {
@@ -223,6 +226,10 @@ public class Grille {
 
     public Case getCaseDuTab(int x, int y) {
         return tableau[x][y];
+    }
+
+    public void setCaseDuTab(int x, int y, Case c) {
+        tableau[x][y] = c;
     }
 
     /**
