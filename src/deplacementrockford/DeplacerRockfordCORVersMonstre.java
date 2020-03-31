@@ -24,7 +24,7 @@ public class DeplacerRockfordCORVersMonstre extends DeplacerRockfordCOR {
         if(!(grille.getCaseDuTab(ct,lt) instanceof Vide))
             return false;
 
-        if(grille.getCaseDuTab(ct,lt).getEstIci() instanceof Monstre) {
+        if(grille.getCaseDuTab(ct,lt).estOccupee() && grille.getCaseDuTab(ct,lt).getEstIci() instanceof Monstre) {
             grille.getCaseDuTab(cs,ls).getEstIci().setVie(grille.getCaseDuTab(cs,ls).getEstIci().getVie() - 1);
             grille.getCaseDuTab(ct,lt).getEstIci().setVie(grille.getCaseDuTab(ct,lt).getEstIci().getVie() - 1);
             grille.verifVieAll();

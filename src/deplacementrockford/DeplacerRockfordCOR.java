@@ -11,26 +11,22 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
         this.suivant = s;
     }
 
-    public DeplacerRockfordCOR() {
-        this.suivant = null;
-    }
-
     /**
      * déplace rockford vers un type de case précis
      * @param grille c'est la grille
-     * @param cs
-     * @param ls
-     * @param ct
-     * @param lt
+     * @param cs    colonne source
+     * @param ls    ligne source
+     * @param ct    colonne target
+     * @param lt    ligne target
      * @return faux s'il l'effectue pas, true si oui
      */
     protected abstract boolean deplacerRockfordVersCase(Grille grille, int cs, int ls, int ct, int lt) throws BoulderMortException;
 
     @Override
     public boolean deplaceRockford(Grille grille, int cs, int ls, int ct, int lt) throws BoulderMortException {
-        if(!this.deplacerRockfordVersCase(grille, cs, ls, ct, lt)) {
+        if(!(this.deplacerRockfordVersCase(grille, cs, ls, ct, lt))) {
             if(suivant != null) {
-                return suivant.deplacerRockfordVersCase(grille, cs, ls, ct, lt);
+                return suivant.deplaceRockford(grille, cs, ls, ct, lt);
             }
             else
                 return false;
@@ -43,7 +39,11 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
 
         DeplacerRockfordCORVersVide vide = new DeplacerRockfordCORVersVide(null);
         DeplacerRockfordCORVersMonstre monstre = new DeplacerRockfordCORVersMonstre(vide);
-        return monstre;
+        DeplacerRockfordCORVersTerre terre = new DeplacerRockfordCORVersTerre(monstre);
+        DeplacerRockfordCORVersDiamant diamant = new DeplacerRockfordCORVersDiamant(terre);
+        DeplacerRockfordCORVersRocher rocher = new DeplacerRockfordCORVersRocher(diamant);
+        DeplacerRockfordCORVersAcier acier = new DeplacerRockfordCORVersAcier(rocher);
+        return acier;
 
     }
 

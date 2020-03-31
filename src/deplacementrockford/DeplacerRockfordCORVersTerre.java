@@ -2,14 +2,15 @@ package deplacementrockford;
 
 import entitesvivantes.Rockford;
 import lagrille.Grille;
+import lescases.Terre;
 import lescases.Vide;
 
 /**
  * DeplacerRockfordCORVersVide
  */
-public class DeplacerRockfordCORVersVide extends DeplacerRockfordCOR {
+public class DeplacerRockfordCORVersTerre extends DeplacerRockfordCOR {
 
-    public DeplacerRockfordCORVersVide(DeplacerRockfordCOR s) {
+    public DeplacerRockfordCORVersTerre(DeplacerRockfordCOR s) {
         super(s);
     }
 
@@ -19,12 +20,13 @@ public class DeplacerRockfordCORVersVide extends DeplacerRockfordCOR {
             return false;
         }
 
-        if(!(grille.getCaseDuTab(ct,lt) instanceof Vide)) {
+        if(!(grille.getCaseDuTab(ct,lt) instanceof Terre))
             return false;
-        }
 
         if(grille.getCaseDuTab(ct,lt).getEstIci() == null) {
+            grille.setCaseDuTab(ct,lt,new Vide(ct,lt));
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(grille.getCaseDuTab(cs,ls).getEstIci());
+            //grille.transfoCaseEnVide(ct,lt);
             grille.getCaseDuTab(cs,ls).setEstIci(null);
             System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
             ", personnage dessus : " + grille.getCaseDuTab(ct,lt).getEstIci());
