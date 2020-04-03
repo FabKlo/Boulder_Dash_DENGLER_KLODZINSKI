@@ -35,16 +35,19 @@ public class Grille {
         ArrayList<Personnage> pers = searchAllPers();
         for (Personnage personnage : pers) {
             if(personnage.getVie() == 0) {
-                gameOver(personnage);
+                impactVieEnMoins(personnage);
                 tableau[personnage.getPositionX()][personnage.getPositionY()].setEstIci(null);
             }
         }
     }
 
-    public void gameOver(Personnage pers) throws BoulderMortException {
+    public void impactVieEnMoins(Personnage pers) throws BoulderMortException {
         if(pers instanceof Rockford) {
             if(pers.getVie() == 0)
                 throw new BoulderMortException("Rockford est mort, c'est perdu !");
+        } else {
+            if(pers.getVie() == 0)
+                tableau[pers.getPositionX()][pers.getPositionY()] = new Diamant(pers.getPositionX(), pers.getPositionY());
         }
     }
 

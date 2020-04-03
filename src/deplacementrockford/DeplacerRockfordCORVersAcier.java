@@ -19,6 +19,11 @@ public class DeplacerRockfordCORVersAcier extends DeplacerRockfordCOR {
             return false;
         }
 
+        if((ct < 0 || ct >= grille.getXMAX()) || (lt < 0 || lt >= grille.getYMAX())) {
+            System.out.println("Case target en dehors du tableau");
+            return true;
+        }
+
         if(!(grille.getCaseDuTab(ct,lt) instanceof Acier)) {
             return false;
         }

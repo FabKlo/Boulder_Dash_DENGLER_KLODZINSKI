@@ -8,12 +8,14 @@ public class Diamant extends Case {
 
     public Diamant() {
         setEstSoumisALaGravite(true);
+        setEnMouvement(false);
     }
 
     public Diamant(int x, int y) {
         setPositionX(x);
         setPositionY(y);
         setEstSoumisALaGravite(true);
+        setEnMouvement(false);
     }
 
     @Override
