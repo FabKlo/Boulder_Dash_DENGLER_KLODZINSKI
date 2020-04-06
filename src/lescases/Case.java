@@ -11,6 +11,10 @@ public abstract class Case {
 
     private boolean estSoumisALaGravite;
 
+    /**
+     * regarde si la case est occupée par un personnage ou non
+     * @return true si oui, false si non
+     */
     public boolean estOccupee()  {
         if(getEstIci() == null)
             return false;
@@ -18,6 +22,10 @@ public abstract class Case {
             return true;
     }
 
+    /**
+     * met un personnage sur la case
+     * @param p le personnage
+     */
     public abstract void mettrePersoSurCase(Personnage p) ;
 
 

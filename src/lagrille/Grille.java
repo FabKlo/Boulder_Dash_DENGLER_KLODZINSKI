@@ -14,7 +14,6 @@ import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
 import lescases.*;
-import modele.exceptions.BoulderException;
 import modele.exceptions.BoulderMortException;
 
 public class Grille {
@@ -28,22 +27,46 @@ public class Grille {
         niveau = 1;
     }
 
+    /**
+     * déplace rockford de [cs][ls] vers [ct][lt]
+     * @param cs colonne source
+     * @param ls ligne source
+     * @param ct colonne target
+     * @param lt ligne target
+     * @throws BoulderMortException
+     */
     public void déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
         DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
         corRock.deplaceRockford(this, cs, ls, ct, lt);
     }
 
+    /**
+     * déplace le rocher de [cs][ls] vers [cs][ls-1]
+     * @param cs colonne source
+     * @param ls ligne source
+     * @throws BoulderMortException
+     */
     public void déplacerRocher(int cs, int ls) throws BoulderMortException {
         ChuteDuRocherCOR corRocher = ChuteDuRocherCOR.initCOR();
         corRocher.deplaceRocher(this, cs, ls);
     }
 
+    /**
+     * déplace le diamant de [cs][ls] vers [cs][ls-1]
+     * @param cs colonne source
+     * @param ls ligne source
+     * @throws BoulderMortException
+     */
     public void déplacerDiamant(int cs, int ls) throws BoulderMortException {
         ChuteDuDiamantCOR corDiamant = ChuteDuDiamantCOR.initCOR();
         corDiamant.deplaceDiamant(this, cs, ls);
 
     }
 
+    /**
+     * vérifie la vie de tout les persos sur la grille, et lance un gameOver si rockford est mort
+     * @throws BoulderMortException
+     */
     public void verifVieAll() throws BoulderMortException {
         ArrayList<Personnage> pers = searchAllPers();
         for (Personnage personnage : pers) {
@@ -54,6 +77,12 @@ public class Grille {
         }
     }
 
+    /**
+     * vérifie la vie du personnage pers, et transforme un monstre en diamant si sa vie est 0,
+     * ou lance un gameOver si rockford est mort
+     * @param pers le personnage dont on vérifie la vie
+     * @throws BoulderMortException
+     */
     public void impactVieEnMoins(Personnage pers) throws BoulderMortException {
         if(pers instanceof Rockford) {
             if(pers.getVie() == 0)
@@ -64,6 +93,10 @@ public class Grille {
         }
     }
 
+    /**
+     * cherche tout les persos de la grille
+     * @return une arraylist de personnages
+     */
     public ArrayList<Personnage> searchAllPers() {
         ArrayList<Personnage> pers = new ArrayList<Personnage>();
         for(int i = 0; i < XMAX; i++) {
@@ -82,20 +115,33 @@ public class Grille {
         return pers;
     }
 
+    /**
+     * retourne la case associée a ces coordonnées
+     * @param x position X dans la grille
+     * @param y position Y dans la grille
+     * @return
+     */
     public Case getCaseDuTab(int x, int y) {
         return tableau[x][y];
     }
 
+    /**
+     * transforme la case associée a ces coordonnées en la case c
+     * @param x position X dans la grille
+     * @param y position Y dans la grille
+     * @param c la nouvelle case
+     * @return
+     */
     public void setCaseDuTab(int x, int y, Case c) {
         tableau[x][y] = c;
     }
 
     /**
-     * Pour transformer les entiers des .csv en Case (Meringues, Bonbons ou Vide)
-     * 
-     * @param num l'entier du fichier .csv
-     * @return un objet de type Case
-     * @throws BoulderException
+     * transforme les caractères du .csv en case
+     * @param c le caractère
+     * @param x position X
+     * @param y position Y
+     * @return la case associée au caractère
      */
     public Case charEnCase(char c, int x, int y) {
         Case typeDeCase;

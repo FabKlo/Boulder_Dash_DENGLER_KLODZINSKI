@@ -7,6 +7,10 @@ public abstract class ChuteDuDiamantCOR implements ChuteDuDiamant {
 
     private ChuteDuDiamantCOR suivant;
 
+    /**
+     * Chaine de responsabilité
+     * @param s 
+     */
     public ChuteDuDiamantCOR(ChuteDuDiamantCOR s) {
         this.suivant = s;
     }
@@ -18,11 +22,15 @@ public abstract class ChuteDuDiamantCOR implements ChuteDuDiamant {
      * @param ls    ligne source
      * @param ct    colonne target
      * @param lt    ligne target
-     * @return faux s'il l'effectue pas, true si oui
+     * @return faux s'il effectue pas le déplacement, true si oui
      */
     protected abstract boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException;
 
+    
     @Override
+    /**
+     * méthode récursive pour traversé tout les maillons de la chaine
+     */
     public boolean deplaceDiamant(Grille grille, int cs, int ls) throws BoulderMortException {
         if(!(this.deplacerDiamantVersCase(grille, cs, ls))) {
             if(suivant != null) {
@@ -35,6 +43,10 @@ public abstract class ChuteDuDiamantCOR implements ChuteDuDiamant {
             return true;
     }
 
+    /**
+     * initialisation de la chaine
+     * @return
+     */
     public static ChuteDuDiamantCOR initCOR() {
         ChuteDuDiamantCORSurVide vide = new ChuteDuDiamantCORSurVide(null);
         ChuteDuDiamantCORSurMonstre monstre = new ChuteDuDiamantCORSurMonstre(vide);

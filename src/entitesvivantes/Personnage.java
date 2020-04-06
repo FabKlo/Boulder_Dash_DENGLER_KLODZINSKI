@@ -2,6 +2,9 @@ package entitesvivantes;
 
 import java.util.ArrayList;
 
+/**
+ * Classe Personnage
+ */
 public abstract class Personnage {
 
     private int vie;

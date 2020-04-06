@@ -1,10 +1,13 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import lagrille.Grille;
+import lescases.Case;
 import ui.PanneauFooter;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;

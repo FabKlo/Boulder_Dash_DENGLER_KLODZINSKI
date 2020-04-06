@@ -7,6 +7,10 @@ public abstract class ChuteDuRocherCOR implements ChuteDuRocher {
 
     private ChuteDuRocherCOR suivant;
 
+    /**
+     * Chaine de responsabilité
+     * @param s
+     */
     public ChuteDuRocherCOR(ChuteDuRocherCOR s) {
         this.suivant = s;
     }
@@ -23,6 +27,9 @@ public abstract class ChuteDuRocherCOR implements ChuteDuRocher {
     protected abstract boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException;
 
     @Override
+    /**
+     * méthode récursive pour traversé tout les maillons de la chaine
+     */
     public boolean deplaceRocher(Grille grille, int cs, int ls) throws BoulderMortException {
         if(!(this.deplacerRocherVersCase(grille, cs, ls))) {
             if(suivant != null) {
@@ -35,6 +42,10 @@ public abstract class ChuteDuRocherCOR implements ChuteDuRocher {
             return true;
     }
 
+    /**
+     * initialisation de la chaine
+     * @return
+     */
     public static ChuteDuRocherCOR initCOR() {
         ChuteDuRocherCORSurVide vide = new ChuteDuRocherCORSurVide(null);
         ChuteDuRocherCORSurMonstre monstre = new ChuteDuRocherCORSurMonstre(vide);

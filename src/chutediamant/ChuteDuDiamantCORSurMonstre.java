@@ -2,7 +2,6 @@ package chutediamant;
 
 import entitesvivantes.Monstre;
 import lagrille.Grille;
-import lescases.Diamant;
 import modele.exceptions.BoulderMortException;
 
 public class ChuteDuDiamantCORSurMonstre extends ChuteDuDiamantCOR {

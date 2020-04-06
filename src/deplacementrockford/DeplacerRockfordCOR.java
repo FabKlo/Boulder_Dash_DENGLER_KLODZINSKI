@@ -7,6 +7,10 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
 
     private DeplacerRockfordCOR suivant;
 
+    /**
+     * Chaine de responsabilité
+     * @param s
+     */
     public DeplacerRockfordCOR(DeplacerRockfordCOR s) {
         this.suivant = s;
     }
@@ -23,6 +27,9 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
     protected abstract boolean deplacerRockfordVersCase(Grille grille, int cs, int ls, int ct, int lt) throws BoulderMortException;
 
     @Override
+    /**
+     * méthode récursive pour traversé tout les maillons de la chaine
+     */
     public boolean deplaceRockford(Grille grille, int cs, int ls, int ct, int lt) throws BoulderMortException {
         if(!(this.deplacerRockfordVersCase(grille, cs, ls, ct, lt))) {
             if(suivant != null) {
@@ -35,6 +42,10 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
             return true;
     }
 
+    /**
+     * initialisation de la chaine
+     * @return
+     */
     public static DeplacerRockfordCOR initCOR() {
 
         DeplacerRockfordCORVersVide vide = new DeplacerRockfordCORVersVide(null);
