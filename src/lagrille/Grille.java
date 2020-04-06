@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import chutediamant.ChuteDuDiamantCOR;
+import chuterocher.ChuteDuRocherCOR;
 import deplacementrockford.DeplacerRockfordCOR;
 import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
@@ -29,6 +31,17 @@ public class Grille {
     public void déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
         DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
         corRock.deplaceRockford(this, cs, ls, ct, lt);
+    }
+
+    public void déplacerRocher(int cs, int ls) throws BoulderMortException {
+        ChuteDuRocherCOR corRocher = ChuteDuRocherCOR.initCOR();
+        corRocher.deplaceRocher(this, cs, ls);
+    }
+
+    public void déplacerDiamant(int cs, int ls) throws BoulderMortException {
+        ChuteDuDiamantCOR corDiamant = ChuteDuDiamantCOR.initCOR();
+        corDiamant.deplaceDiamant(this, cs, ls);
+
     }
 
     public void verifVieAll() throws BoulderMortException {

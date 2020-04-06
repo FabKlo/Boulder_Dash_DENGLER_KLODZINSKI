@@ -14,15 +14,12 @@ public class ChuteDuDiamantCORSurMonstre extends ChuteDuDiamantCOR {
     @Override
     protected boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
-        if(!(grille.getCaseDuTab(cs,ls) instanceof Diamant)) {
+        if(!(grille.getCaseDuTab(cs,ls+1).estOccupee() && grille.getCaseDuTab(cs,ls+1).getEstIci() instanceof Monstre)) {
+            System.out.println("la case target n'est pas un monstre");
             return false;
         }
 
-        if(!(grille.getCaseDuTab(cs,ls-1).estOccupee() && grille.getCaseDuTab(cs,ls-1).getEstIci() instanceof Monstre)) {
-            return false;
-        }
-
-        grille.getCaseDuTab(cs,ls - 1).getEstIci().setVie(grille.getCaseDuTab(cs, ls-1).getEstIci().getVie()-1);
+        grille.getCaseDuTab(cs,ls + 1).getEstIci().setVie(grille.getCaseDuTab(cs, ls+1).getEstIci().getVie()-1);
         grille.verifVieAll();
         return true;
     }

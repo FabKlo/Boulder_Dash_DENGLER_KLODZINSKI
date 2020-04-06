@@ -18,18 +18,18 @@ public class ChuteDuRocherCORSurRockford extends ChuteDuRocherCOR {
     @Override
     protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
-        if(!(grille.getCaseDuTab(cs,ls) instanceof Rocher)) {
-            return false;
-        }
+        if(!(grille.getCaseDuTab(cs,ls+1).estOccupee() && grille.getCaseDuTab(cs,ls+1).getEstIci() instanceof Rockford)) {
+            System.out.println("la case target n'est pas rockford");
 
-        if(!(grille.getCaseDuTab(cs,ls-1).estOccupee() && grille.getCaseDuTab(cs,ls-1).getEstIci() instanceof Rockford)) {
             return false;
         }
 
         if(((Rocher)(grille.getCaseDuTab(cs,ls))).isEnMouvement()) {
-            grille.getCaseDuTab(cs,ls-1).getEstIci().setVie(grille.getCaseDuTab(cs,ls-1).getEstIci().getVie() - 1);
+            grille.getCaseDuTab(cs,ls+1).getEstIci().setVie(grille.getCaseDuTab(cs,ls+1).getEstIci().getVie() - 1);
             grille.setCaseDuTab(cs,ls,new Vide(cs,ls));
             grille.verifVieAll();
+            System.out.println("tomber sur rockford");
+
             return true; 
         }
         else {

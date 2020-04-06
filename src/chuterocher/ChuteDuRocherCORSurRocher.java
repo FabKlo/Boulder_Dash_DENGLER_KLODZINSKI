@@ -17,11 +17,8 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
     @Override
     protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
-        if(!(grille.getCaseDuTab(cs,ls) instanceof Rocher)) {
-            return false;
-        }
-
-        if(!(grille.getCaseDuTab(cs,ls-1) instanceof Rocher)) {
+        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Rocher)) {
+            System.out.println("la case target n'est pas un rocher");
             return false;
         }
         
@@ -32,6 +29,8 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
         int temp = r.nextInt((1 - 0) + 1) + 0;
         temp = oui.get(temp);
 
+        //int temp = 1;
+
         if(cs + temp < 0 || cs + temp >= grille.getXMAX() || !(grille.getCaseDuTab(cs + temp, ls) instanceof Vide)) {
             System.out.println("cs + temp = " + cs+temp);
             temp *= -1;
@@ -40,9 +39,11 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
         if(!((Rocher)(grille.getCaseDuTab(cs,ls))).isEnMouvement()) {
 
             if(grille.getCaseDuTab(cs + temp, ls) instanceof Vide &&
-            grille.getCaseDuTab(cs + temp, ls - 1) instanceof Vide) {
+            grille.getCaseDuTab(cs + temp, ls + 1) instanceof Vide) {
 
-                if(!(grille.getCaseDuTab(cs + temp, ls).estOccupee()) && !(grille.getCaseDuTab(cs + temp, ls - 1).estOccupee())) {
+                System.out.println("cs : "+(cs)+" l : "+(ls));
+                System.out.println("ct : "+(cs+temp)+" l : "+(ls));
+                if(!(grille.getCaseDuTab(cs + temp, ls).estOccupee()) && !(grille.getCaseDuTab(cs + temp, ls + 1).estOccupee())) {
 
                     grille.setCaseDuTab(cs + temp, ls, grille.getCaseDuTab(cs,ls));
                     ((Rocher)(grille.getCaseDuTab(cs + temp,ls))).setEnMouvement(true);
@@ -56,7 +57,7 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
 
         } else {
             if(grille.getCaseDuTab(cs + temp, ls) instanceof Vide &&
-            grille.getCaseDuTab(cs + temp, ls - 1) instanceof Vide) {
+            grille.getCaseDuTab(cs + temp, ls + 1) instanceof Vide) {
 
                 if(!(grille.getCaseDuTab(cs + temp, ls).estOccupee())) {
                     grille.setCaseDuTab(cs + temp, ls, grille.getCaseDuTab(cs,ls));
@@ -72,6 +73,8 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
                 return true;
             }
         }
+
+
     }
 
 }

@@ -123,25 +123,25 @@ public class FenetrePrincipale extends Application {
 			// utilise vos classes...
 			grille[yRockford][xRockford] = VIDE;
 			switch (ke.getCode()) {
-			case UP: {
+			case Z: {
 				if (yRockford == 0)
 					return;
 				yRockford--;
 				break;
 			}
-			case DOWN: {
+			case S: {
 				if (yRockford == NB_LIG - 1)
 					return;
 				yRockford++;
 				break;
 			}
-			case RIGHT: {
+			case D: {
 				if (xRockford == NB_COL - 1)
 					return;
 				xRockford++;
 				break;
 			}
-			case LEFT: {
+			case Q: {
 				if (xRockford == 0)
 					return;
 				xRockford--;

@@ -14,16 +14,17 @@ public class ChuteDuDiamantCORSurAcier extends ChuteDuDiamantCOR {
     @Override
     protected boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
         if(!(grille.getCaseDuTab(cs,ls) instanceof Diamant)) {
-            return false;
+            return true;
         }
 
-        if(ls - 1 < 0) {
+        if(ls + 1 >= grille.getYMAX()) {
             System.out.println("Le diamant est déjà tout en bas !");
             ((Diamant)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false);
             return true;
         }
 
-        if(!(grille.getCaseDuTab(cs,ls-1) instanceof Acier)) {
+        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Acier)) {
+            System.out.println("la case target n'est pas de l'acier");
             return false;
         }
 
