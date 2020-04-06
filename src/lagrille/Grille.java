@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import chutediamant.ChuteDuDiamantCOR;
 import chuterocher.ChuteDuRocherCOR;
 import deplacementrockford.DeplacerRockfordCOR;
@@ -91,6 +92,18 @@ public class Grille {
             if(pers.getVie() == 0)
                 tableau[pers.getPositionX()][pers.getPositionY()] = new Diamant(pers.getPositionX(), pers.getPositionY());
         }
+    }
+
+    public ArrayList<Case> searchAllRocherEtDiamant() {
+        ArrayList<Case> allDiamantEtRocher = new ArrayList<Case>();
+        for(int i = 0; i < XMAX; i++) {
+            for(int j = 0; j < YMAX; j++) {
+                if(tableau[i][j] instanceof Rocher || tableau[i][j] instanceof Diamant)
+                    allDiamantEtRocher.add(tableau[i][j]);
+            }
+        }
+
+        return allDiamantEtRocher;
     }
 
     /**
@@ -304,7 +317,7 @@ public class Grille {
      */
     public void creerGrille() throws IOException {
 
-        Path orderPath = Paths.get("plateaux/plateauTest.csv");
+        Path orderPath = Paths.get("plateaux/plateau"+niveau+".csv");
         String[] split = null;
         List<String> lines = null;
         int debLigne = 0;           //Cherche le début de ligne qui correspond au tableau

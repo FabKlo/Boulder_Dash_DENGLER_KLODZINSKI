@@ -36,6 +36,11 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
             temp *= -1;
         }
 
+        if(cs + temp < 0 || cs + temp >= grille.getXMAX() || !(grille.getCaseDuTab(cs + temp, ls) instanceof Vide)) {
+            System.out.println("cs + temp = " + cs+temp);
+            return true;
+        }
+
         if(!((Rocher)(grille.getCaseDuTab(cs,ls))).isEnMouvement()) {
 
             if(grille.getCaseDuTab(cs + temp, ls) instanceof Vide &&

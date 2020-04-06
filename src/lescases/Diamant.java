@@ -43,5 +43,10 @@ public class Diamant extends Case {
     public void setEnMouvement(boolean enMouvement) {
         this.enMouvement = enMouvement;
     }
+
+    @Override
+    public int caseEnInt() {
+        return 3;
+    }
     
 }

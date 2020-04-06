@@ -20,5 +20,10 @@ public class Acier extends Case {
         getClass().getSimpleName() +", le personnage "  + 
         p.getClass().getSimpleName() + " ne peut pas être ici !");
     }
+
+    @Override
+    public int caseEnInt() {
+        return 2;
+    }
     
 }

@@ -25,6 +25,11 @@ public class Terre extends Case {
                 this.getClass().getSimpleName() + " de coordonnée : x = " + p.getPositionX() + ", y = " + p.getPositionY()); */
             }
         }	
-	}
+    }
+    
+    @Override
+    public int caseEnInt() {
+        return 6;
+    }
 
 } 

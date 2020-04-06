@@ -22,6 +22,8 @@ public abstract class Case {
             return true;
     }
 
+    public abstract int caseEnInt();
+
     /**
      * met un personnage sur la case
      * @param p le personnage

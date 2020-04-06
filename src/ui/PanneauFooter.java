@@ -16,7 +16,7 @@ public class PanneauFooter extends HBox {
 	/**
 	 * Timer qui se déclenche tous les 0.1 s
 	 */
-	private	Timer timer = new Timer(0.1);
+	private	Timer timer = new Timer(1);
 	
 
 	public PanneauFooter(Grille grille, ArrayList<Case> tousLesRochersEtDiams) {

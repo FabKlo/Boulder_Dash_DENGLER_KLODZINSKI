@@ -1,6 +1,9 @@
 package lescases;
 
+
+import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
+import entitesvivantes.Rockford;
 
 public class Vide extends Case {
 
@@ -25,6 +28,18 @@ public class Vide extends Case {
                 this.getClass().getSimpleName() + " de coordonnée : x = " + p.getPositionX() + ", y = " + p.getPositionY());*/
             }
         }
+    }
+
+    @Override
+    public int caseEnInt() {
+        if((this.estOccupee())) {
+            if(this.getEstIci() instanceof Rockford)
+                return 1;
+            else if(this.getEstIci() instanceof Monstre)
+                return 4;
+        }
+            
+        return 0;
     }
     
 }

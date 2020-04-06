@@ -32,4 +32,9 @@ public class Rocher extends Case {
         this.enMouvement = enMouvement;
     }
 
+    @Override
+    public int caseEnInt() {
+        return 5;
+    }
+
 }
