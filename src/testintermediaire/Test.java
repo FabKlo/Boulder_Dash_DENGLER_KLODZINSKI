@@ -18,6 +18,9 @@ public class Test {
         
         System.out.println("\nVers vide");
         tab.déplacerPerso(0,0,1,0); //vers vide
+
+        System.out.println();
+
         System.out.println("\nVers acier");
         tab.déplacerPerso(1,1,0,1); //vers acier
         System.out.println("\nVers monstre");
