@@ -6,11 +6,18 @@ import java.util.HashMap;
 
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import lagrille.Grille;
 import lescases.Case;
+import lescases.Diamant;
+import lescases.Rocher;
 import modele.exceptions.BoulderMortException;
 import ui.PanneauFooter;
 import javafx.scene.Scene;
@@ -33,11 +40,13 @@ public class FenetrePrincipale extends Application {
 	private HashMap<Integer, Image> tabImage;
 	public Grille grille = new Grille();
 	private ArrayList<Case> allRocherEtDiamant;
-	private ArrayList<Personnage> allPerso;
+	private ArrayList<Personnage> allPers;
+
 
 
 	private int xRockford;
 	private int yRockford;
+	private boolean rockfordPeutSeDepl = true;
 
 	// --->
 
@@ -64,6 +73,7 @@ public class FenetrePrincipale extends Application {
 			dessinerGrille();
 
 			initFooter();
+			chuteItem();
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -118,8 +128,8 @@ public class FenetrePrincipale extends Application {
 
 		grille.creerGrille();
 		
-		allPerso = grille.searchAllPers();
-		for (Personnage p : allPerso) {
+		allPers = grille.searchAllPers();
+		for (Personnage p : allPers) {
 			if(p instanceof Rockford) {
 				yRockford = p.getPositionY();
 				xRockford = p.getPositionX();
@@ -139,59 +149,148 @@ public class FenetrePrincipale extends Application {
 		launch(args);
 	}
 
+	/**
+	 * Selon le bouton appuyé, rockford se déplace vers une direction 
+	 */
 	private final class HandlerClavier implements EventHandler<KeyEvent> {
 		public void handle(KeyEvent ke) {
 
 			// YL : il faudra naturellement remanier cette fonction pour qu'elle
 			// utilise vos classes...
-			switch (ke.getCode()) {
-			case Z: {
-				try {
-					grille.déplacerPerso(xRockford, yRockford, xRockford, yRockford - 1);
-					yRockford -= 1;
-				} catch (BoulderMortException e) {
-					e.printStackTrace();
-				}
-				break;
-			}
-			case S: {
-				try {
-					grille.déplacerPerso(xRockford, yRockford, xRockford, yRockford + 1);
-					yRockford += 1;
-				} catch (BoulderMortException e) {
-					e.printStackTrace();
-				}
-				break;
-			}
-			case D: {
-				try {
-					grille.déplacerPerso(xRockford, yRockford, xRockford + 1, yRockford);
-					xRockford += 1;
-				} catch (BoulderMortException e) {
-					e.printStackTrace();
-				}
-				break;
-			}
-			case Q: {
-				try {
-					grille.déplacerPerso(xRockford, yRockford, xRockford - 1, yRockford);
-					xRockford -= 1;
-				} catch (BoulderMortException e) {
-					e.printStackTrace();
-				}
-				break;
-			}
-			default:
-				return;
 
-			}
+			if(rockfordPeutSeDepl) {
+				switch (ke.getCode()) {
+					case Z: {
+						try {
+							if(yRockford - 1 >= 0) {
+								if(grille.déplacerPerso(xRockford, yRockford, xRockford, yRockford - 1))
+									yRockford -= 1;
+							}
+							
+						} catch (BoulderMortException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
+					case S: {
+						try {
+							if(yRockford + 1 < grille.getYMAX()) {
+								if(grille.déplacerPerso(xRockford, yRockford, xRockford, yRockford + 1))
+									yRockford += 1;
+							}
+							
+						} catch (BoulderMortException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
+					case D: {
+						try {
+							if(xRockford + 1 < grille.getXMAX()) {
+								if(grille.déplacerPerso(xRockford, yRockford, xRockford + 1, yRockford))
+									xRockford += 1;
+							}
+							
+						} catch (BoulderMortException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
+					case Q: {
+						try {
+							if(xRockford - 1 >= 0) {
+								if(grille.déplacerPerso(xRockford, yRockford, xRockford - 1, yRockford))
+									xRockford -= 1;
+							}
+							
+						} catch (BoulderMortException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
+					default:
+						return;
 
+				}
+
+				rockfordPeutSeDepl = false;
+			}
+			
 			dessinerGrille();
+
 		}
 	}
 
 	private void initFooter() {
-		panneauFooter = new PanneauFooter(grille, allRocherEtDiamant);
+		panneauFooter = new PanneauFooter(grille, ((Rockford)(grille.getCaseDuTab(xRockford, yRockford).getEstIci())));
 		((BorderPane) root).setBottom(panneauFooter);
 	}
+
+	/**
+	 * fait chuter tout les rochers et diamants grâce à une keyframe qui boucle à l'infini
+	 */
+	private void chuteItem() {
+		KeyFrame chuteItem = new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				for (Case c : allRocherEtDiamant) {
+					if(c.getPositionY() < grille.getYMAX()) {
+						if(c instanceof Rocher) {
+						try {
+							grille.déplacerRocher(c.getPositionX(), c.getPositionY());
+							allRocherEtDiamant = grille.searchAllRocherEtDiamant(); //si ça écrase un monstre, ajoute son diamant créé dans l'arraylist
+						} catch (BoulderMortException e) {							
+							e.printStackTrace();
+						}
+						}
+						else if(c instanceof Diamant) {
+							try {
+								grille.déplacerDiamant(c.getPositionX(), c.getPositionY());
+							} catch (BoulderMortException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+
+					dessinerGrille();
+				}	
+
+				rockfordPeutSeDepl = true;
+	
+			}
+	
+		});
+	
+		Timeline timeline = new Timeline(chuteItem);
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
+	}
+
+	public Grille getGrille() {
+		return grille;
+	}
+
+	public void setGrille(Grille grille) {
+		this.grille = grille;
+	}
+
+	public int getxRockford() {
+		return xRockford;
+	}
+
+	public void setxRockford(int xRockford) {
+		this.xRockford = xRockford;
+	}
+
+	public int getyRockford() {
+		return yRockford;
+	}
+
+	public void setyRockford(int yRockford) {
+		this.yRockford = yRockford;
+	}
+
+	
 }

@@ -53,7 +53,8 @@ public abstract class ChuteDuDiamantCOR implements ChuteDuDiamant {
         ChuteDuDiamantCORSurRockford rockford = new ChuteDuDiamantCORSurRockford(monstre);
         ChuteDuDiamantCORSurDiamant diamant = new ChuteDuDiamantCORSurDiamant(rockford);
         ChuteDuDiamantCORSurRocher rocher = new ChuteDuDiamantCORSurRocher(diamant);
-        ChuteDuDiamantCORSurAcier acier = new ChuteDuDiamantCORSurAcier(rocher);
+        ChuteDuDiamantCORSurTerre terre = new ChuteDuDiamantCORSurTerre(rocher);
+        ChuteDuDiamantCORSurAcier acier = new ChuteDuDiamantCORSurAcier(terre);
         return acier;
     }
 

@@ -15,7 +15,7 @@ public class ChuteDuDiamantCORSurRocher extends ChuteDuDiamantCOR {
     protected boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
         if(!(grille.getCaseDuTab(cs,ls+1) instanceof Rocher)) {
-            System.out.println("la case target n'est pas un rocher");
+            //System.out.println("la case target n'est pas un rocher");
             return false;
         }
 

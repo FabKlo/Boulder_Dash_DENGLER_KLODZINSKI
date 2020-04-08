@@ -2,19 +2,20 @@ package chutediamant;
 
 import lagrille.Grille;
 import lescases.Diamant;
+import lescases.Terre;
 import modele.exceptions.BoulderMortException;
 
-public class ChuteDuDiamantCORSurDiamant extends ChuteDuDiamantCOR {
+public class ChuteDuDiamantCORSurTerre extends ChuteDuDiamantCOR {
 
-    public ChuteDuDiamantCORSurDiamant(ChuteDuDiamantCOR s) {
+    public ChuteDuDiamantCORSurTerre(ChuteDuDiamantCOR s) {
         super(s);
     }
 
     @Override
     protected boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
-        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Diamant)) {
-            //System.out.println("la case target n'est pas un diamant");
+        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Terre)) {
+            //System.out.println("la case target n'est pas de l'acier");
             return false;
         }
 

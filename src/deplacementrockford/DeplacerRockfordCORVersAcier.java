@@ -20,7 +20,7 @@ public class DeplacerRockfordCORVersAcier extends DeplacerRockfordCOR {
         }
 
         if((ct < 0 || ct >= grille.getXMAX()) || (lt < 0 || lt >= grille.getYMAX())) {
-            System.out.println("Case target en dehors du tableau");
+            //System.out.println("Case target en dehors du tableau");
             return true;
         }
 
@@ -28,12 +28,12 @@ public class DeplacerRockfordCORVersAcier extends DeplacerRockfordCOR {
             return false;
         }
 
-        System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
-        ", personnage dessus : " + grille.getCaseDuTab(ct,lt).getEstIci());
-        System.out.println("tableau["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName() +
-        ", personnage dessus : " + grille.getCaseDuTab(cs,ls).getEstIci());  
+        //System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
+        //", personnage dessus : " + grille.getCaseDuTab(ct,lt).getEstIci());
+        //System.out.println("tableau["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName() +
+        //", personnage dessus : " + grille.getCaseDuTab(cs,ls).getEstIci());  
         
-        return true;
+        return false;
     }
 
 }

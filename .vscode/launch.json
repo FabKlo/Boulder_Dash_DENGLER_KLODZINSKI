@@ -10,7 +10,7 @@
             "request": "launch",
             "mainClass": "application.FenetrePrincipale",
             "projectName": "Boulder_Dash_DENGLER_KLODZINSKI"
-        },
+        }/*,
         {
             "type": "java",
             "name": "Debug (Launch) - Current File",
@@ -18,6 +18,6 @@
             "mainClass": "testintermediaire.Test",
             "projectName": "Boulder_Dash_DENGLER_KLODZINSKI",
             "console": "externalTerminal"
-        }
+        }*/
     ]
 }

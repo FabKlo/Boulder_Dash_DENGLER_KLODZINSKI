@@ -36,9 +36,9 @@ public class Grille {
      * @param lt ligne target
      * @throws BoulderMortException
      */
-    public void déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
+    public boolean déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
         DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
-        corRock.deplaceRockford(this, cs, ls, ct, lt);
+        return corRock.deplaceRockford(this, cs, ls, ct, lt);
     }
 
     /**
@@ -72,8 +72,8 @@ public class Grille {
         ArrayList<Personnage> pers = searchAllPers();
         for (Personnage personnage : pers) {
             if(personnage.getVie() == 0) {
-                impactVieEnMoins(personnage);
                 tableau[personnage.getPositionX()][personnage.getPositionY()].setEstIci(null);
+                impactVieEnMoins(personnage);
             }
         }
     }
@@ -86,27 +86,51 @@ public class Grille {
      */
     public void impactVieEnMoins(Personnage pers) throws BoulderMortException {
         if(pers instanceof Rockford) {
-            if(pers.getVie() == 0)
+            if(pers.getVie() == 0) {
                 throw new BoulderMortException("Rockford est mort, c'est perdu !");
+            }
         } else {
-            if(pers.getVie() == 0)
+            if(pers.getVie() == 0) {
                 tableau[pers.getPositionX()][pers.getPositionY()] = new Diamant(pers.getPositionX(), pers.getPositionY());
+            }
         }
     }
 
+        /**
+     * @return une arraylist de case qui contient que des diamants
+     */
+    public ArrayList<Case> searchAllDiamantMap() {
+        ArrayList<Case> allDiamantMap = new ArrayList<Case>();
+        for(int i = 0; i < XMAX; i++) {
+            for(int j = 0; j < YMAX; j++) {
+
+                if(tableau[i][j] instanceof Diamant)
+                    allDiamantMap.add(tableau[i][j]);
+
+            }
+        }
+
+        return allDiamantMap;
+    }
+
+    /**
+     * @return une arraylist de case qui contient que des rochers et diamants
+     */
     public ArrayList<Case> searchAllRocherEtDiamant() {
         ArrayList<Case> allDiamantEtRocher = new ArrayList<Case>();
         for(int i = 0; i < XMAX; i++) {
             for(int j = 0; j < YMAX; j++) {
+
                 if(tableau[i][j] instanceof Rocher || tableau[i][j] instanceof Diamant)
                     allDiamantEtRocher.add(tableau[i][j]);
+
             }
         }
 
         return allDiamantEtRocher;
     }
 
-    /**
+        /**
      * cherche tout les persos de la grille
      * @return une arraylist de personnages
      */
@@ -118,12 +142,22 @@ public class Grille {
                     pers.add(tableau[i][j].getEstIci());
             }
         }
-        
-        /*for (Personnage c : pers) {
-            System.out.println("Personnage : " + c.getClass().getSimpleName() +
-            " avec x = " + c.getPositionX() + ", y = " + c.getPositionY() + " qui correspond a une case : " + 
-            getCaseDuTab(c.getPositionX(), c.getPositionY()).getClass().getSimpleName());  
-        }*/
+
+        return pers;
+    }
+
+    /**
+     * cherche tout les monstres de la grille
+     * @return une arraylist de personnages
+     */
+    public ArrayList<Personnage> searchAllMonstre() {
+        ArrayList<Personnage> pers = new ArrayList<Personnage>();
+        for(int i = 0; i < XMAX; i++) {
+            for(int j = 0; j < YMAX; j++) {
+                if(tableau[i][j].estOccupee() && tableau[i][j].getEstIci() instanceof Monstre)
+                    pers.add(tableau[i][j].getEstIci());
+            }
+        }
 
         return pers;
     }
@@ -147,6 +181,8 @@ public class Grille {
      */
     public void setCaseDuTab(int x, int y, Case c) {
         tableau[x][y] = c;
+        c.setPositionX(x);
+        c.setPositionY(y);
     }
 
     /**

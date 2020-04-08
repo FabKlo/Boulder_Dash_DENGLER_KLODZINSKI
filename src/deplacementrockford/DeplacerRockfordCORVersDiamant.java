@@ -24,14 +24,14 @@ public class DeplacerRockfordCORVersDiamant extends DeplacerRockfordCOR {
             return false;
         }
 
-        if(grille.getCaseDuTab(ct,lt).getEstIci() == null) {
+        if(grille.getCaseDuTab(ct,lt).getEstIci() == null && !((Diamant)(grille.getCaseDuTab(ct,lt))).isEnMouvement()) {
             Rockford temp = (Rockford) grille.getCaseDuTab(cs,ls).getEstIci();
-            System.out.println("nbr de diamant AVANT récup de rockford en x =" +cs+", y = " +ls+" : " +temp.getCompteurDiamant());
+            //System.out.println("nbr de diamant AVANT récup de rockford en x =" +cs+", y = " +ls+" : " +temp.getCompteurDiamant());
             temp.setCompteurDiamant(temp.getCompteurDiamant() + 1);
             grille.setCaseDuTab(ct,lt,new Vide(ct,lt));
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(temp);
             grille.setCaseDuTab(cs,ls,new Vide(cs,ls));
-            System.out.println("nbr de diamant APRES récup de rockford en x =" +ct+", y = " +lt+" : " +temp.getCompteurDiamant());
+            //System.out.println("nbr de diamant APRES récup de rockford en x =" +ct+", y = " +lt+" : " +temp.getCompteurDiamant());
             return true;
         }
 

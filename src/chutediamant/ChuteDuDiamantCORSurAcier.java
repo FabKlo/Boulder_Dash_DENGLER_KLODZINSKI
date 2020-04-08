@@ -18,13 +18,13 @@ public class ChuteDuDiamantCORSurAcier extends ChuteDuDiamantCOR {
         }
 
         if(ls + 1 >= grille.getYMAX()) {
-            System.out.println("Le diamant est déjà tout en bas !");
+            //System.out.println("Le diamant est déjà tout en bas !");
             ((Diamant)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false);
             return true;
         }
 
         if(!(grille.getCaseDuTab(cs,ls+1) instanceof Acier)) {
-            System.out.println("la case target n'est pas de l'acier");
+            //System.out.println("la case target n'est pas de l'acier");
             return false;
         }
 

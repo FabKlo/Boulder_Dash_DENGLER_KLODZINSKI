@@ -26,10 +26,10 @@ public class DeplacerRockfordCORVersVide extends DeplacerRockfordCOR {
         if(grille.getCaseDuTab(ct,lt).getEstIci() == null) {
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(grille.getCaseDuTab(cs,ls).getEstIci());
             grille.getCaseDuTab(cs,ls).setEstIci(null);
-            System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
+           /* System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
             ", personnage dessus : " + grille.getCaseDuTab(ct,lt).getEstIci());
             System.out.println("tableau["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName() +
-            ", personnage dessus : " + grille.getCaseDuTab(cs,ls).getEstIci());  
+            ", personnage dessus : " + grille.getCaseDuTab(cs,ls).getEstIci());*/  
             return true;
         }
 

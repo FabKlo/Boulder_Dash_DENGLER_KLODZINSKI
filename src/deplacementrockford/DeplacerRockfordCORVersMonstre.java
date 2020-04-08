@@ -34,13 +34,15 @@ public class DeplacerRockfordCORVersMonstre extends DeplacerRockfordCOR {
             grille.getCaseDuTab(cs,ls).setEstIci(null);
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(temp);
 
-            System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
+            /*System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
             ", personnage dessus : " + grille.getCaseDuTab(ct,lt).getEstIci());
             System.out.println("tableau["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName() +
             ", personnage dessus : " + grille.getCaseDuTab(cs,ls).getEstIci());  
 
             System.out.println("vie de rockford situé en x = " + ct + " y = " + lt +
             " : " + grille.getCaseDuTab(ct,lt).getEstIci().getVie());
+            System.out.println("nbr de diamants de rockford situé en x = " + ct + " y = " + lt +
+            " : " + ((Rockford)(grille.getCaseDuTab(ct,lt).getEstIci())).getCompteurDiamant());*/
             return true;
         }
 

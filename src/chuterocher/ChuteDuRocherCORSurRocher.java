@@ -18,7 +18,7 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
     protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
         if(!(grille.getCaseDuTab(cs,ls+1) instanceof Rocher)) {
-            System.out.println("la case target n'est pas un rocher");
+            //System.out.println("la case target n'est pas un rocher");
             return false;
         }
         
@@ -32,12 +32,12 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
         //int temp = 1;
 
         if(cs + temp < 0 || cs + temp >= grille.getXMAX() || !(grille.getCaseDuTab(cs + temp, ls) instanceof Vide)) {
-            System.out.println("cs + temp = " + cs+temp);
+            //System.out.println("cs + temp = " + cs+temp);
             temp *= -1;
         }
 
         if(cs + temp < 0 || cs + temp >= grille.getXMAX() || !(grille.getCaseDuTab(cs + temp, ls) instanceof Vide)) {
-            System.out.println("cs + temp = " + cs+temp);
+            //System.out.println("cs + temp = " + cs+temp);
             return true;
         }
 
@@ -46,19 +46,25 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
             if(grille.getCaseDuTab(cs + temp, ls) instanceof Vide &&
             grille.getCaseDuTab(cs + temp, ls + 1) instanceof Vide) {
 
-                System.out.println("cs : "+(cs)+" l : "+(ls));
-                System.out.println("ct : "+(cs+temp)+" l : "+(ls));
+                //System.out.println("cs : "+(cs)+" l : "+(ls));
+                //System.out.println("ct : "+(cs+temp)+" l : "+(ls));
                 if(!(grille.getCaseDuTab(cs + temp, ls).estOccupee()) && !(grille.getCaseDuTab(cs + temp, ls + 1).estOccupee())) {
 
                     grille.setCaseDuTab(cs + temp, ls, grille.getCaseDuTab(cs,ls));
                     ((Rocher)(grille.getCaseDuTab(cs + temp,ls))).setEnMouvement(true);
                     grille.setCaseDuTab(cs,ls, new Vide(cs, ls));
+                    temp = 0;
                     return true;
-                } else
+                } else {
+                    temp = 0;
                     return true;
+                }
 
-            } else
+            } else {
+                temp = 0;
                 return true;
+            }
+                
 
         } else {
             if(grille.getCaseDuTab(cs + temp, ls) instanceof Vide &&
@@ -67,14 +73,17 @@ public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
                 if(!(grille.getCaseDuTab(cs + temp, ls).estOccupee())) {
                     grille.setCaseDuTab(cs + temp, ls, grille.getCaseDuTab(cs,ls));
                     grille.setCaseDuTab(cs,ls, new Vide(cs, ls));
+                    temp = 0;
                     return true;
                 }
                 else {
                     ((Rocher)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false); 
+                    temp = 0;
                     return true;
                 }
             } else {
                 ((Rocher)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false); 
+                temp = 0;
                 return true;
             }
         }

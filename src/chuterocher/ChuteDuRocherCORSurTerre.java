@@ -1,22 +1,21 @@
 package chuterocher;
 
 import lagrille.Grille;
-import lescases.Diamant;
 import lescases.Rocher;
+import lescases.Terre;
 import modele.exceptions.BoulderMortException;
 
-public class ChuteDuRocherCORSurDiamant extends ChuteDuRocherCOR {
+public class ChuteDuRocherCORSurTerre extends ChuteDuRocherCOR {
 
-    public ChuteDuRocherCORSurDiamant(ChuteDuRocherCOR s) {
+    public ChuteDuRocherCORSurTerre(ChuteDuRocherCOR s) {
         super(s);
     }
 
     @Override
     protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
-        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Diamant)) {
-            //System.out.println("la case target n'est pas un diamant");
-
+        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Terre)) {
+            //System.out.println("la case target n'est pas de l'acier");
             return false;
         }
 

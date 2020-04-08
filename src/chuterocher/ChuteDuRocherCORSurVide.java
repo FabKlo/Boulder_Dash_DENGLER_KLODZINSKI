@@ -20,9 +20,10 @@ public class ChuteDuRocherCORSurVide extends ChuteDuRocherCOR {
 
         ((Rocher)(grille.getCaseDuTab(cs,ls))).setEnMouvement(true);
         grille.setCaseDuTab(cs,ls+1,grille.getCaseDuTab(cs,ls));
+        //grille.getCaseDuTab(cs,ls+1).setPositionY(ls+1);
         grille.setCaseDuTab(cs,ls,new Vide(cs,ls));
-        System.out.println("tab["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName());
-        System.out.println("tab["+cs+"]["+(ls+1)+"] = " + grille.getCaseDuTab(cs,ls+1).getClass().getSimpleName());
+        //System.out.println("tab["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName());
+        //System.out.println("tab["+cs+"]["+(ls+1)+"] = " + grille.getCaseDuTab(cs,ls+1).getClass().getSimpleName());
         return true;
     }
 
