@@ -1,6 +1,6 @@
 package ui;
 
-import entitesvivantes.Personnage;
+import entitesvivantes.Monstre;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import lagrille.Grille;
@@ -14,7 +14,7 @@ public class AfficheurNombreMonstre implements Observateur {
 
     private int compteur = 0;
 	private	Label nbrMonstre = new Label();
-	private ArrayList<Personnage> allMonstre;
+	private ArrayList<Monstre> allMonstre;
 	private Grille grille;
 	
 	private final static String LABEL = "Nombre de monstres restant : ";

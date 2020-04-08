@@ -28,7 +28,7 @@ public class DeplacerRockfordCORVersRocher extends DeplacerRockfordCOR {
         int xPourRocher = ct + (ct - cs);
 
         if(xPourRocher >= 0 && xPourRocher < grille.getXMAX() && !(((Rocher)(grille.getCaseDuTab(ct,lt))).isEnMouvement())) {
-            if(grille.getCaseDuTab(xPourRocher, lt) instanceof Vide) {
+            if(grille.getCaseDuTab(xPourRocher, lt) instanceof Vide && !grille.getCaseDuTab(xPourRocher,lt).estOccupee()) {
                 grille.setCaseDuTab(xPourRocher, lt, grille.getCaseDuTab(ct,lt));
                 grille.setCaseDuTab(ct,lt,new Vide(ct, lt));
                 grille.getCaseDuTab(ct,lt).mettrePersoSurCase(grille.getCaseDuTab(cs,ls).getEstIci());

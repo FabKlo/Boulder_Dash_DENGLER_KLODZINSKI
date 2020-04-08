@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
 import javafx.animation.Animation;
@@ -37,7 +38,8 @@ public class FenetrePrincipale extends Application {
 	private Scene scene;
 	private PanneauFooter panneauFooter;
 
-	private Timeline timeline;
+	private Timeline timelineChute;
+	private Timeline timelineMonstre;
 
 	private int tailleImageX = 64;
 	private int tailleImageY = 64;
@@ -52,6 +54,7 @@ public class FenetrePrincipale extends Application {
 	public Grille grille = new Grille();
 	private ArrayList<Case> allRocherEtDiamant;
 	private ArrayList<Personnage> allPers;
+	private ArrayList<Monstre> allMonstres;
 
 	private int xRockford;
 	private int yRockford;
@@ -81,6 +84,7 @@ public class FenetrePrincipale extends Application {
 
 			initFooter();
 			chuteItem(primaryStage);
+			deplacementMonstre();
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -189,7 +193,9 @@ public class FenetrePrincipale extends Application {
 
 	}
 
-	// YL : à compléter pour utiliser toutes les images nécessaires
+	/**
+	 * initialise la Hashmap avec toutes les images nécessaires
+	 */
 	private void initImages() {
 		tabImage = new HashMap<Integer, Image>();
 		Image image;
@@ -209,19 +215,14 @@ public class FenetrePrincipale extends Application {
 		tabImage.put(0, image);
 	}
 
+	/**
+	 * dessine la grille, tout simplement
+	 */
 	private void dessinerGrille() {
 		for (int i = 0; i < grille.getXMAX(); i++) {
 			for (int j = 0; j < grille.getYMAX(); j++) {
 				Case c = grille.getCaseDuTab(i,j);
-				
-				// YL : On pourrait faire comme ceci si la grille ne contenait pas des entiers
-				// mais directement la classe de l'objet qui s'y trouve. C'est une solution
-				// beaucoup plus extensible qu'un entier
-				// Image image = tabImage.get(objet.getClass());
-
-				// YL : Mais pour l'instant, on travaille avec l'entier qui se trouve dans la
-				// case
-
+			
 				Image image = tabImage.get(c.caseEnInt());
 
 				getGrillePane().getGraphicsContext2D().drawImage(image, i * tailleImageX, j * tailleImageY);
@@ -229,12 +230,18 @@ public class FenetrePrincipale extends Application {
 		}
 	}
 
-	// YL : à remanier complètrement pour tenir compte de vos classes
+	/**
+	 * initialise la grille grâce a la fonction dans Grille.java
+	 * Initialise aussi la taille de la fenêtre, et les coordonnées de Rockford
+	 * @throws IOException
+	 */
 	private void initGrille() throws IOException {
 
 		grille.creerGrille();
 		
 		allPers = grille.searchAllPers();
+		allMonstres = grille.searchAllMonstre();
+
 		for (Personnage p : allPers) {
 			if(p instanceof Rockford) {
 				yRockford = p.getPositionY();
@@ -331,6 +338,7 @@ public class FenetrePrincipale extends Application {
 
 	/**
 	 * fait chuter tout les rochers et diamants grâce à une keyframe qui boucle à l'infini
+	 * et, étant une keyframe qui boucle très rapidement, je vérifie ici si on a gagné ou perdu
 	 */
 	private void chuteItem(Stage primaryStage) {
 		KeyFrame chuteItem = new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
@@ -364,13 +372,15 @@ public class FenetrePrincipale extends Application {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						timeline.stop();
+						timelineChute.stop();
+						timelineMonstre.stop();
 						break;
 					}
 
 					if(grille.getCaseDuTab(xRockford, yRockford).getEstIci().getVie() <= 0) {
 						initPerdu(primaryStage);
-						timeline.stop();
+						timelineChute.stop();
+						timelineMonstre.stop();
 						break;
 					}
 
@@ -384,9 +394,91 @@ public class FenetrePrincipale extends Application {
 	
 		});
 	
-		timeline = new Timeline(chuteItem);
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();
+		timelineChute = new Timeline(chuteItem);
+		timelineChute.setCycleCount(Animation.INDEFINITE);
+		timelineChute.play();
+
+	}
+
+	private void deplacementMonstre() {
+		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				for (Monstre m : allMonstres) {
+
+					switch(m.getDirection()) {
+						case Monstre.DROITE:
+							try {
+								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
+										m.getPositionY()))
+									m.setDirection(Monstre.BAS);
+
+							} catch (BoulderMortException e) {
+								e.printStackTrace();
+							}
+		
+
+							break;
+
+						case Monstre.BAS:
+							try {
+								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+										m.getPositionY() + 1))
+									m.setDirection(Monstre.GAUCHE);
+							} catch (BoulderMortException e) {
+								e.printStackTrace();
+							}
+
+							break;
+							
+						case Monstre.GAUCHE:
+							try {
+								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
+										m.getPositionY()))
+									m.setDirection(Monstre.HAUT);
+							} catch (BoulderMortException e) {
+								e.printStackTrace();
+							}
+							break;
+
+						case Monstre.HAUT:
+							try {
+								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+										m.getPositionY() - 1))
+									m.setDirection(Monstre.DROITE);
+							} catch (BoulderMortException e) {
+								e.printStackTrace();
+							}
+
+							break;
+
+						default:
+
+					}
+
+					if(grille.verifObjectif()) {
+						timelineChute.stop();
+						timelineMonstre.stop();
+						break;
+					}
+
+					if(grille.getCaseDuTab(xRockford, yRockford).getEstIci().getVie() <= 0) {
+						timelineChute.stop();
+						timelineMonstre.stop();
+						break;
+					}
+
+					dessinerGrille();
+				}	
+	
+			}
+
+		});
+
+		timelineMonstre = new Timeline(deplMonstre);
+		timelineMonstre.setCycleCount(Animation.INDEFINITE);
+		timelineMonstre.play();
 
 	}
 

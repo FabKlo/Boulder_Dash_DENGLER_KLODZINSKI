@@ -46,16 +46,15 @@ public abstract class DeplacerMonstreCOR implements DeplacerMonstre {
      * initialisation de la chaine
      * @return
      */
-    //public static DeplacerMonstreCOR initCOR() {
+    public static DeplacerMonstreCOR initCOR() {
 
-        /*DeplacerMonstreCORVersVide vide = new DeplacerMonstreCORVersVide(null);
+        DeplacerMonstreCORVersVide vide = new DeplacerMonstreCORVersVide(null);
         DeplacerMonstreCORVersMonstre monstre = new DeplacerMonstreCORVersMonstre(vide);
-        DeplacerMonstreCORVersTerre terre = new DeplacerMonstreCORVersTerre(monstre);
-        DeplacerMonstreCORVersDiamant diamant = new DeplacerMonstreCORVersDiamant(terre);
-        DeplacerMonstreCORVersRocher rocher = new DeplacerMonstreCORVersRocher(diamant);
-        DeplacerMonstreCORVersAcier acier = new DeplacerMonstreCORVersAcier(rocher);
-        return acier;*/
+        DeplacerMonstreCORVersRockford rockford = new DeplacerMonstreCORVersRockford(monstre);
+        DeplacerMonstreCORVersLeReste leReste = new DeplacerMonstreCORVersLeReste(rockford);
 
-    //}
+        return leReste;
+
+    }
 
 }

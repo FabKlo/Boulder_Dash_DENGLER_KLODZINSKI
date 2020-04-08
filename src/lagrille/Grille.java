@@ -9,6 +9,7 @@ import java.util.List;
 
 import chutediamant.ChuteDuDiamantCOR;
 import chuterocher.ChuteDuRocherCOR;
+import deplacementmonstre.DeplacerMonstreCOR;
 import deplacementrockford.DeplacerRockfordCOR;
 import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
@@ -27,6 +28,19 @@ public class Grille {
 
     public Grille() {
         niveau = 1;
+    }
+
+    /**
+     * déplace un monstre de [cs][ls] vers [ct][lt]
+     * @param cs colonne source
+     * @param ls ligne source
+     * @param ct colonne target
+     * @param lt ligne target
+     * @throws BoulderMortException
+     */
+    public boolean déplacerMonstre(int cs, int ls, int ct, int lt) throws BoulderMortException {
+        DeplacerMonstreCOR corMonstre = DeplacerMonstreCOR.initCOR();
+        return corMonstre.deplaceMonstre(this, cs, ls, ct, lt);
     }
 
     /**
@@ -112,7 +126,7 @@ public class Grille {
                 }
                 break;
             case "ELIMINER_MONSTRES":
-                ArrayList<Personnage> allMonstres = searchAllMonstre();
+                ArrayList<Monstre> allMonstres = searchAllMonstre();
                 if(allMonstres.size() == 0)
                     return true;
                 else
@@ -178,12 +192,15 @@ public class Grille {
      * cherche tout les monstres de la grille
      * @return une arraylist de personnages
      */
-    public ArrayList<Personnage> searchAllMonstre() {
-        ArrayList<Personnage> pers = new ArrayList<Personnage>();
+    public ArrayList<Monstre> searchAllMonstre() {
+        ArrayList<Monstre> pers = new ArrayList<Monstre>();
         for(int i = 0; i < XMAX; i++) {
             for(int j = 0; j < YMAX; j++) {
-                if(tableau[i][j].estOccupee() && tableau[i][j].getEstIci() instanceof Monstre)
-                    pers.add(tableau[i][j].getEstIci());
+                if(tableau[i][j].estOccupee() && tableau[i][j].getEstIci() instanceof Monstre) {
+
+                    pers.add((Monstre)(tableau[i][j].getEstIci()));
+
+                }
             }
         }
 
