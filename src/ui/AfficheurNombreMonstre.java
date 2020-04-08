@@ -17,7 +17,7 @@ public class AfficheurNombreMonstre implements Observateur {
 	private ArrayList<Personnage> allMonstre;
 	private Grille grille;
 	
-	private final static String LABEL = "   Nombre de monstres restant : ";
+	private final static String LABEL = "Nombre de monstres restant : ";
 
 	public AfficheurNombreMonstre(Pane panneau, Grille grille) {
 		panneau.getChildren().add(nbrMonstre);

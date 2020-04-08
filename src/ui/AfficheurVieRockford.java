@@ -12,7 +12,7 @@ public class AfficheurVieRockford implements Observateur {
 	private	Label vieRockford = new Label();
 	private Rockford rockford;
 	
-	private final static String LABEL = "	Vie restante de Rockford : ";
+	private final static String LABEL = "Vie restante de Rockford : ";
 
 	public AfficheurVieRockford(Pane panneau, Rockford rockford) {
 		panneau.getChildren().add(vieRockford);

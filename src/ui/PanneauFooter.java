@@ -1,11 +1,11 @@
 package ui;
 
 import entitesvivantes.Rockford;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import lagrille.Grille;
 import modele.exceptions.BoulderException;
 
-public class PanneauFooter extends HBox {
+public class PanneauFooter extends VBox {
 
 	/**
 	 * Timer qui se déclenche tous les 0.1 s

@@ -17,7 +17,7 @@ public class AfficheurDiamantMap implements Observateur {
 	private ArrayList<Case> allDiamant;
 	private Grille grille;
 	
-	private final static String LABEL = "   Nombre de diamants restant : ";
+	private final static String LABEL = "Nombre de diamants restant : ";
 
 	public AfficheurDiamantMap(Pane panneau, Grille grille) {
 		panneau.getChildren().add(nbrDiamant);

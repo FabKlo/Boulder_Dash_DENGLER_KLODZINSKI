@@ -145,9 +145,6 @@ public class FenetrePrincipale extends Application {
 		grillePane.getGraphicsContext2D();
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 	/**
 	 * Selon le bouton appuyé, rockford se déplace vers une direction 
@@ -266,6 +263,10 @@ public class FenetrePrincipale extends Application {
 		Timeline timeline = new Timeline(chuteItem);
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 	public Grille getGrille() {
