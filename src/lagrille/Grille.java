@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import chutediamant.ChuteDuDiamantCOR;
 import chuterocher.ChuteDuRocherCOR;
 import deplacementrockford.DeplacerRockfordCOR;
@@ -23,6 +22,8 @@ public class Grille {
     private int XMAX;
     private int YMAX;
     private int niveau;
+    private String objectif;
+    private int diamsMax;
 
     public Grille() {
         niveau = 1;
@@ -72,7 +73,7 @@ public class Grille {
         ArrayList<Personnage> pers = searchAllPers();
         for (Personnage personnage : pers) {
             if(personnage.getVie() == 0) {
-                tableau[personnage.getPositionX()][personnage.getPositionY()].setEstIci(null);
+                //tableau[personnage.getPositionX()][personnage.getPositionY()].setEstIci(null);
                 impactVieEnMoins(personnage);
             }
         }
@@ -87,13 +88,40 @@ public class Grille {
     public void impactVieEnMoins(Personnage pers) throws BoulderMortException {
         if(pers instanceof Rockford) {
             if(pers.getVie() == 0) {
-                throw new BoulderMortException("Rockford est mort, c'est perdu !");
+                /*throw new BoulderMortException*/System.out.println("Rockford est mort, c'est perdu !");
             }
         } else {
             if(pers.getVie() == 0) {
                 tableau[pers.getPositionX()][pers.getPositionY()] = new Diamant(pers.getPositionX(), pers.getPositionY());
             }
         }
+    }
+
+    public boolean verifObjectif() {
+
+        switch(objectif) {
+            case "COLLECTER_DIAMANT":
+                ArrayList<Personnage> allPers = searchAllPers();
+                for (Personnage p : allPers) {
+                    if(p instanceof Rockford) {
+                        if( ((Rockford)(p)).getCompteurDiamant() >= getDiamsMax())
+                            return true;
+                        else
+                            return false;
+                    }     
+                }
+                break;
+            case "ELIMINER_MONSTRES":
+                ArrayList<Personnage> allMonstres = searchAllMonstre();
+                if(allMonstres.size() == 0)
+                    return true;
+                else
+                    return false;
+            default:
+        }
+
+
+        return false;
     }
 
         /**
@@ -130,7 +158,7 @@ public class Grille {
         return allDiamantEtRocher;
     }
 
-        /**
+    /**
      * cherche tout les persos de la grille
      * @return une arraylist de personnages
      */
@@ -347,6 +375,69 @@ public class Grille {
     }
 
     /**
+     * Cherche l'objectif dans le fichier .csv
+     * @param orderPath le fichier
+     * @param split une certaine ligne modifié (généralement sans ';')
+     * @param lines une certaine ligne du fichier
+     */
+    public void trouverObjectif(Path orderPath, String[] split, List<String> lines) {
+
+        boolean objTrouv = false;   //Variable qui verifie si on a bien trouvé un objectif
+        boolean diamsTrouv = false;
+        boolean monstreTrouv = false;
+
+        int nbrLigne = 0;           //compteur
+        int compteurIntermediaire = 0; 
+
+        String[] splitInter = null;
+        
+        do {
+
+            split = lines.get(nbrLigne).split(";");
+            if(split[0].equals("SANS_OBJECTIF")) {
+                                                            /*Recherche le mode de jeu où il n'y a pas d'objectif */
+                objTrouv = true;
+                this.objectif = "SANS_OBJECTIF";
+
+            }
+            else if(split[0].equals("COLLECTER_DIAMANT")) {          //Sinon cherche le mode de jeu avec temps limité
+
+                this.objectif = "COLLECTER_DIAMANT";
+                do {
+
+                    splitInter = lines.get(compteurIntermediaire).split(";");
+
+                    if(splitInter[0].equals("NBR_DIAMANT")) {
+                        diamsTrouv = true;
+                        this.diamsMax = Integer.valueOf(splitInter[1]);
+                    }
+
+                    compteurIntermediaire++;
+
+                } while(!(compteurIntermediaire >= lines.size() || diamsTrouv));
+
+            }
+            else if (split[0].equals("ELIMINER_MONSTRES")) {       //Sinon cherche le mode de jeu où il faut détruire toute les meringues
+
+                this.objectif = "ELIMINER_MONSTRES";
+                do {
+
+                    splitInter = lines.get(compteurIntermediaire).split(";");
+
+                    monstreTrouv = true;
+
+                    compteurIntermediaire++;
+
+                } while(!(compteurIntermediaire >= lines.size() || (monstreTrouv)));
+            }
+
+            nbrLigne++;
+
+        } while(!(nbrLigne >= lines.size() || (objTrouv)));      /*Cherche un objectif*/
+
+    }
+
+    /**
      * Créer la grille du niveau voulu
      * 
      * @throws IOException
@@ -362,6 +453,8 @@ public class Grille {
         lines = verifFichier(orderPath);
 
         trouverXmaxetYmax(orderPath, split, lines);
+
+        trouverObjectif(orderPath, split, lines);
 
         debLigne = trouverDebLigne(orderPath, split, lines);
 
@@ -423,6 +516,22 @@ public class Grille {
 
     public void setNiveau(int niveau) {
         this.niveau = niveau;
+    }
+
+    public String getObjectif() {
+        return objectif;
+    }
+
+    public void setObjectif(String objectif) {
+        this.objectif = objectif;
+    }
+
+    public int getDiamsMax() {
+        return diamsMax;
+    }
+
+    public void setDiamsMax(int diamsMax) {
+        this.diamsMax = diamsMax;
     }
     
 }

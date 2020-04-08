@@ -20,22 +20,24 @@ public class PanneauFooter extends VBox {
 		// avec le score, le nombre de vies, etc.
 
 		// afficheur est un observateur du timer
+		AfficheurObjectif obj = new AfficheurObjectif(this, grille);
 		AfficheurTempsEcoule afficheur = new AfficheurTempsEcoule(this);
 		AfficheurVieRockford vieRockford = new AfficheurVieRockford(this, rockford);
 		AfficheurDiamantRockford diamsRockford = new AfficheurDiamantRockford(this, rockford);
 		AfficheurNombreMonstre nbrMonstre = new AfficheurNombreMonstre(this, grille);
 		AfficheurDiamantMap diamsMap = new AfficheurDiamantMap(this, grille);
 		try {
+			timer.add(obj);
 			timer.add(afficheur);
 			timer.add(vieRockford);
 			timer.add(diamsRockford);
 			timer.add(nbrMonstre);
-			timer.add(diamsMap);
+			timer.add(diamsMap);	
+			
 			
 		} catch (BoulderException e) {
 			e.printStackTrace();
 		}
 	}
-
 
 }
