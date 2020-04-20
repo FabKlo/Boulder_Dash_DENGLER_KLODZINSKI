@@ -1,0 +1,14 @@
+ELIMINER_MONSTRES;;;;;;;;;
+NB_LIG;11;;;;;;;;
+NB_COL;10;;;;;;;;
+V;R;R;R;R;R;R;R;R;V;
+V;T;T;T;T;T;T;T;T;V;
+V;T;M;V;V;V;V;V;T;V;
+E;A;V;M;V;V;V;V;T;V;
+V;T;V;V;M;V;V;V;T;V;
+V;T;V;V;V;M;V;V;T;V;
+V;T;V;V;V;V;V;V;T;V;
+V;T;M;V;V;V;V;V;T;V;
+V;T;T;T;T;T;T;T;T;V;
+V;V;V;V;V;V;V;V;V;V;
+V;V;V;V;V;V;V;V;V;V;

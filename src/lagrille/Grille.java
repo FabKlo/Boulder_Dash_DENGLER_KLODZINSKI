@@ -26,6 +26,15 @@ public class Grille {
     private String objectif;
     private int diamsMax;
 
+    private DeplacerMonstreCOR corMonstre = DeplacerMonstreCOR.initCOR();
+    private DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
+    private ChuteDuRocherCOR corRocher = ChuteDuRocherCOR.initCOR();
+    private ChuteDuDiamantCOR corDiamant = ChuteDuDiamantCOR.initCOR();
+
+
+
+
+
     public Grille() {
         niveau = 1;
     }
@@ -39,7 +48,6 @@ public class Grille {
      * @throws BoulderMortException
      */
     public boolean déplacerMonstre(int cs, int ls, int ct, int lt) throws BoulderMortException {
-        DeplacerMonstreCOR corMonstre = DeplacerMonstreCOR.initCOR();
         return corMonstre.deplaceMonstre(this, cs, ls, ct, lt);
     }
 
@@ -52,7 +60,6 @@ public class Grille {
      * @throws BoulderMortException
      */
     public boolean déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
-        DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
         return corRock.deplaceRockford(this, cs, ls, ct, lt);
     }
 
@@ -63,7 +70,6 @@ public class Grille {
      * @throws BoulderMortException
      */
     public void déplacerRocher(int cs, int ls) throws BoulderMortException {
-        ChuteDuRocherCOR corRocher = ChuteDuRocherCOR.initCOR();
         corRocher.deplaceRocher(this, cs, ls);
     }
 
@@ -74,7 +80,6 @@ public class Grille {
      * @throws BoulderMortException
      */
     public void déplacerDiamant(int cs, int ls) throws BoulderMortException {
-        ChuteDuDiamantCOR corDiamant = ChuteDuDiamantCOR.initCOR();
         corDiamant.deplaceDiamant(this, cs, ls);
 
     }
@@ -158,18 +163,18 @@ public class Grille {
     /**
      * @return une arraylist de case qui contient que des rochers et diamants
      */
-    public ArrayList<Case> searchAllRocherEtDiamant() {
-        ArrayList<Case> allDiamantEtRocher = new ArrayList<Case>();
+    public ArrayList<Case> searchAllObjetSoumisParLaGravite() {
+        ArrayList<Case> allObjSoumisGravite = new ArrayList<Case>();
         for(int i = 0; i < XMAX; i++) {
             for(int j = 0; j < YMAX; j++) {
 
-                if(tableau[i][j] instanceof Rocher || tableau[i][j] instanceof Diamant)
-                    allDiamantEtRocher.add(tableau[i][j]);
+                if(tableau[i][j].isEstSoumisALaGravite())
+                    allObjSoumisGravite.add(tableau[i][j]);
 
             }
         }
 
-        return allDiamantEtRocher;
+        return allObjSoumisGravite;
     }
 
     /**

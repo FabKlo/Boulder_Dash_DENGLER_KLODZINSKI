@@ -248,7 +248,7 @@ public class FenetrePrincipale extends Application {
 				xRockford = p.getPositionX();
 			}
 		}
-		allRocherEtDiamant = grille.searchAllRocherEtDiamant();
+		allRocherEtDiamant = grille.searchAllObjetSoumisParLaGravite();
 
 		int lGrille = tailleImageX * grille.getXMAX();
 		int hGrille = tailleImageY * grille.getYMAX();
@@ -352,7 +352,7 @@ public class FenetrePrincipale extends Application {
 						if(c instanceof Rocher) {
 						try {
 							grille.déplacerRocher(c.getPositionX(), c.getPositionY());
-							allRocherEtDiamant = grille.searchAllRocherEtDiamant(); //si ça écrase un monstre, ajoute son diamant créé dans l'arraylist
+							allRocherEtDiamant = grille.searchAllObjetSoumisParLaGravite(); //si ça écrase un monstre, ajoute son diamant créé dans l'arraylist
 						} catch (BoulderMortException e) {							
 							e.printStackTrace();
 						}
