@@ -1,4 +1,4 @@
-package chuterocher;
+package chuteobjgravite;
 
 import java.util.ArrayList;
 import java.util.Random;

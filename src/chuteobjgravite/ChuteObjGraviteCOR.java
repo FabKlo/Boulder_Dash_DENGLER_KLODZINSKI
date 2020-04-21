@@ -1,4 +1,4 @@
-package chuterocher;
+package chuteobjgravite;
 
 import lagrille.Grille;
 import modele.exceptions.BoulderMortException;

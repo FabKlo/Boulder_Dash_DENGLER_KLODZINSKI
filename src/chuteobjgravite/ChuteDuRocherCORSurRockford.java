@@ -1,4 +1,4 @@
-package chuterocher;
+package chuteobjgravite;
 
 import entitesvivantes.Rockford;
 import lagrille.Grille;

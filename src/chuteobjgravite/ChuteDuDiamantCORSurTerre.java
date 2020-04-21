@@ -1,12 +1,13 @@
-package chuterocher;
+package chuteobjgravite;
 
 import lagrille.Grille;
 import lescases.Diamant;
+import lescases.Terre;
 import modele.exceptions.BoulderMortException;
 
-public class ChuteDuDiamantCORSurDiamant extends ChuteObjGraviteCOR {
+public class ChuteDuDiamantCORSurTerre extends ChuteObjGraviteCOR {
 
-    public ChuteDuDiamantCORSurDiamant(ChuteObjGraviteCOR s) {
+    public ChuteDuDiamantCORSurTerre(ChuteObjGraviteCOR s) {
         super(s);
     }
 
@@ -17,8 +18,8 @@ public class ChuteDuDiamantCORSurDiamant extends ChuteObjGraviteCOR {
             return false;
         }
 
-        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Diamant)) {
-            //System.out.println("la case target n'est pas un diamant");
+        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Terre)) {
+            //System.out.println("la case target n'est pas de l'acier");
             return false;
         }
 

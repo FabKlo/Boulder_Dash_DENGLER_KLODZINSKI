@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import chuterocher.ChuteObjGraviteCOR;
+import chuteobjgravite.ChuteObjGraviteCOR;
 import deplacementmonstre.DeplacerMonstreCOR;
 import deplacementrockford.DeplacerRockfordCOR;
 import entitesvivantes.Monstre;
