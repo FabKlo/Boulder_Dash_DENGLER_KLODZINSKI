@@ -8,14 +8,19 @@ import lescases.Rocher;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
 
-public class ChuteDuRocherCORSurRocher extends ChuteDuRocherCOR {
+public class ChuteDuRocherCORSurRocher extends ChuteObjGraviteCOR {
 
-    public ChuteDuRocherCORSurRocher (ChuteDuRocherCOR s) {
+    public ChuteDuRocherCORSurRocher (ChuteObjGraviteCOR s) {
         super(s);
     }
 
     @Override
     protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
+
+        if(!(grille.getCaseDuTab(cs,ls) instanceof Rocher)) {
+            //System.out.println("la case source n'est pas un rocher");
+            return false;
+        }
 
         if(!(grille.getCaseDuTab(cs,ls+1) instanceof Rocher)) {
             //System.out.println("la case target n'est pas un rocher");

@@ -1,4 +1,4 @@
-package chutediamant;
+package chuterocher;
 
 import entitesvivantes.Rockford;
 import lagrille.Grille;
@@ -9,14 +9,18 @@ import modele.exceptions.BoulderMortException;
 /**
  * DeplacerRockfordCORVersVide
  */
-public class ChuteDuDiamantCORSurRockford extends ChuteDuDiamantCOR {
+public class ChuteDuDiamantCORSurRockford extends ChuteObjGraviteCOR {
 
-    public ChuteDuDiamantCORSurRockford(ChuteDuDiamantCOR s) {
+    public ChuteDuDiamantCORSurRockford(ChuteObjGraviteCOR s) {
         super(s);
     }
 
     @Override
-    protected boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
+    protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
+
+        if(!(grille.getCaseDuTab(cs,ls) instanceof Diamant)) {
+            return false;
+        }
 
         if(!(grille.getCaseDuTab(cs,ls+1).estOccupee() && grille.getCaseDuTab(cs,ls+1).getEstIci() instanceof Rockford)) {
             //System.out.println("la case target n'est pas rockford");

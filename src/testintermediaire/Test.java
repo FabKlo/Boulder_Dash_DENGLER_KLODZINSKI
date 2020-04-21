@@ -32,33 +32,33 @@ public class Test {
         tab.déplacerPerso(3,4,2,4); //vers rocher qui bouge pas = pas de déplacement
 
         System.out.println("\ndeplacer rocher test\n");
-        tab.déplacerRocher(5, 7);
-        tab.déplacerRocher(5, 8);
-        tab.déplacerRocher(5, 9);
+        tab.déplacerObjGravite(5, 7);
+        tab.déplacerObjGravite(5, 8);
+        tab.déplacerObjGravite(5, 9);
 
         System.out.println("\ndeplacer rocher test 2\n");
-        tab.déplacerRocher(4, 7);
-        tab.déplacerRocher(4, 8);
-        tab.déplacerRocher(4, 9);
+        tab.déplacerObjGravite(4, 7);
+        tab.déplacerObjGravite(4, 8);
+        tab.déplacerObjGravite(4, 9);
 
         System.out.println("\ndeplacer rocher test 3\n");
-        tab.déplacerRocher(3, 8);
-        tab.déplacerRocher(3, 9);
+        tab.déplacerObjGravite(3, 8);
+        tab.déplacerObjGravite(3, 9);
 
         System.out.println("\ndeplacer rocher test 4\n");
-        tab.déplacerRocher(1, 8);
-        tab.déplacerRocher(1, 7);
-        tab.déplacerRocher(0, 8);
-        tab.déplacerRocher(2, 8);
-        tab.déplacerRocher(0, 9);
-        tab.déplacerRocher(2, 9);
+        tab.déplacerObjGravite(1, 8);
+        tab.déplacerObjGravite(1, 7);
+        tab.déplacerObjGravite(0, 8);
+        tab.déplacerObjGravite(2, 8);
+        tab.déplacerObjGravite(0, 9);
+        tab.déplacerObjGravite(2, 9);
 
         System.out.println("\ndeplacer diamant test 1\n");
-        tab.déplacerDiamant(7, 8);
-        tab.déplacerDiamant(7, 9);
+        tab.déplacerObjGravite(7, 8);
+        tab.déplacerObjGravite(7, 9);
 
         System.out.println("\ndeplacer diamant test 2\n");
-        tab.déplacerDiamant(8, 7);
-        tab.déplacerDiamant(8, 8);
+        tab.déplacerObjGravite(8, 7);
+        tab.déplacerObjGravite(8, 8);
     }
 }

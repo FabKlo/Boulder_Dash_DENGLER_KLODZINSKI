@@ -1,20 +1,20 @@
-package chutediamant;
+package chuterocher;
 
 import lagrille.Grille;
 import lescases.Acier;
 import lescases.Diamant;
 import modele.exceptions.BoulderMortException;
 
-public class ChuteDuDiamantCORSurAcier extends ChuteDuDiamantCOR {
+public class ChuteDuDiamantCORSurAcier extends ChuteObjGraviteCOR {
 
-    public ChuteDuDiamantCORSurAcier(ChuteDuDiamantCOR s) {
+    public ChuteDuDiamantCORSurAcier(ChuteObjGraviteCOR s) {
         super(s);
     }
 
     @Override
-    protected boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
+    protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
         if(!(grille.getCaseDuTab(cs,ls) instanceof Diamant)) {
-            return true;
+            return false;
         }
 
         if(ls + 1 >= grille.getYMAX()) {

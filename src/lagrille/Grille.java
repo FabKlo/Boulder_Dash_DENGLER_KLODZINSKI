@@ -7,8 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import chutediamant.ChuteDuDiamantCOR;
-import chuterocher.ChuteDuRocherCOR;
+import chuterocher.ChuteObjGraviteCOR;
 import deplacementmonstre.DeplacerMonstreCOR;
 import deplacementrockford.DeplacerRockfordCOR;
 import entitesvivantes.Monstre;
@@ -28,11 +27,7 @@ public class Grille {
 
     private DeplacerMonstreCOR corMonstre = DeplacerMonstreCOR.initCOR();
     private DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
-    private ChuteDuRocherCOR corRocher = ChuteDuRocherCOR.initCOR();
-    private ChuteDuDiamantCOR corDiamant = ChuteDuDiamantCOR.initCOR();
-
-
-
+    private ChuteObjGraviteCOR corObjGravite = ChuteObjGraviteCOR.initCOR();
 
 
     public Grille() {
@@ -64,24 +59,13 @@ public class Grille {
     }
 
     /**
-     * déplace le rocher de [cs][ls] vers [cs][ls-1]
+     * déplace l'objet soumis par la gravité de [cs][ls] vers [cs][ls-1]
      * @param cs colonne source
      * @param ls ligne source
      * @throws BoulderMortException
      */
-    public void déplacerRocher(int cs, int ls) throws BoulderMortException {
-        corRocher.deplaceRocher(this, cs, ls);
-    }
-
-    /**
-     * déplace le diamant de [cs][ls] vers [cs][ls-1]
-     * @param cs colonne source
-     * @param ls ligne source
-     * @throws BoulderMortException
-     */
-    public void déplacerDiamant(int cs, int ls) throws BoulderMortException {
-        corDiamant.deplaceDiamant(this, cs, ls);
-
+    public void déplacerObjGravite(int cs, int ls) throws BoulderMortException {
+        corObjGravite.deplaceRocher(this, cs, ls);
     }
 
     /**

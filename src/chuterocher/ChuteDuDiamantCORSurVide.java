@@ -1,18 +1,22 @@
-package chutediamant;
+package chuterocher;
 
 import lagrille.Grille;
 import lescases.Diamant;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
 
-public class ChuteDuDiamantCORSurVide extends ChuteDuDiamantCOR {
+public class ChuteDuDiamantCORSurVide extends ChuteObjGraviteCOR {
 
-    public ChuteDuDiamantCORSurVide(ChuteDuDiamantCOR s) {
+    public ChuteDuDiamantCORSurVide(ChuteObjGraviteCOR s) {
         super(s);
     }
 
     @Override
-    protected boolean deplacerDiamantVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
+    protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
+
+        if(!(grille.getCaseDuTab(cs,ls) instanceof Diamant)) {
+            return false;
+        }
 
         if(!(grille.getCaseDuTab(cs,ls+1) instanceof Vide) || grille.getCaseDuTab(cs,ls+1).estOccupee()) {
             //System.out.println("la case target n'est pas du vide");

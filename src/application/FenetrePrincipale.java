@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lagrille.Grille;
 import lescases.Case;
-import lescases.Diamant;
-import lescases.Rocher;
 import modele.exceptions.BoulderMortException;
 import ui.PanneauFooter;
 import javafx.scene.Scene;
@@ -349,20 +347,11 @@ public class FenetrePrincipale extends Application {
 				for (Case c : allRocherEtDiamant) {
 					
 					if(c.getPositionY() < grille.getYMAX()) {
-						if(c instanceof Rocher) {
 						try {
-							grille.déplacerRocher(c.getPositionX(), c.getPositionY());
+							grille.déplacerObjGravite(c.getPositionX(), c.getPositionY());
 							allRocherEtDiamant = grille.searchAllObjetSoumisParLaGravite(); //si ça écrase un monstre, ajoute son diamant créé dans l'arraylist
 						} catch (BoulderMortException e) {							
 							e.printStackTrace();
-						}
-						}
-						else if(c instanceof Diamant) {
-							try {
-								grille.déplacerDiamant(c.getPositionX(), c.getPositionY());
-							} catch (BoulderMortException e) {
-								e.printStackTrace();
-							}
 						}
 					}
 
