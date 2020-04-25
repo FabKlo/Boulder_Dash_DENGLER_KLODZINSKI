@@ -8,6 +8,7 @@
             "type": "java",
             "name": "Debug (Launch) - FenetrePrincipale",
             "request": "launch",
+            "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-11.0.2\\lib\" --add-modules javafx.controls,javafx.fxml",
             "mainClass": "application.FenetrePrincipale",
             "projectName": "Boulder_Dash_DENGLER_KLODZINSKI"
         }/*,

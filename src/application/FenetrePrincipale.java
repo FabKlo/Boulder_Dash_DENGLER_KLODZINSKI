@@ -39,8 +39,8 @@ public class FenetrePrincipale extends Application {
 	private Timeline timelineChute;
 	private Timeline timelineMonstre;
 
-	private int tailleImageX = 64;
-	private int tailleImageY = 64;
+	private int tailleImageX = 45;
+	private int tailleImageY = 45;
 
 
 	// YL : Les déclarations ci-dessous devront être remplacées par des classes et
