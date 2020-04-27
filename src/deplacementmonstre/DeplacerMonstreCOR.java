@@ -8,7 +8,7 @@ public abstract class DeplacerMonstreCOR implements DeplacerMonstre {
     private DeplacerMonstreCOR suivant;
 
     /**
-     * Chaine de responsabilité
+     * Chaine de responsabilite
      * @param s
      */
     public DeplacerMonstreCOR(DeplacerMonstreCOR s) {
@@ -16,7 +16,7 @@ public abstract class DeplacerMonstreCOR implements DeplacerMonstre {
     }
 
     /**
-     * déplace rockford vers un type de case précis
+     * deplace rockford vers un type de case precis
      * @param grille c'est la grille
      * @param cs    colonne source
      * @param ls    ligne source
@@ -28,7 +28,7 @@ public abstract class DeplacerMonstreCOR implements DeplacerMonstre {
 
     @Override
     /**
-     * méthode récursive pour traversé tout les maillons de la chaine
+     * methode recursive pour traverse tout les maillons de la chaine
      */
     public boolean deplaceMonstre(Grille grille, int cs, int ls, int ct, int lt) throws BoulderMortException {
         if(!(this.deplacerMonstreVersCase(grille, cs, ls, ct, lt))) {

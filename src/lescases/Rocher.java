@@ -22,7 +22,7 @@ public class Rocher extends Case {
     public void mettrePersoSurCase(Personnage p) {
         System.out.println("Cette case est de type" + 
         getClass().getSimpleName() +", le personnage "  + 
-        p.getClass().getSimpleName() + " ne peut pas être ici !");    }
+        p.getClass().getSimpleName() + " ne peut pas etre ici !");    }
 
     public boolean isEnMouvement() {
         return enMouvement;

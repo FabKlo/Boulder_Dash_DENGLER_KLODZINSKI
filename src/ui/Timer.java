@@ -15,8 +15,8 @@ public class Timer extends Observable {
 	private double laps;
 
 	/**
-	 * Constructeur d'un timer à partir d'une durée exprimée en secondes. Tous les
-	 * laps de temps, l'évnement EventTimer est déclenché, et lui-même notifie à
+	 * Constructeur d'un timer a partir d'une duree exprimee en secondes. Tous les
+	 * laps de temps, l'evnement EventTimer est declenche, et lui-meme notifie a
 	 * tous ses observateurs
 	 * 
 	 * @param laps nombre de secondes entre chaque 'top'

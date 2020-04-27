@@ -8,7 +8,7 @@ public abstract class ChuteObjGraviteCOR implements ChuteObjGravite {
     private ChuteObjGraviteCOR suivant;
 
     /**
-     * Chaine de responsabilité
+     * Chaine de responsabilite
      * @param s
      */
     public ChuteObjGraviteCOR(ChuteObjGraviteCOR s) {
@@ -16,7 +16,7 @@ public abstract class ChuteObjGraviteCOR implements ChuteObjGravite {
     }
 
     /**
-     * déplace rockford vers un type de case précis
+     * deplace rockford vers un type de case precis
      * @param grille c'est la grille
      * @param cs    colonne source
      * @param ls    ligne source
@@ -28,7 +28,7 @@ public abstract class ChuteObjGraviteCOR implements ChuteObjGravite {
 
     @Override
     /**
-     * méthode récursive pour traversé tout les maillons de la chaine
+     * methode recursive pour traverse tout les maillons de la chaine
      */
     public boolean deplaceRocher(Grille grille, int cs, int ls) throws BoulderMortException {
         if(!(this.deplacerRocherVersCase(grille, cs, ls))) {

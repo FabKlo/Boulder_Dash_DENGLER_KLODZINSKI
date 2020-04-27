@@ -8,14 +8,14 @@ import modele.exceptions.BoulderException;
 public class PanneauFooter extends VBox {
 
 	/**
-	 * Timer qui se déclenche tous les 0.1 s
+	 * Timer qui se declenche tous les 0.1 s
 	 */
 	private Timer timer = new Timer(0.1);
 
 	public PanneauFooter(Grille grille, Rockford rockford) {
 		super();
 
-		// YL : j'ajoute uniquement l'afficheur du temps écoulé. Vous pouvez enrichir
+		// YL : j'ajoute uniquement l'afficheur du temps ecoule. Vous pouvez enrichir
 		// cette partie de l'interface
 		// avec le score, le nombre de vies, etc.
 
@@ -24,8 +24,8 @@ public class PanneauFooter extends VBox {
 		AfficheurTempsEcoule afficheur = new AfficheurTempsEcoule(this);
 		AfficheurVieRockford vieRockford = new AfficheurVieRockford(this, rockford);
 		AfficheurDiamantRockford diamsRockford = new AfficheurDiamantRockford(this, rockford);
-		AfficheurNombreMonstre nbrMonstre = new AfficheurNombreMonstre(this, grille);
-		AfficheurDiamantMap diamsMap = new AfficheurDiamantMap(this, grille);
+		AfficheurNombreMonstre nbrMonstre = new AfficheurNombreMonstre(this);
+		AfficheurDiamantMap diamsMap = new AfficheurDiamantMap(this);
 		try {
 			timer.add(obj);
 			timer.add(afficheur);

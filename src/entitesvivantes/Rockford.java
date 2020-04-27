@@ -9,7 +9,7 @@ public class Rockford extends Personnage {
     private int compteurDiamant;
 
     /**
-     * Création de rockford avec vie = 3, son compteur de diamant = 0
+     * Creation de rockford avec vie = 3, son compteur de diamant = 0
      */
     public Rockford() {
         setVie(3);

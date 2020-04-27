@@ -24,6 +24,8 @@ public class ChuteDuDiamantCORSurMonstre extends ChuteObjGraviteCOR {
         }
 
         grille.getCaseDuTab(cs,ls + 1).getEstIci().setVie(grille.getCaseDuTab(cs, ls+1).getEstIci().getVie()-1);
+        if(grille.getCaseDuTab(cs,ls + 1).getEstIci().getVie() <= 0)
+            grille.setCaseDuTab(cs, ls+1,new Diamant(cs, ls+1));
         grille.verifVieAll();
         return true;
     }

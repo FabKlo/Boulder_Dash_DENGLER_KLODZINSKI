@@ -25,6 +25,11 @@ public class Grille {
     private String objectif;
     private int diamsMax;
 
+    public static ArrayList<Case> allObjGravite = new ArrayList<Case>();
+    public static ArrayList<Case> allDiamant = new ArrayList<Case>();
+	public static ArrayList<Personnage> allPers = new ArrayList<Personnage>();
+	public static ArrayList<Monstre> allMonstres = new ArrayList<Monstre>();
+
     private DeplacerMonstreCOR corMonstre = DeplacerMonstreCOR.initCOR();
     private DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
     private ChuteObjGraviteCOR corObjGravite = ChuteObjGraviteCOR.initCOR();
@@ -35,77 +40,168 @@ public class Grille {
     }
 
     /**
-     * déplace un monstre de [cs][ls] vers [ct][lt]
+     * deplace un monstre de [cs][ls] vers [ct][lt]
      * @param cs colonne source
      * @param ls ligne source
      * @param ct colonne target
      * @param lt ligne target
      * @throws BoulderMortException
      */
-    public boolean déplacerMonstre(int cs, int ls, int ct, int lt) throws BoulderMortException {
+    public boolean deplacerMonstre(int cs, int ls, int ct, int lt) throws BoulderMortException {
         return corMonstre.deplaceMonstre(this, cs, ls, ct, lt);
     }
 
     /**
-     * déplace rockford de [cs][ls] vers [ct][lt]
+     * deplace rockford de [cs][ls] vers [ct][lt]
      * @param cs colonne source
      * @param ls ligne source
      * @param ct colonne target
      * @param lt ligne target
      * @throws BoulderMortException
      */
-    public boolean déplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
+    public boolean deplacerPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
         return corRock.deplaceRockford(this, cs, ls, ct, lt);
     }
 
     /**
-     * déplace l'objet soumis par la gravité de [cs][ls] vers [cs][ls-1]
+     * deplace l'objet soumis par la gravite de [cs][ls] vers [cs][ls-1]
      * @param cs colonne source
      * @param ls ligne source
      * @throws BoulderMortException
      */
-    public void déplacerObjGravite(int cs, int ls) throws BoulderMortException {
+    public void deplacerObjGravite(int cs, int ls) throws BoulderMortException {
         corObjGravite.deplaceRocher(this, cs, ls);
     }
 
     /**
-     * vérifie la vie de tout les persos sur la grille, et lance un gameOver si rockford est mort
-     * @throws BoulderMortException
+     * Fait chuter tous les objets soumis a la gravite de la grille
      */
-    public void verifVieAll() throws BoulderMortException {
-        ArrayList<Personnage> pers = searchAllPers();
-        for (Personnage personnage : pers) {
-            if(personnage.getVie() == 0) {
-                //tableau[personnage.getPositionX()][personnage.getPositionY()].setEstIci(null);
-                impactVieEnMoins(personnage);
+    public void chuteItem() {
+
+        for (Case c : allObjGravite) {
+					
+            if(c.getPositionY() < YMAX) {
+                try {
+                    
+                    deplacerObjGravite(c.getPositionX(), c.getPositionY());
+                    
+                } catch (BoulderMortException e) {							
+                    e.printStackTrace();
+                }
             }
         }
+
+        searchAll();
+
     }
 
     /**
-     * vérifie la vie du personnage pers, et transforme un monstre en diamant si sa vie est 0,
-     * ou lance un gameOver si rockford est mort
-     * @param pers le personnage dont on vérifie la vie
-     * @throws BoulderMortException
+     * Fait bouger tout les monstres de la grille
      */
-    public void impactVieEnMoins(Personnage pers) throws BoulderMortException {
-        if(pers instanceof Rockford) {
-            if(pers.getVie() == 0) {
-                /*throw new BoulderMortException*/System.out.println("Rockford est mort, c'est perdu !");
-            }
-        } else {
-            if(pers.getVie() == 0) {
-                tableau[pers.getPositionX()][pers.getPositionY()] = new Diamant(pers.getPositionX(), pers.getPositionY());
+    public void mouvementMonstres() {
+
+        for(Monstre m : Grille.allMonstres) {
+            switch(m.getDirection()) {
+                case Monstre.DROITE:
+                    try {
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
+                                m.getPositionY()))
+                            m.setDirection(Monstre.BAS);
+
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    break;
+
+                case Monstre.BAS:
+                    try {
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                m.getPositionY() + 1))
+                            m.setDirection(Monstre.GAUCHE);
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+                    
+                case Monstre.GAUCHE:
+                    try {
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
+                                m.getPositionY()))
+                            m.setDirection(Monstre.HAUT);
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case Monstre.HAUT:
+                    try {
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                m.getPositionY() - 1))
+                            m.setDirection(Monstre.DROITE);
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
+                default:
+
             }
         }
+
+        //searchAllPers();
     }
 
+    /**
+     * verifie la vie de tout les persos sur la grille, et lance un gameOver si rockford est mort
+     * @throws BoulderMortException
+     */
+    public void verifVieAll() throws BoulderMortException {
+
+        searchAllPers();
+
+        for (Personnage personnage : Grille.allPers) {
+            if(personnage.getVie() == 0) {
+                if(personnage instanceof Rockford) {
+                        System.out.println("Rockford est mort, c'est perdu !");
+                        break;
+                }
+            }
+        }
+
+        searchAll();
+
+    }
+
+
+    /**
+     * 
+     * @param x coord x du tableau
+     * @param y coord y du tableau
+     * @return true si rockford est mort, false si non
+     */
+    public boolean mortRockford(int x, int y) {
+        if(tableau[x][y].estOccupee()) {
+            if(tableau[x][y].getEstIci() instanceof Rockford) {
+                if(tableau[x][y].getEstIci().getVie() <= 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return true si l'objectif est accompli, false si non
+     */
     public boolean verifObjectif() {
 
         switch(objectif) {
             case "COLLECTER_DIAMANT":
-                ArrayList<Personnage> allPers = searchAllPers();
-                for (Personnage p : allPers) {
+                for (Personnage p : Grille.allPers) {
                     if(p instanceof Rockford) {
                         if( ((Rockford)(p)).getCompteurDiamant() >= getDiamsMax())
                             return true;
@@ -115,8 +211,7 @@ public class Grille {
                 }
                 break;
             case "ELIMINER_MONSTRES":
-                ArrayList<Monstre> allMonstres = searchAllMonstre();
-                if(allMonstres.size() == 0)
+                if(Grille.allMonstres.size() == 0)
                     return true;
                 else
                     return false;
@@ -127,77 +222,103 @@ public class Grille {
         return false;
     }
 
+    /**
+     * Cherche absolument tout ce qu'il y a dans la grille de specifique
+     */
+    public void searchAll() {
+
+        ArrayList<Case> diams = new ArrayList<Case>();
+        ArrayList<Case> obj = new ArrayList<Case>();
+        ArrayList<Personnage> pers = new ArrayList<Personnage>();
+        ArrayList<Monstre> monstres = new ArrayList<Monstre>();
+
+        for(int i = 0; i < XMAX; i++) {
+            for(int j = 0; j < YMAX; j++) {
+
+                if(tableau[i][j].isEstSoumisALaGravite())
+                    obj.add(tableau[i][j]);
+
+                if(tableau[i][j] instanceof Diamant)
+                    diams.add(tableau[i][j]);
+
+                if(tableau[i][j].estOccupee()) {
+                    pers.add(tableau[i][j].getEstIci());
+                    if(tableau[i][j].estOccupee() && tableau[i][j].getEstIci() instanceof Monstre) {
+                        monstres.add((Monstre)(tableau[i][j].getEstIci()));
+                    }
+                }
+            }
+        }
+
+        Grille.allDiamant = diams;
+        Grille.allMonstres = monstres;
+        Grille.allPers = pers;
+        Grille.allObjGravite = obj;
+
+    }
+
         /**
      * @return une arraylist de case qui contient que des diamants
      */
-    public ArrayList<Case> searchAllDiamantMap() {
-        ArrayList<Case> allDiamantMap = new ArrayList<Case>();
+    public void searchAllDiamantMap() {
+        ArrayList<Case> diams = new ArrayList<Case>();
         for(int i = 0; i < XMAX; i++) {
             for(int j = 0; j < YMAX; j++) {
 
                 if(tableau[i][j] instanceof Diamant)
-                    allDiamantMap.add(tableau[i][j]);
+                    diams.add(tableau[i][j]);
 
             }
         }
 
-        return allDiamantMap;
+        Grille.allDiamant = diams;
     }
 
     /**
      * @return une arraylist de case qui contient que des rochers et diamants
      */
-    public ArrayList<Case> searchAllObjetSoumisParLaGravite() {
-        ArrayList<Case> allObjSoumisGravite = new ArrayList<Case>();
+    public void searchAllObjetSoumisParLaGravite() {
+        ArrayList<Case> obj = new ArrayList<Case>();
         for(int i = 0; i < XMAX; i++) {
             for(int j = 0; j < YMAX; j++) {
 
                 if(tableau[i][j].isEstSoumisALaGravite())
-                    allObjSoumisGravite.add(tableau[i][j]);
+                    obj.add(tableau[i][j]);
 
             }
         }
 
-        return allObjSoumisGravite;
+        Grille.allObjGravite = obj;
     }
 
     /**
      * cherche tout les persos de la grille
      * @return une arraylist de personnages
      */
-    public ArrayList<Personnage> searchAllPers() {
-        ArrayList<Personnage> pers = new ArrayList<Personnage>();
+    public void searchAllPers() {
+        ArrayList<Personnage> pers = new ArrayList<Personnage>(); 
+        ArrayList<Monstre> monstres = new ArrayList<Monstre>();  
+
         for(int i = 0; i < XMAX; i++) {
             for(int j = 0; j < YMAX; j++) {
-                if(tableau[i][j].estOccupee())
+                if(tableau[i][j].estOccupee()) {
                     pers.add(tableau[i][j].getEstIci());
-            }
-        }
-
-        return pers;
-    }
-
-    /**
-     * cherche tout les monstres de la grille
-     * @return une arraylist de personnages
-     */
-    public ArrayList<Monstre> searchAllMonstre() {
-        ArrayList<Monstre> pers = new ArrayList<Monstre>();
-        for(int i = 0; i < XMAX; i++) {
-            for(int j = 0; j < YMAX; j++) {
-                if(tableau[i][j].estOccupee() && tableau[i][j].getEstIci() instanceof Monstre) {
-
-                    pers.add((Monstre)(tableau[i][j].getEstIci()));
-
+                    if(tableau[i][j].getEstIci() instanceof Monstre)
+                        monstres.add((Monstre)tableau[i][j].getEstIci());
                 }
+                    
+                
             }
         }
 
-        return pers;
+        Grille.allPers = pers;
+        Grille.allMonstres = monstres;
     }
 
+
+
     /**
-     * retourne la case associée a ces coordonnées
+     * retourne la case associee a ces coordonnees
      * @param x position X dans la grille
      * @param y position Y dans la grille
      * @return
@@ -207,7 +328,7 @@ public class Grille {
     }
 
     /**
-     * transforme la case associée a ces coordonnées en la case c
+     * transforme la case associee a ces coordonnees en la case c
      * @param x position X dans la grille
      * @param y position Y dans la grille
      * @param c la nouvelle case
@@ -220,11 +341,11 @@ public class Grille {
     }
 
     /**
-     * transforme les caractères du .csv en case
-     * @param c le caractère
+     * transforme les caracteres du .csv en case
+     * @param c le caractere
      * @param x position X
      * @param y position Y
-     * @return la case associée au caractère
+     * @return la case associee au caractere
      */
     public Case charEnCase(char c, int x, int y) {
         Case typeDeCase;
@@ -265,7 +386,7 @@ public class Grille {
     }
 
         /**
-     * Vérifie si le fichier .csv est lisible et le retourne si c'est le cas
+     * Verifie si le fichier .csv est lisible et le retourne si c'est le cas
      * @param orderPath le fichier
      * @return le fichier
      */
@@ -284,12 +405,12 @@ public class Grille {
     /**
      * Cherche XMAX et YMAX dans le fichier .csv et les attributs aux variables de la classe corespondant
      * @param orderPath le fichier de base
-     * @param split une certaine ligne modifié (généralement sans ';')
+     * @param split une certaine ligne modifie (generalement sans ';')
      * @param lines une certaine ligne du fichier
      */
     public void trouverXmaxetYmax(Path orderPath, String[] split, List<String> lines) {
 
-        boolean colTrouv = false;   //Variable qui verifie si on a bien trouvé le XMAX
+        boolean colTrouv = false;   //Variable qui verifie si on a bien trouve le XMAX
         boolean ligTrouv = false;   //Idem avec YMAX
 
         int nbrLigne = 0;           //compteur
@@ -316,16 +437,16 @@ public class Grille {
     }
 
     /**
-     * Fonction qui retourne le n° correspondant à la première ligne de fichier qui commence par un char (= début de la grille)
+     * Fonction qui retourne le n° correspondant a la premiere ligne de fichier qui commence par un char (= debut de la grille)
      * @param orderPath le fichier
-     * @param split une certaine ligne modifié (généralement sans ';')
+     * @param split une certaine ligne modifie (generalement sans ';')
      * @param lines une certaine ligne du fichier
      * @return
      */
     public int trouverDebLigne(Path orderPath, String[] split, List<String> lines) {
 
-        boolean trouver = false;    //Cherche la première ligne rencontrée qui commence par un char
-        int nbrLigne = 0;               //compteur remit à 0
+        boolean trouver = false;    //Cherche la premiere ligne rencontree qui commence par un char
+        int nbrLigne = 0;               //compteur remit a 0
         int debLigne = 0;
 
         do {
@@ -334,7 +455,7 @@ public class Grille {
 
             try {
                 if (split[0].length() == 1) {
-                    split[0].charAt(0); //Vérifie chaque premier terme du split pour voir si c'est un char
+                    split[0].charAt(0); //Verifie chaque premier terme du split pour voir si c'est un char
                     trouver = true;
                     debLigne = nbrLigne;
                 }
@@ -343,23 +464,23 @@ public class Grille {
 
             nbrLigne++;
 
-        } while(!(nbrLigne >= lines.size() || (trouver)));     //Cherche la première ligne rencontrée qui commence par un char
+        } while(!(nbrLigne >= lines.size() || (trouver)));     //Cherche la premiere ligne rencontree qui commence par un char
 
         return debLigne;
 
     }
 
     /**
-     * Fonction qui retourne le n° correspondant à la dernière ligne de fichier qui commence par un char (= début de la grille)
+     * Fonction qui retourne le n° correspondant a la derniere ligne de fichier qui commence par un char (= debut de la grille)
      * @param orderPath le fichier
-     * @param split une certaine ligne modifié (généralement sans ';')
+     * @param split une certaine ligne modifie (generalement sans ';')
      * @param lines une certaine ligne du fichier
      * @return
      */
     public int trouverFinLigne(Path orderPath, String[] split, List<String> lines) {
 
-        int nbrLigne = lines.size() - 1;    //Compteur initialisé au max de ligne
-        boolean trouver = false;                //booléen remit a false
+        int nbrLigne = lines.size() - 1;    //Compteur initialise au max de ligne
+        boolean trouver = false;                //booleen remit a false
         int finLigne = 0;
      
         do {
@@ -367,14 +488,14 @@ public class Grille {
             split = lines.get(nbrLigne).split(";");
 
             try {
-                split[0].charAt(0); //Vérifie chaque premier terme du split pour voir si c'est un char
+                split[0].charAt(0); //Verifie chaque premier terme du split pour voir si c'est un char
                 trouver = true;
                 finLigne = nbrLigne;
             } catch (NumberFormatException nfe) { }
 
             nbrLigne = nbrLigne - 1;
 
-        } while(!(nbrLigne < 0 || (trouver)));     //Cherche la dernière ligne rencontrée qui commence par un char
+        } while(!(nbrLigne < 0 || (trouver)));     //Cherche la derniere ligne rencontree qui commence par un char
 
         return finLigne;
 
@@ -383,12 +504,12 @@ public class Grille {
     /**
      * Cherche l'objectif dans le fichier .csv
      * @param orderPath le fichier
-     * @param split une certaine ligne modifié (généralement sans ';')
+     * @param split une certaine ligne modifie (generalement sans ';')
      * @param lines une certaine ligne du fichier
      */
     public void trouverObjectif(Path orderPath, String[] split, List<String> lines) {
 
-        boolean objTrouv = false;   //Variable qui verifie si on a bien trouvé un objectif
+        boolean objTrouv = false;   //Variable qui verifie si on a bien trouve un objectif
         boolean diamsTrouv = false;
         boolean monstreTrouv = false;
 
@@ -406,7 +527,7 @@ public class Grille {
                 this.objectif = "SANS_OBJECTIF";
 
             }
-            else if(split[0].equals("COLLECTER_DIAMANT")) {          //Sinon cherche le mode de jeu avec temps limité
+            else if(split[0].equals("COLLECTER_DIAMANT")) {          //Sinon cherche le mode de jeu avec temps limite
 
                 this.objectif = "COLLECTER_DIAMANT";
                 do {
@@ -423,7 +544,7 @@ public class Grille {
                 } while(!(compteurIntermediaire >= lines.size() || diamsTrouv));
 
             }
-            else if (split[0].equals("ELIMINER_MONSTRES")) {       //Sinon cherche le mode de jeu où il faut détruire toute les meringues
+            else if (split[0].equals("ELIMINER_MONSTRES")) {       //Sinon cherche le mode de jeu où il faut detruire toute les meringues
 
                 this.objectif = "ELIMINER_MONSTRES";
                 do {
@@ -444,7 +565,7 @@ public class Grille {
     }
 
     /**
-     * Créer la grille du niveau voulu
+     * Creer la grille du niveau voulu
      * 
      * @throws IOException
      */
@@ -453,7 +574,7 @@ public class Grille {
         Path orderPath = Paths.get("plateaux/plateau"+niveau+".csv");
         String[] split = null;
         List<String> lines = null;
-        int debLigne = 0;           //Cherche le début de ligne qui correspond au tableau
+        int debLigne = 0;           //Cherche le debut de ligne qui correspond au tableau
         int finLigne = 0;           //Cherche la fin de ligne qui correspond au tableau
 
         lines = verifFichier(orderPath);
@@ -468,7 +589,7 @@ public class Grille {
 
         ////////////////////////////////////////////////////////////////////////////
 
-        int compteur = 0;       //Comme la boucle "pour" ne commence pas à 0, il nous faut un compteur
+        int compteur = 0;       //Comme la boucle "pour" ne commence pas a 0, il nous faut un compteur
 
         for(int i = debLigne; i <= finLigne; i++) {
 
@@ -482,12 +603,14 @@ public class Grille {
                 }
                 
             } catch (NumberFormatException nfe) {
-                System.out.println("Je sais pas comment tu as fait pour arriver là, mais bien joué !");
+                System.out.println("Je sais pas comment tu as fait pour arriver la, mais bien joue !");
             }  
 
             compteur++;
             
         }
+
+        searchAll();
 
 
     }

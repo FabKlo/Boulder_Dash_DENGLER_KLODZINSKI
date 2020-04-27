@@ -12,7 +12,7 @@ public abstract class Case {
     private boolean estSoumisALaGravite;
 
     /**
-     * regarde si la case est occupée par un personnage ou non
+     * regarde si la case est occupee par un personnage ou non
      * @return true si oui, false si non
      */
     public boolean estOccupee()  {

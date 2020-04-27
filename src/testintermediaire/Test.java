@@ -17,48 +17,48 @@ public class Test {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         System.out.println("\nVers vide");
-        tab.déplacerPerso(0,0,1,0); //vers vide
+        tab.deplacerPerso(0,0,1,0); //vers vide
         System.out.println("\nVers acier");
-        tab.déplacerPerso(1,1,0,1); //vers acier
+        tab.deplacerPerso(1,1,0,1); //vers acier
         System.out.println("\nVers monstre");
-        tab.déplacerPerso(5,0,6,0); //vers monstre
+        tab.deplacerPerso(5,0,6,0); //vers monstre
         System.out.println("\nVers terre");
-        tab.déplacerPerso(3,1,4,1); //vers terre
+        tab.deplacerPerso(3,1,4,1); //vers terre
         System.out.println("\nVers diamant");
-        tab.déplacerPerso(6,1,7,1); //vers diamant
+        tab.deplacerPerso(6,1,7,1); //vers diamant
         System.out.println("\nVers rocher qui bouge");
-        tab.déplacerPerso(0,3,1,3); //vers rocher qui bouge
+        tab.deplacerPerso(0,3,1,3); //vers rocher qui bouge
         System.out.println("\nVers rocher qui bouge pas");
-        tab.déplacerPerso(3,4,2,4); //vers rocher qui bouge pas = pas de déplacement
+        tab.deplacerPerso(3,4,2,4); //vers rocher qui bouge pas = pas de deplacement
 
         System.out.println("\ndeplacer rocher test\n");
-        tab.déplacerObjGravite(5, 7);
-        tab.déplacerObjGravite(5, 8);
-        tab.déplacerObjGravite(5, 9);
+        tab.deplacerObjGravite(5, 7);
+        tab.deplacerObjGravite(5, 8);
+        tab.deplacerObjGravite(5, 9);
 
         System.out.println("\ndeplacer rocher test 2\n");
-        tab.déplacerObjGravite(4, 7);
-        tab.déplacerObjGravite(4, 8);
-        tab.déplacerObjGravite(4, 9);
+        tab.deplacerObjGravite(4, 7);
+        tab.deplacerObjGravite(4, 8);
+        tab.deplacerObjGravite(4, 9);
 
         System.out.println("\ndeplacer rocher test 3\n");
-        tab.déplacerObjGravite(3, 8);
-        tab.déplacerObjGravite(3, 9);
+        tab.deplacerObjGravite(3, 8);
+        tab.deplacerObjGravite(3, 9);
 
         System.out.println("\ndeplacer rocher test 4\n");
-        tab.déplacerObjGravite(1, 8);
-        tab.déplacerObjGravite(1, 7);
-        tab.déplacerObjGravite(0, 8);
-        tab.déplacerObjGravite(2, 8);
-        tab.déplacerObjGravite(0, 9);
-        tab.déplacerObjGravite(2, 9);
+        tab.deplacerObjGravite(1, 8);
+        tab.deplacerObjGravite(1, 7);
+        tab.deplacerObjGravite(0, 8);
+        tab.deplacerObjGravite(2, 8);
+        tab.deplacerObjGravite(0, 9);
+        tab.deplacerObjGravite(2, 9);
 
         System.out.println("\ndeplacer diamant test 1\n");
-        tab.déplacerObjGravite(7, 8);
-        tab.déplacerObjGravite(7, 9);
+        tab.deplacerObjGravite(7, 8);
+        tab.deplacerObjGravite(7, 9);
 
         System.out.println("\ndeplacer diamant test 2\n");
-        tab.déplacerObjGravite(8, 7);
-        tab.déplacerObjGravite(8, 8);
+        tab.deplacerObjGravite(8, 7);
+        tab.deplacerObjGravite(8, 8);
     }
 }

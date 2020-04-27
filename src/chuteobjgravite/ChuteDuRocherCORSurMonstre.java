@@ -2,6 +2,7 @@ package chuteobjgravite;
 
 import entitesvivantes.Monstre;
 import lagrille.Grille;
+import lescases.Diamant;
 import lescases.Rocher;
 import modele.exceptions.BoulderMortException;
 
@@ -25,8 +26,10 @@ public class ChuteDuRocherCORSurMonstre extends ChuteObjGraviteCOR {
         }
 
         grille.getCaseDuTab(cs,ls + 1).getEstIci().setVie(grille.getCaseDuTab(cs, ls+1).getEstIci().getVie()-1);
+        if(grille.getCaseDuTab(cs,ls + 1).getEstIci().getVie() <= 0)
+            grille.setCaseDuTab(cs, ls+1,new Diamant(cs, ls+1));
         grille.verifVieAll();
-        //System.out.println("le rocher a tapé un monstre :\ntableau "+cs+" "+(ls+1)+" = "+grille.getCaseDuTab(cs,ls-1));
+        //System.out.println("le rocher a tape un monstre :\ntableau "+cs+" "+(ls+1)+" = "+grille.getCaseDuTab(cs,ls-1));
         return true;
     }
 

@@ -8,7 +8,7 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
     private DeplacerRockfordCOR suivant;
 
     /**
-     * Chaine de responsabilité
+     * Chaine de responsabilite
      * @param s
      */
     public DeplacerRockfordCOR(DeplacerRockfordCOR s) {
@@ -16,7 +16,7 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
     }
 
     /**
-     * déplace rockford vers un type de case précis
+     * deplace rockford vers un type de case precis
      * @param grille c'est la grille
      * @param cs    colonne source
      * @param ls    ligne source
@@ -28,7 +28,7 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
 
     @Override
     /**
-     * méthode récursive pour traversé tout les maillons de la chaine
+     * methode recursive pour traverse tout les maillons de la chaine
      */
     public boolean deplaceRockford(Grille grille, int cs, int ls, int ct, int lt) throws BoulderMortException {
         if(!(this.deplacerRockfordVersCase(grille, cs, ls, ct, lt))) {
@@ -49,10 +49,10 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
     public static DeplacerRockfordCOR initCOR() {
 
         DeplacerRockfordCORVersVide vide = new DeplacerRockfordCORVersVide(null);
-        DeplacerRockfordCORVersMonstre monstre = new DeplacerRockfordCORVersMonstre(vide);
-        DeplacerRockfordCORVersTerre terre = new DeplacerRockfordCORVersTerre(monstre);
+        DeplacerRockfordCORVersTerre terre = new DeplacerRockfordCORVersTerre(vide);
         DeplacerRockfordCORVersDiamant diamant = new DeplacerRockfordCORVersDiamant(terre);
-        DeplacerRockfordCORVersRocher rocher = new DeplacerRockfordCORVersRocher(diamant);
+        DeplacerRockfordCORVersMonstre monstre = new DeplacerRockfordCORVersMonstre(diamant);
+        DeplacerRockfordCORVersRocher rocher = new DeplacerRockfordCORVersRocher(monstre);
         DeplacerRockfordCORVersAcier acier = new DeplacerRockfordCORVersAcier(rocher);
         return acier;
 

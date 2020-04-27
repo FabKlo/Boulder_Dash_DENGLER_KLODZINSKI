@@ -27,8 +27,8 @@ public class DeplacerRockfordCORVersMonstre extends DeplacerRockfordCOR {
         if(grille.getCaseDuTab(ct,lt).estOccupee() && grille.getCaseDuTab(ct,lt).getEstIci() instanceof Monstre) {
             grille.getCaseDuTab(cs,ls).getEstIci().setVie(grille.getCaseDuTab(cs,ls).getEstIci().getVie() - 1);
             grille.getCaseDuTab(ct,lt).getEstIci().setVie(grille.getCaseDuTab(ct,lt).getEstIci().getVie() - 1);
-            grille.verifVieAll();
             grille.setCaseDuTab(ct,lt, new Vide(ct, lt));
+            grille.verifVieAll();
             Rockford temp = (Rockford) grille.getCaseDuTab(cs,ls).getEstIci();
             temp.setCompteurDiamant(temp.getCompteurDiamant() + 1);
             grille.getCaseDuTab(cs,ls).setEstIci(null);
@@ -39,9 +39,9 @@ public class DeplacerRockfordCORVersMonstre extends DeplacerRockfordCOR {
             System.out.println("tableau["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName() +
             ", personnage dessus : " + grille.getCaseDuTab(cs,ls).getEstIci());  
 
-            System.out.println("vie de rockford situé en x = " + ct + " y = " + lt +
+            System.out.println("vie de rockford situe en x = " + ct + " y = " + lt +
             " : " + grille.getCaseDuTab(ct,lt).getEstIci().getVie());
-            System.out.println("nbr de diamants de rockford situé en x = " + ct + " y = " + lt +
+            System.out.println("nbr de diamants de rockford situe en x = " + ct + " y = " + lt +
             " : " + ((Rockford)(grille.getCaseDuTab(ct,lt).getEstIci())).getCompteurDiamant());*/
             return true;
         }

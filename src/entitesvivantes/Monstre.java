@@ -12,7 +12,7 @@ public class Monstre extends Personnage {
 	public static final String BAS = "bas";
 
     /**
-     * Création d'un monstre avec vie = 1
+     * Creation d'un monstre avec vie = 1
      */
     public Monstre(){
         setVie(1);

@@ -1,10 +1,8 @@
 package application;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import entitesvivantes.Monstre;
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
 import javafx.animation.Animation;
@@ -39,20 +37,17 @@ public class FenetrePrincipale extends Application {
 	private Timeline timelineChute;
 	private Timeline timelineMonstre;
 
-	private int tailleImageX = 45;
-	private int tailleImageY = 45;
+	private int tailleImageX = 64;
+	private int tailleImageY = 64;
 
 
-	// YL : Les déclarations ci-dessous devront être remplacées par des classes et
+	// YL : Les declarations ci-dessous devront etre remplacees par des classes et
 	// des
-	// objets que vous devez développer
+	// objets que vous devez developper
 	// <----
 
 	private HashMap<Integer, Image> tabImage;
 	public Grille grille = new Grille();
-	private ArrayList<Case> allRocherEtDiamant;
-	private ArrayList<Personnage> allPers;
-	private ArrayList<Monstre> allMonstres;
 
 	private int xRockford;
 	private int yRockford;
@@ -82,7 +77,7 @@ public class FenetrePrincipale extends Application {
 
 			initFooter();
 			chuteItem(primaryStage);
-			deplacementMonstre();
+			deplacementMonstre(primaryStage);
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -93,15 +88,15 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * fenêtre qui s'ouvre en cas de victoire sur tout les niveaux
-	 * @param primaryStage la scène
+	 * fenetre qui s'ouvre en cas de victoire sur tout les niveaux
+	 * @param primaryStage la scene
 	 */
 	private void initGagner(Stage primaryStage) {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
 		
-		dialog.setTitle("Et c'est gagné !");
-		dialog.setHeaderText("Vous avez fini le jeu, félicitation !");
+		dialog.setTitle("Et c'est gagne !");
+		dialog.setHeaderText("Vous avez fini le jeu, felicitation !");
 
 		ButtonType quitter = new ButtonType("Quitter", ButtonData.CANCEL_CLOSE);
 		dialog.getButtonTypes().setAll(quitter);
@@ -117,16 +112,16 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * fenêtre qui s'ouvre quand un niveau est fini, et propose de lancer le suivant ou de quitter le jeu
-	 * @param primaryStage la scène
+	 * fenetre qui s'ouvre quand un niveau est fini, et propose de lancer le suivant ou de quitter le jeu
+	 * @param primaryStage la scene
 	 * @throws IOException
 	 */
 	private void initSuivant(Stage primaryStage) throws IOException {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
 		
-		dialog.setTitle("Bien joué !");
-		dialog.setHeaderText("Vous avez gagné, vous pouvez continuer !");
+		dialog.setTitle("Bien joue !");
+		dialog.setHeaderText("Vous avez gagne, vous pouvez continuer !");
 
 		ButtonType suivant = new ButtonType("continuer");
 		ButtonType quitter = new ButtonType("Quitter", ButtonData.CANCEL_CLOSE);
@@ -142,7 +137,7 @@ public class FenetrePrincipale extends Application {
 			
 			grille.setNiveau(grille.getNiveau()+1);
 			try {
-				start(primaryStage);;
+				start(primaryStage);
 
 			} catch (Exception e) {
 				initGagner(primaryStage);
@@ -156,14 +151,14 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * fenêtre qui s'ouvre quand l'on échoue dans le niveau, et propose de recommencer ou de quitter
-	 * @param primaryStage  la scène
+	 * fenetre qui s'ouvre quand l'on echoue dans le niveau, et propose de recommencer ou de quitter
+	 * @param primaryStage  la scene
 	 */
 	private void initPerdu(Stage primaryStage) {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
 		
-		dialog.setTitle("Défaite");
+		dialog.setTitle("Defaite");
 		dialog.setHeaderText("Vous avez perdu, voulez-vous rejouer ?");
 
 		ButtonType oui = new ButtonType("Oui");
@@ -192,7 +187,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * initialise la Hashmap avec toutes les images nécessaires
+	 * initialise la Hashmap avec toutes les images necessaires
 	 */
 	private void initImages() {
 		tabImage = new HashMap<Integer, Image>();
@@ -229,24 +224,21 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * initialise la grille grâce a la fonction dans Grille.java
-	 * Initialise aussi la taille de la fenêtre, et les coordonnées de Rockford
+	 * initialise la grille grace a la fonction dans Grille.java
+	 * Initialise aussi la taille de la fenetre, et les coordonnees de Rockford
 	 * @throws IOException
 	 */
 	private void initGrille() throws IOException {
 
 		grille.creerGrille();
-		
-		allPers = grille.searchAllPers();
-		allMonstres = grille.searchAllMonstre();
 
-		for (Personnage p : allPers) {
+		for (Personnage p : Grille.allPers) {
 			if(p instanceof Rockford) {
 				yRockford = p.getPositionY();
 				xRockford = p.getPositionX();
 			}
 		}
-		allRocherEtDiamant = grille.searchAllObjetSoumisParLaGravite();
+		
 
 		int lGrille = tailleImageX * grille.getXMAX();
 		int hGrille = tailleImageY * grille.getYMAX();
@@ -258,7 +250,7 @@ public class FenetrePrincipale extends Application {
 
 
 	/**
-	 * Selon le bouton appuyé, rockford se déplace vers une direction 
+	 * Selon le bouton appuye, rockford se deplace vers une direction 
 	 */
 	private final class HandlerClavier implements EventHandler<KeyEvent> {
 		public void handle(KeyEvent ke) {
@@ -271,7 +263,7 @@ public class FenetrePrincipale extends Application {
 					case Z: {
 						try {
 							if(yRockford - 1 >= 0) {
-								if(grille.déplacerPerso(xRockford, yRockford, xRockford, yRockford - 1))
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford - 1))
 									yRockford -= 1;
 							}
 							
@@ -283,7 +275,7 @@ public class FenetrePrincipale extends Application {
 					case S: {
 						try {
 							if(yRockford + 1 < grille.getYMAX()) {
-								if(grille.déplacerPerso(xRockford, yRockford, xRockford, yRockford + 1))
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford + 1))
 									yRockford += 1;
 							}
 							
@@ -295,7 +287,7 @@ public class FenetrePrincipale extends Application {
 					case D: {
 						try {
 							if(xRockford + 1 < grille.getXMAX()) {
-								if(grille.déplacerPerso(xRockford, yRockford, xRockford + 1, yRockford))
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford + 1, yRockford))
 									xRockford += 1;
 							}
 							
@@ -307,7 +299,7 @@ public class FenetrePrincipale extends Application {
 					case Q: {
 						try {
 							if(xRockford - 1 >= 0) {
-								if(grille.déplacerPerso(xRockford, yRockford, xRockford - 1, yRockford))
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford - 1, yRockford))
 									xRockford -= 1;
 							}
 							
@@ -335,48 +327,21 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * fait chuter tout les rochers et diamants grâce à une keyframe qui boucle à l'infini
-	 * et, étant une keyframe qui boucle très rapidement, je vérifie ici si on a gagné ou perdu
+	 * fait chuter tout les rochers et diamants grace a une keyframe qui boucle a l'infini
+	 * et, etant une keyframe qui boucle tres rapidement, je verifie ici si on a gagne ou perdu
 	 */
 	private void chuteItem(Stage primaryStage) {
-		KeyFrame chuteItem = new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
+		KeyFrame chuteItem = new KeyFrame(Duration.seconds(0.18), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 
-				for (Case c : allRocherEtDiamant) {
-					
-					if(c.getPositionY() < grille.getYMAX()) {
-						try {
-							grille.déplacerObjGravite(c.getPositionX(), c.getPositionY());
-							allRocherEtDiamant = grille.searchAllObjetSoumisParLaGravite(); //si ça écrase un monstre, ajoute son diamant créé dans l'arraylist
-						} catch (BoulderMortException e) {							
-							e.printStackTrace();
-						}
-					}
+				grille.chuteItem();
 
-					if(grille.verifObjectif()) {
-						try {
-							initSuivant(primaryStage);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						timelineChute.stop();
-						timelineMonstre.stop();
-						break;
-					}
+				changementFenetre(primaryStage);
 
-					if(grille.getCaseDuTab(xRockford, yRockford).getEstIci().getVie() <= 0) {
-						initPerdu(primaryStage);
-						timelineChute.stop();
-						timelineMonstre.stop();
-						break;
-					}
-
-					dessinerGrille();
-				}	
-
-				
+				dessinerGrille();
+	
 				rockfordPeutSeDepl = true;
 	
 			}
@@ -389,79 +354,18 @@ public class FenetrePrincipale extends Application {
 
 	}
 
-	private void deplacementMonstre() {
-		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
+	private void deplacementMonstre(Stage primaryStage) {
+		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.18), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				for (Monstre m : allMonstres) {
 
-					switch(m.getDirection()) {
-						case Monstre.DROITE:
-							try {
-								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
-										m.getPositionY()))
-									m.setDirection(Monstre.BAS);
+				grille.mouvementMonstres();
 
-							} catch (BoulderMortException e) {
-								e.printStackTrace();
-							}
-		
+				changementFenetre(primaryStage);
 
-							break;
-
-						case Monstre.BAS:
-							try {
-								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
-										m.getPositionY() + 1))
-									m.setDirection(Monstre.GAUCHE);
-							} catch (BoulderMortException e) {
-								e.printStackTrace();
-							}
-
-							break;
-							
-						case Monstre.GAUCHE:
-							try {
-								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
-										m.getPositionY()))
-									m.setDirection(Monstre.HAUT);
-							} catch (BoulderMortException e) {
-								e.printStackTrace();
-							}
-							break;
-
-						case Monstre.HAUT:
-							try {
-								if (!grille.déplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
-										m.getPositionY() - 1))
-									m.setDirection(Monstre.DROITE);
-							} catch (BoulderMortException e) {
-								e.printStackTrace();
-							}
-
-							break;
-
-						default:
-
-					}
-
-					if(grille.verifObjectif()) {
-						timelineChute.stop();
-						timelineMonstre.stop();
-						break;
-					}
-
-					if(grille.getCaseDuTab(xRockford, yRockford).getEstIci().getVie() <= 0) {
-						timelineChute.stop();
-						timelineMonstre.stop();
-						break;
-					}
-
-					dessinerGrille();
-				}	
-	
-			}
+				dessinerGrille();
+			}	
 
 		});
 
@@ -469,6 +373,24 @@ public class FenetrePrincipale extends Application {
 		timelineMonstre.setCycleCount(Animation.INDEFINITE);
 		timelineMonstre.play();
 
+	}
+
+	private void changementFenetre(Stage primaryStage) {
+		if(grille.mortRockford(xRockford, yRockford)) {
+			timelineChute.stop();
+			timelineMonstre.stop();
+			initPerdu(primaryStage);
+		}
+			
+		else if (grille.verifObjectif()) {
+			try {
+				timelineChute.stop();
+				timelineMonstre.stop();
+				initSuivant(primaryStage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static void main(String[] args) {

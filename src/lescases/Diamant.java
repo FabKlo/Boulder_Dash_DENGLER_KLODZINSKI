@@ -26,14 +26,14 @@ public class Diamant extends Case {
                 p.setPositionX(this.getPositionX());
                 p.setPositionY(this.getPositionY());
                 this.setEstIci(p);
-                System.out.println("le personnage " + p.getClass().getSimpleName() + " peut être sur cette case qui est un diamant");
+                System.out.println("le personnage " + p.getClass().getSimpleName() + " peut etre sur cette case qui est un diamant");
             }
             else
-                System.out.println("le personnage " + p.getClass().getSimpleName() + " ne peut pas être sur cette case qui est un diamant");
+                System.out.println("le personnage " + p.getClass().getSimpleName() + " ne peut pas etre sur cette case qui est un diamant");
 
         }
         else
-            System.out.println("cette case est déjà occupé par " + this.getEstIci().getClass().getSimpleName());
+            System.out.println("cette case est deja occupe par " + this.getEstIci().getClass().getSimpleName());
     }
 
     public boolean isEnMouvement() {

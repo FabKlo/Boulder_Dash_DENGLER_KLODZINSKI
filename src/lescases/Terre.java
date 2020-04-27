@@ -21,8 +21,8 @@ public class Terre extends Case {
                 p.setPositionX(this.getPositionX());
                 p.setPositionY(this.getPositionY());
                 this.setEstIci(p);
-                /*System.out.println("Le personnage " + p.getClass().getSimpleName() + " est positionné sur la case " +
-                this.getClass().getSimpleName() + " de coordonnée : x = " + p.getPositionX() + ", y = " + p.getPositionY()); */
+                /*System.out.println("Le personnage " + p.getClass().getSimpleName() + " est positionne sur la case " +
+                this.getClass().getSimpleName() + " de coordonnee : x = " + p.getPositionX() + ", y = " + p.getPositionY()); */
             }
         }	
     }

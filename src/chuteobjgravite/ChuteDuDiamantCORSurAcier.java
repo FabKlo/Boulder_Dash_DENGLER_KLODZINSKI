@@ -18,7 +18,7 @@ public class ChuteDuDiamantCORSurAcier extends ChuteObjGraviteCOR {
         }
 
         if(ls + 1 >= grille.getYMAX()) {
-            //System.out.println("Le diamant est déjà tout en bas !");
+            //System.out.println("Le diamant est deja tout en bas !");
             ((Diamant)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false);
             return true;
         }

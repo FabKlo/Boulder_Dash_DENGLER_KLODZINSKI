@@ -12,7 +12,7 @@ public class AfficheurDiamantRockford implements Observateur {
 	private	Label vieRockford = new Label();
 	private Rockford rockford;
 	
-	private final static String LABEL = "Diamants ramassés par Rockford : ";
+	private final static String LABEL = "Diamants ramasses par Rockford : ";
 
 	public AfficheurDiamantRockford(Pane panneau, Rockford rockford) {
 		panneau.getChildren().add(vieRockford);
