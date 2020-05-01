@@ -36,7 +36,7 @@ public class Grille {
 
 
     public Grille() {
-        niveau = 1;
+        niveau = 5;
     }
 
     /**
@@ -102,7 +102,138 @@ public class Grille {
 
         for(Monstre m : Grille.allMonstres) {
             switch(m.getDirection()) {
+
+                case Monstre.GAUCHE:
+                    try {
+
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                            m.getPositionY() + 1)) {
+
+                                if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
+                                    m.getPositionY())) {
+
+                                        if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                            m.getPositionY() - 1)) {
+
+                                                deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
+                                                m.getPositionY());
+                                                m.setDirection(Monstre.DROITE);
+
+                                        }
+                                        else
+                                            m.setDirection(Monstre.HAUT);
+
+                                }
+
+                        } else 
+                            m.setDirection(Monstre.BAS);
+                                
+
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
+                case Monstre.BAS:
+                    try {
+
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
+                            m.getPositionY())) {
+
+                                if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                    m.getPositionY() + 1)) {
+
+                                        if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
+                                            m.getPositionY())) {
+
+                                                deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                                m.getPositionY() - 1);
+                                                m.setDirection(Monstre.HAUT);
+
+                                        }
+                                        else
+                                            m.setDirection(Monstre.GAUCHE);
+
+                                }
+
+                        } else 
+                            m.setDirection(Monstre.DROITE);
+                                
+
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
                 case Monstre.DROITE:
+                    try {
+
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                            m.getPositionY() - 1)) {
+
+                                if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
+                                    m.getPositionY())) {
+
+                                        if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                            m.getPositionY() + 1)) {
+
+                                                deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
+                                                m.getPositionY());
+                                                m.setDirection(Monstre.GAUCHE);
+
+                                        }
+                                        else
+                                            m.setDirection(Monstre.BAS);
+
+                                }
+
+                        } else 
+                            m.setDirection(Monstre.HAUT);
+                                
+
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case Monstre.HAUT:
+                    try {
+
+                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
+                            m.getPositionY())) {
+
+                                if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                    m.getPositionY() - 1)) {
+
+                                        if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
+                                            m.getPositionY())) {
+
+                                                deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                                                m.getPositionY() + 1);
+                                                m.setDirection(Monstre.BAS);
+
+                                        }
+                                        else
+                                            m.setDirection(Monstre.DROITE);
+
+                                }
+
+                        } else 
+                            m.setDirection(Monstre.GAUCHE);
+                                
+
+                    } catch (BoulderMortException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+
+
+
+
+                /*case Monstre.DROITE:
                     try {
                         if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
                                 m.getPositionY()))
@@ -147,7 +278,7 @@ public class Grille {
 
                     break;
 
-                default:
+                default:*/
 
             }
         }

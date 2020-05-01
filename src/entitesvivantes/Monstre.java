@@ -17,7 +17,7 @@ public class Monstre extends Personnage {
     public Monstre(){
         setVie(1);
         addCasesTraversables(Vide.class.getSimpleName());
-        setDirection(DROITE);
+        setDirection(GAUCHE);
     }
 
     public String getDirection() {
