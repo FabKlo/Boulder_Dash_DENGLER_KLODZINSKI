@@ -54,7 +54,9 @@ public abstract class DeplacerRockfordCOR implements DeplacerRockford {
         DeplacerRockfordCORVersMonstre monstre = new DeplacerRockfordCORVersMonstre(diamant);
         DeplacerRockfordCORVersRocher rocher = new DeplacerRockfordCORVersRocher(monstre);
         DeplacerRockfordCORVersAcier acier = new DeplacerRockfordCORVersAcier(rocher);
-        return acier;
+        DeplacerRockfordCORVersSortie sortie = new DeplacerRockfordCORVersSortie(acier);
+        
+        return sortie;
 
     }
 

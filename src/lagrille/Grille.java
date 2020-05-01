@@ -70,7 +70,27 @@ public class Grille {
      * @throws BoulderMortException
      */
     public void deplacerObjGravite(int cs, int ls) throws BoulderMortException {
-        corObjGravite.deplaceRocher(this, cs, ls);
+        corObjGravite.deplaceObjGravite(this, cs, ls);
+    }
+
+    public Sortie chercheSortie() {
+
+        for(int i = XMAX-1; i >= 0; i--) {
+            for(int j = YMAX-1; j >= 0; j--) {
+                if(tableau[i][j] instanceof Sortie) {
+                    return (Sortie)(tableau[i][j]);
+                }
+                    
+            }
+        }
+
+        return null;
+    }
+
+    public void ouvrirSortie(Sortie s) {
+        if(verifObjectif()) {
+            s.setPorteOuverte(true);
+        }
     }
 
     /**
@@ -106,8 +126,8 @@ public class Grille {
                 case Monstre.GAUCHE:
                     try {
 
-                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
-                            m.getPositionY() + 1)) {
+                        if (!(deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
+                            m.getPositionY() + 1))) {
 
                                 if(!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
                                     m.getPositionY())) {
@@ -486,6 +506,9 @@ public class Grille {
             break;
         case 'A':
             typeDeCase = new Acier(x,y);
+            break;
+        case 'S':
+            typeDeCase = new Sortie(x,y);
             break;
         case 'R':
             typeDeCase = new Rocher(x,y);

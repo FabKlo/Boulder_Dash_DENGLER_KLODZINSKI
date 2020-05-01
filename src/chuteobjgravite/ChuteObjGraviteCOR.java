@@ -24,16 +24,16 @@ public abstract class ChuteObjGraviteCOR implements ChuteObjGravite {
      * @param lt    ligne target
      * @return faux s'il l'effectue pas, true si oui
      */
-    protected abstract boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException;
+    protected abstract boolean deplacerObjGraviteVersCase(Grille grille, int cs, int ls) throws BoulderMortException;
 
     @Override
     /**
      * methode recursive pour traverse tout les maillons de la chaine
      */
-    public boolean deplaceRocher(Grille grille, int cs, int ls) throws BoulderMortException {
-        if(!(this.deplacerRocherVersCase(grille, cs, ls))) {
+    public boolean deplaceObjGravite(Grille grille, int cs, int ls) throws BoulderMortException {
+        if(!(this.deplacerObjGraviteVersCase(grille, cs, ls))) {
             if(suivant != null) {
-                return suivant.deplaceRocher(grille, cs, ls);
+                return suivant.deplaceObjGravite(grille, cs, ls);
             }
             else
                 return false;
@@ -55,16 +55,18 @@ public abstract class ChuteObjGraviteCOR implements ChuteObjGravite {
         ChuteDuDiamantCORSurRocher diamantSurRocher = new ChuteDuDiamantCORSurRocher(diamantSurDiamant);
         ChuteDuDiamantCORSurTerre diamantSurTerre = new ChuteDuDiamantCORSurTerre(diamantSurRocher);
         ChuteDuDiamantCORSurAcier diamantSurAcier = new ChuteDuDiamantCORSurAcier(diamantSurTerre);
+        ChuteDuDiamantCORSurSortie diamantSurSortie = new ChuteDuDiamantCORSurSortie(diamantSurAcier);
 
-        ChuteDuRocherCORSurVide rocherSurVide = new ChuteDuRocherCORSurVide(diamantSurAcier);
+        ChuteDuRocherCORSurVide rocherSurVide = new ChuteDuRocherCORSurVide(diamantSurSortie);
         ChuteDuRocherCORSurMonstre rocherSurMonstre = new ChuteDuRocherCORSurMonstre(rocherSurVide);
         ChuteDuRocherCORSurRockford rocherSurRockford = new ChuteDuRocherCORSurRockford(rocherSurMonstre);
         ChuteDuRocherCORSurDiamant rocherSurDiamant = new ChuteDuRocherCORSurDiamant(rocherSurRockford);
         ChuteDuRocherCORSurRocher rocherSurRocher = new ChuteDuRocherCORSurRocher(rocherSurDiamant);
         ChuteDuRocherCORSurTerre rocherSurTerre = new ChuteDuRocherCORSurTerre(rocherSurRocher);
         ChuteDuRocherCORSurAcier rocherSurAcier = new ChuteDuRocherCORSurAcier(rocherSurTerre);
+        ChuteDuRocherCORSurSortie rocherSurSortie = new ChuteDuRocherCORSurSortie(rocherSurAcier);
 
-        return rocherSurAcier;
+        return rocherSurSortie;
     }
 
 }

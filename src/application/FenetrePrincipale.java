@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lagrille.Grille;
 import lescases.Case;
+import lescases.Sortie;
 import modele.exceptions.BoulderMortException;
 import ui.PanneauFooter;
 import javafx.scene.Scene;
@@ -36,6 +37,7 @@ public class FenetrePrincipale extends Application {
 
 	private Timeline timelineChute;
 	private Timeline timelineMonstre;
+	private Timeline timelineSortie;
 
 	private int tailleImageX = 40;
 	private int tailleImageY = 40;
@@ -52,6 +54,8 @@ public class FenetrePrincipale extends Application {
 	private int xRockford;
 	private int yRockford;
 	private boolean rockfordPeutSeDepl = true;
+
+	private Sortie laSortie;
 
 	// --->
 
@@ -76,8 +80,10 @@ public class FenetrePrincipale extends Application {
 			dessinerGrille();
 
 			initFooter();
+
 			chuteItem(primaryStage);
 			deplacementMonstre(primaryStage);
+			sortie(primaryStage);
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -192,6 +198,8 @@ public class FenetrePrincipale extends Application {
 	private void initImages() {
 		tabImage = new HashMap<Integer, Image>();
 		Image image;
+		image = new Image(getClass().getResourceAsStream("/Sortie.gif"),tailleImageX,tailleImageY,false,false);
+		tabImage.put(7, image);
 		image = new Image(getClass().getResourceAsStream("/Terre.png"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(6, image);
 		image = new Image(getClass().getResourceAsStream("/Rocher.png"),tailleImageX,tailleImageY,false,false);
@@ -238,6 +246,8 @@ public class FenetrePrincipale extends Application {
 				xRockford = p.getPositionX();
 			}
 		}
+
+		laSortie = grille.chercheSortie();
 		
 
 		int lGrille = tailleImageX * grille.getXMAX();
@@ -326,6 +336,28 @@ public class FenetrePrincipale extends Application {
 		((BorderPane) root).setBottom(panneauFooter);
 	}
 
+	private void sortie(Stage primaryStage) {
+		KeyFrame sortie = new KeyFrame(Duration.seconds(0.18), new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				grille.ouvrirSortie(laSortie);
+
+				changementFenetre(primaryStage);
+
+				dessinerGrille();
+	
+			}
+	
+		});
+	
+		timelineSortie = new Timeline(sortie);
+		timelineSortie.setCycleCount(Animation.INDEFINITE);
+		timelineSortie.play();
+
+	}
+
 	/**
 	 * fait chuter tout les rochers et diamants grace a une keyframe qui boucle a l'infini
 	 * et, etant une keyframe qui boucle tres rapidement, je verifie ici si on a gagne ou perdu
@@ -355,7 +387,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	private void deplacementMonstre(Stage primaryStage) {
-		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.18), new EventHandler<ActionEvent>() {
+		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.4), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -376,20 +408,26 @@ public class FenetrePrincipale extends Application {
 	}
 
 	private void changementFenetre(Stage primaryStage) {
+
 		if(grille.mortRockford(xRockford, yRockford)) {
 			timelineChute.stop();
 			timelineMonstre.stop();
+			timelineSortie.stop();
 			initPerdu(primaryStage);
 		}
 			
-		else if (grille.verifObjectif()) {
-			try {
-				timelineChute.stop();
-				timelineMonstre.stop();
-				initSuivant(primaryStage);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		else if (laSortie.isPorteOuverte()) {
+			timelineSortie.stop();
+			if(laSortie.estOccupee() && laSortie.getEstIci() instanceof Rockford) {
+				try {
+					timelineChute.stop();
+					timelineMonstre.stop();
+					//timelineSortie.stop();
+					initSuivant(primaryStage);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}	
 		}
 	}
 

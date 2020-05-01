@@ -13,5 +13,5 @@ public interface ChuteObjGravite {
      * @return vrai si le deplacement est effectue, faux si non
      * @throws BoulderMortException rockford est mort !
      */
-    public boolean deplaceRocher(Grille grille, int cs, int ls) throws BoulderMortException;
+    public boolean deplaceObjGravite(Grille grille, int cs, int ls) throws BoulderMortException;
 }

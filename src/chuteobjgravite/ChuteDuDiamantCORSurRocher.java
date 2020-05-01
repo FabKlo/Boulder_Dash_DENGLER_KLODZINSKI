@@ -12,7 +12,7 @@ public class ChuteDuDiamantCORSurRocher extends ChuteObjGraviteCOR {
     }
 
     @Override
-    protected boolean deplacerRocherVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
+    protected boolean deplacerObjGraviteVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
 
         if(!(grille.getCaseDuTab(cs,ls) instanceof Diamant)) {
             return false;

@@ -1,30 +1,29 @@
 package chuteobjgravite;
 
 import lagrille.Grille;
-import lescases.Acier;
 import lescases.Rocher;
+import lescases.Sortie;
 import modele.exceptions.BoulderMortException;
 
-public class ChuteDuRocherCORSurAcier extends ChuteObjGraviteCOR {
+public class ChuteDuRocherCORSurSortie extends ChuteObjGraviteCOR {
 
-    public ChuteDuRocherCORSurAcier(ChuteObjGraviteCOR s) {
+    public ChuteDuRocherCORSurSortie(ChuteObjGraviteCOR s) {
         super(s);
     }
 
     @Override
     protected boolean deplacerObjGraviteVersCase(Grille grille, int cs, int ls) throws BoulderMortException {
-        if(!(grille.getCaseDuTab(cs,ls) instanceof Rocher)) {
-            //System.out.println("la case source n'est pas un rocher");
+        if(!(grille.getCaseDuTab(cs,ls) instanceof Rocher)){
             return false;
         }
 
         if(ls + 1 >= grille.getYMAX()) {
-            //System.out.println("Le rocher est deja tout en bas !");
+            //System.out.println("Le diamant est deja tout en bas !");
             ((Rocher)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false);
             return true;
         }
 
-        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Acier)) {
+        if(!(grille.getCaseDuTab(cs,ls+1) instanceof Sortie)) {
             //System.out.println("la case target n'est pas de l'acier");
             return false;
         }
@@ -32,5 +31,5 @@ public class ChuteDuRocherCORSurAcier extends ChuteObjGraviteCOR {
         ((Rocher)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false);
         return true;
     }
-
+    
 }
