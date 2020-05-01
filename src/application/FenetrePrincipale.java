@@ -200,19 +200,19 @@ public class FenetrePrincipale extends Application {
 		Image image;
 		image = new Image(getClass().getResourceAsStream("/Sortie.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(7, image);
-		image = new Image(getClass().getResourceAsStream("/Terre.png"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Terre.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(6, image);
-		image = new Image(getClass().getResourceAsStream("/Rocher.png"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Rocher.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(5, image);
-		image = new Image(getClass().getResourceAsStream("/Monstre.png"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Monstre.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(4, image);
-		image = new Image(getClass().getResourceAsStream("/Diamant.png"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Diamant.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(3, image);
-		image = new Image(getClass().getResourceAsStream("/Acier.png"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Acier.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(2, image);
-		image = new Image(getClass().getResourceAsStream("/Rockford.png"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Rockford.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(1, image);
-		image = new Image(getClass().getResourceAsStream("/Vide.png"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Vide.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(0, image);
 	}
 

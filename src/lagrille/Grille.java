@@ -36,7 +36,7 @@ public class Grille {
 
 
     public Grille() {
-        niveau = 5;
+        niveau = 7;
     }
 
     /**
