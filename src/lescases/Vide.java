@@ -1,7 +1,9 @@
 package lescases;
 
 
+import entitesvivantes.Luciole;
 import entitesvivantes.Monstre;
+import entitesvivantes.Papillon;
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
 
@@ -35,8 +37,13 @@ public class Vide extends Case {
         if((this.estOccupee())) {
             if(this.getEstIci() instanceof Rockford)
                 return 1;
-            else if(this.getEstIci() instanceof Monstre)
-                return 4;
+            else if(this.getEstIci() instanceof Monstre) {
+                if(this.getEstIci() instanceof Papillon)
+                    return 4;
+                else if(this.getEstIci() instanceof Luciole)
+                    return 8;
+            }
+                
         }
             
         return 0;

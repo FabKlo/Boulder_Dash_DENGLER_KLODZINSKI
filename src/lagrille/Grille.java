@@ -10,7 +10,9 @@ import java.util.List;
 import chuteobjgravite.ChuteObjGraviteCOR;
 import deplacementmonstre.DeplacerMonstreCOR;
 import deplacementrockford.DeplacerRockfordCOR;
+import entitesvivantes.Luciole;
 import entitesvivantes.Monstre;
+import entitesvivantes.Papillon;
 import entitesvivantes.Personnage;
 import entitesvivantes.Rockford;
 import lescases.*;
@@ -36,7 +38,7 @@ public class Grille {
 
 
     public Grille() {
-        niveau = 7;
+        niveau = 1;
     }
 
     /**
@@ -73,6 +75,10 @@ public class Grille {
         corObjGravite.deplaceObjGravite(this, cs, ls);
     }
 
+    /**
+     * 
+     * @return la case qui correspond à la sortie dans la grille
+     */
     public Sortie chercheSortie() {
 
         for(int i = XMAX-1; i >= 0; i--) {
@@ -87,6 +93,11 @@ public class Grille {
         return null;
     }
 
+
+    /**
+     * Ouvre la sortie si et seulement si l'objectif du tableau est rempli
+     * @param s la sortie de la grille
+     */
     public void ouvrirSortie(Sortie s) {
         if(verifObjectif()) {
             s.setPorteOuverte(true);
@@ -522,9 +533,14 @@ public class Grille {
             typeDeCase = new Diamant(x,y);
             break;
 
-        case 'M':
+        case 'L':
             typeDeCase = new Vide(x,y);
-            typeDeCase.mettrePersoSurCase(new Monstre());
+            typeDeCase.mettrePersoSurCase(new Luciole());
+            break;
+
+        case 'P':
+            typeDeCase = new Vide(x,y);
+            typeDeCase.mettrePersoSurCase(new Papillon());
             break;
 
         case 'E':

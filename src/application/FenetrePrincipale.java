@@ -38,6 +38,7 @@ public class FenetrePrincipale extends Application {
 	private Timeline timelineChute;
 	private Timeline timelineMonstre;
 	private Timeline timelineSortie;
+	private Timeline timelineDessin;
 
 	private int tailleImageX = 40;
 	private int tailleImageY = 40;
@@ -81,9 +82,11 @@ public class FenetrePrincipale extends Application {
 
 			initFooter();
 
-			chuteItem(primaryStage);
-			deplacementMonstre(primaryStage);
-			sortie(primaryStage);
+			dessin(primaryStage);
+			sortie();
+			chuteItem();
+			deplacementMonstre();
+			
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -198,13 +201,15 @@ public class FenetrePrincipale extends Application {
 	private void initImages() {
 		tabImage = new HashMap<Integer, Image>();
 		Image image;
+		image = new Image(getClass().getResourceAsStream("/Luciole.gif"),tailleImageX,tailleImageY,false,false);
+		tabImage.put(8, image);
 		image = new Image(getClass().getResourceAsStream("/Sortie.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(7, image);
 		image = new Image(getClass().getResourceAsStream("/Terre.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(6, image);
 		image = new Image(getClass().getResourceAsStream("/Rocher.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(5, image);
-		image = new Image(getClass().getResourceAsStream("/Monstre.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/Papillon.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(4, image);
 		image = new Image(getClass().getResourceAsStream("/Diamant.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(3, image);
@@ -273,8 +278,11 @@ public class FenetrePrincipale extends Application {
 					case Z: {
 						try {
 							if(yRockford - 1 >= 0) {
-								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford - 1))
-									yRockford -= 1;
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford - 1)) {
+									yRockford -= 1;	
+								}
+									
+								
 							}
 							
 						} catch (BoulderMortException e) {
@@ -285,8 +293,10 @@ public class FenetrePrincipale extends Application {
 					case S: {
 						try {
 							if(yRockford + 1 < grille.getYMAX()) {
-								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford + 1))
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford + 1)) {
 									yRockford += 1;
+								}
+									
 							}
 							
 						} catch (BoulderMortException e) {
@@ -297,8 +307,10 @@ public class FenetrePrincipale extends Application {
 					case D: {
 						try {
 							if(xRockford + 1 < grille.getXMAX()) {
-								if(grille.deplacerPerso(xRockford, yRockford, xRockford + 1, yRockford))
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford + 1, yRockford)) {
 									xRockford += 1;
+								}
+									
 							}
 							
 						} catch (BoulderMortException e) {
@@ -309,8 +321,10 @@ public class FenetrePrincipale extends Application {
 					case Q: {
 						try {
 							if(xRockford - 1 >= 0) {
-								if(grille.deplacerPerso(xRockford, yRockford, xRockford - 1, yRockford))
+								if(grille.deplacerPerso(xRockford, yRockford, xRockford - 1, yRockford)) {
 									xRockford -= 1;
+								}
+									
 							}
 							
 						} catch (BoulderMortException e) {
@@ -326,7 +340,7 @@ public class FenetrePrincipale extends Application {
 				rockfordPeutSeDepl = false;
 			}
 			
-			dessinerGrille();
+			//dessinerGrille();
 
 		}
 	}
@@ -336,18 +350,41 @@ public class FenetrePrincipale extends Application {
 		((BorderPane) root).setBottom(panneauFooter);
 	}
 
-	private void sortie(Stage primaryStage) {
-		KeyFrame sortie = new KeyFrame(Duration.seconds(0.18), new EventHandler<ActionEvent>() {
+	/**
+	 * dessine la grille dans un laps de temps très court : permet une bonne fluidité des gifs
+	 */
+	private void dessin(Stage primaryStage) {
+		KeyFrame dessin = new KeyFrame(Duration.seconds(0.05), new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+
+				dessinerGrille();
+				changementFenetre(primaryStage);
+	
+			}
+	
+		});
+	
+		timelineDessin = new Timeline(dessin);
+		timelineDessin.setCycleCount(Animation.INDEFINITE);
+		timelineDessin.play();
+
+	}
+
+	/**
+	 * Vérifie dans un laps de temps court si la case de sortie peut-être ouverte ou non
+	 * Cette timeline s'arrête quand cette case de sortie est ouverte
+	 * @param primaryStage la scène
+	 */
+	private void sortie() {
+		KeyFrame sortie = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 
 				grille.ouvrirSortie(laSortie);
 
-				changementFenetre(primaryStage);
-
-				dessinerGrille();
-	
 			}
 	
 		});
@@ -362,18 +399,13 @@ public class FenetrePrincipale extends Application {
 	 * fait chuter tout les rochers et diamants grace a une keyframe qui boucle a l'infini
 	 * et, etant une keyframe qui boucle tres rapidement, je verifie ici si on a gagne ou perdu
 	 */
-	private void chuteItem(Stage primaryStage) {
+	private void chuteItem() {
 		KeyFrame chuteItem = new KeyFrame(Duration.seconds(0.18), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 
 				grille.chuteItem();
-
-				changementFenetre(primaryStage);
-
-				dessinerGrille();
-	
 				rockfordPeutSeDepl = true;
 	
 			}
@@ -386,17 +418,14 @@ public class FenetrePrincipale extends Application {
 
 	}
 
-	private void deplacementMonstre(Stage primaryStage) {
-		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.4), new EventHandler<ActionEvent>() {
+	private void deplacementMonstre() {
+		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.35), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 
 				grille.mouvementMonstres();
 
-				changementFenetre(primaryStage);
-
-				dessinerGrille();
 			}	
 
 		});
@@ -413,6 +442,7 @@ public class FenetrePrincipale extends Application {
 			timelineChute.stop();
 			timelineMonstre.stop();
 			timelineSortie.stop();
+			timelineDessin.stop();
 			initPerdu(primaryStage);
 		}
 			
@@ -420,9 +450,9 @@ public class FenetrePrincipale extends Application {
 			timelineSortie.stop();
 			if(laSortie.estOccupee() && laSortie.getEstIci() instanceof Rockford) {
 				try {
+					timelineDessin.stop();
 					timelineChute.stop();
 					timelineMonstre.stop();
-					//timelineSortie.stop();
 					initSuivant(primaryStage);
 				} catch (IOException e) {
 					e.printStackTrace();

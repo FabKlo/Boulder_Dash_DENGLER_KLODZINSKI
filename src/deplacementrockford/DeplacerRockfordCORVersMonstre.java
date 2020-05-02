@@ -27,10 +27,10 @@ public class DeplacerRockfordCORVersMonstre extends DeplacerRockfordCOR {
         if(grille.getCaseDuTab(ct,lt).estOccupee() && grille.getCaseDuTab(ct,lt).getEstIci() instanceof Monstre) {
             grille.getCaseDuTab(cs,ls).getEstIci().setVie(grille.getCaseDuTab(cs,ls).getEstIci().getVie() - 1);
             grille.getCaseDuTab(ct,lt).getEstIci().setVie(grille.getCaseDuTab(ct,lt).getEstIci().getVie() - 1);
+            Rockford temp = (Rockford) grille.getCaseDuTab(cs,ls).getEstIci();
+            temp.setCompteurDiamant(temp.getCompteurDiamant() + ((Monstre)(grille.getCaseDuTab(ct,lt).getEstIci())).getNbrDiamantsDonne());
             grille.setCaseDuTab(ct,lt, new Vide(ct, lt));
             grille.verifVieAll();
-            Rockford temp = (Rockford) grille.getCaseDuTab(cs,ls).getEstIci();
-            temp.setCompteurDiamant(temp.getCompteurDiamant() + 1);
             grille.getCaseDuTab(cs,ls).setEstIci(null);
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(temp);
 
