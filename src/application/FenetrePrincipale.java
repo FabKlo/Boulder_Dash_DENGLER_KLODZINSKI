@@ -26,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -80,6 +81,8 @@ public class FenetrePrincipale extends Application {
 			initGrille();
 			dessinerGrille();
 
+			
+
 			initFooter();
 
 			dessin(primaryStage);
@@ -103,6 +106,10 @@ public class FenetrePrincipale extends Application {
 	private void initGagner(Stage primaryStage) {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
+
+		Image image = new Image("/EcranAccueil.png");
+		ImageView imageView = new ImageView(image);
+		dialog.setGraphic(imageView);
 		
 		dialog.setTitle("Et c'est gagne !");
 		dialog.setHeaderText("Vous avez fini le jeu, felicitation !");
@@ -128,6 +135,10 @@ public class FenetrePrincipale extends Application {
 	private void initSuivant(Stage primaryStage) throws IOException {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
+
+		Image image = new Image("/EcranAccueil.png");
+		ImageView imageView = new ImageView(image);
+		dialog.setGraphic(imageView);
 		
 		dialog.setTitle("Bien joue !");
 		dialog.setHeaderText("Vous avez gagne, vous pouvez continuer !");
@@ -166,9 +177,14 @@ public class FenetrePrincipale extends Application {
 	private void initPerdu(Stage primaryStage) {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
+
+		Image image = new Image("/EcranAccueil.png");
+		ImageView imageView = new ImageView(image);
+		dialog.setGraphic(imageView);
 		
 		dialog.setTitle("Defaite");
-		dialog.setHeaderText("Vous avez perdu, voulez-vous rejouer ?");
+		dialog.setContentText("Voulez-vous rejouer ?");
+		dialog.setHeaderText("PERDU !");
 
 		ButtonType oui = new ButtonType("Oui");
 		ButtonType non = new ButtonType("Non", ButtonData.CANCEL_CLOSE);

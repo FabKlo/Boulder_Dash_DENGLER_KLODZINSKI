@@ -3,10 +3,12 @@ package chuteobjgravite;
 import entitesvivantes.Luciole;
 import entitesvivantes.Monstre;
 import entitesvivantes.Papillon;
+import entitesvivantes.Rockford;
 import lagrille.Grille;
 import lescases.Acier;
 import lescases.Diamant;
 import lescases.Rocher;
+import lescases.Vide;
 import modele.exceptions.BoulderMortException;
 
 public class ChuteDuRocherCORSurMonstre extends ChuteObjGraviteCOR {
@@ -30,17 +32,21 @@ public class ChuteDuRocherCORSurMonstre extends ChuteObjGraviteCOR {
 
         grille.getCaseDuTab(cs,ls + 1).getEstIci().setVie(grille.getCaseDuTab(cs, ls+1).getEstIci().getVie()-1);
         if(grille.getCaseDuTab(cs,ls + 1).getEstIci().getVie() <= 0) {
-            if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Papillon) {
-                grille.setCaseDuTab(cs, ls+1,new Diamant(cs, ls+1));
+            if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Luciole) {
+                grille.setCaseDuTab(cs, ls+1,new Vide(cs, ls+1));
             }
 
-            else if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Luciole) {
+            else if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Papillon) {
                 for(int i = -1; i <= 1; i++) {
                     for(int j = -1; j <= 1; j++) {
-                        if(!(grille.getCaseDuTab(cs + i, ls + 1 + j) instanceof Acier)) {
+                        
+                        if(ls + 1 + j >= 0 && ls + 1 + j < grille.getYMAX()) {
                             if(cs + i >= 0 && cs + 1 < grille.getXMAX()) {
-                                if(ls + 1 + j >= 0 && ls + 1 + j < grille.getYMAX()) {
-                                    grille.setCaseDuTab(cs + i, ls+1+j,new Diamant(cs+i, ls+1+j));
+                                if(!(grille.getCaseDuTab(cs + i, ls + 1 + j) instanceof Acier)) {
+                                    if(!(grille.getCaseDuTab(cs + i, ls + 1 + j).estOccupee() && 
+                                    grille.getCaseDuTab(cs + i, ls + 1 + j).getEstIci() instanceof Rockford)) {
+                                        grille.setCaseDuTab(cs + i, ls+1+j,new Diamant(cs+i, ls+1+j));
+                                    }
                                 }
                             }
                         }

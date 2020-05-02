@@ -38,7 +38,7 @@ public class Grille {
 
 
     public Grille() {
-        niveau = 1;
+        niveau = 2;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Grille {
                 if(tableau[i][j] instanceof Sortie) {
                     return (Sortie)(tableau[i][j]);
                 }
-                    
+                
             }
         }
 
