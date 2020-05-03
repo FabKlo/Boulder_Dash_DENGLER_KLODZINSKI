@@ -26,7 +26,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -78,7 +77,7 @@ public class FenetrePrincipale extends Application {
 
 			root = new BorderPane(grillePane);
 
-			scene = new Scene(root);
+			scene = new Scene(root,1920,1000);
 
 			scene.setOnKeyPressed(new HandlerClavier());
 
@@ -96,7 +95,11 @@ public class FenetrePrincipale extends Application {
 			deplacementMonstre();
 			
 
+			
+			//primaryStage.setMinHeight(1000);
+			//primaryStage.setMinWidth(1910);
 			primaryStage.setScene(scene);
+			primaryStage.centerOnScreen();
 			primaryStage.show();
 
 		} catch (Exception e) {
@@ -321,6 +324,7 @@ public class FenetrePrincipale extends Application {
 
 							else if(yRockford - 1 >= 0) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford - 1)) {
+									ke.consume();
 									yRockford -= 1;	
 									depRockford = 9;
 								}
@@ -342,6 +346,7 @@ public class FenetrePrincipale extends Application {
 
 							else if(yRockford + 1 < grille.getYMAX()) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford + 1)) {
+									ke.consume();
 									yRockford += 1;
 									depRockford = 8;
 								}
@@ -362,6 +367,7 @@ public class FenetrePrincipale extends Application {
 
 							else if(xRockford + 1 < grille.getXMAX()) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford + 1, yRockford)) {
+									ke.consume();
 									xRockford += 1;
 									depRockford = 9;
 								}
@@ -382,6 +388,7 @@ public class FenetrePrincipale extends Application {
 
 							else if(xRockford - 1 >= 0) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford - 1, yRockford)) {
+									ke.consume();
 									xRockford -= 1;
 									depRockford = 8;
 								}
