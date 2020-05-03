@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import actionrockford.ActionDeRockfordCOR;
 import chuteobjgravite.ChuteObjGraviteCOR;
 import deplacementmonstre.DeplacerMonstreCOR;
 import deplacementrockford.DeplacerRockfordCOR;
@@ -35,6 +36,7 @@ public class Grille {
     private DeplacerMonstreCOR corMonstre = DeplacerMonstreCOR.initCOR();
     private DeplacerRockfordCOR corRock = DeplacerRockfordCOR.initCOR();
     private ChuteObjGraviteCOR corObjGravite = ChuteObjGraviteCOR.initCOR();
+    private ActionDeRockfordCOR corActionRock = ActionDeRockfordCOR.initCOR();
 
 
     public Grille() {
@@ -73,6 +75,19 @@ public class Grille {
      */
     public void deplacerObjGravite(int cs, int ls) throws BoulderMortException {
         corObjGravite.deplaceObjGravite(this, cs, ls);
+    }
+
+    /**
+     * Provoque une action de rockford situe en [cs][ls] vers [ct][lt]
+     * @param cs colonne source
+     * @param ls ligne source
+     * @param ct colonne target
+     * @param lt ligne target
+     * @return true si l'action est realisee, false si non
+     * @throws BoulderMortException
+     */
+    public boolean actionPerso(int cs, int ls, int ct, int lt) throws BoulderMortException {
+        return corActionRock.actionRockford(this, cs, ls, ct, lt);
     }
 
     /**

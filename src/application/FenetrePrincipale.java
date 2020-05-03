@@ -27,6 +27,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
@@ -43,6 +46,8 @@ public class FenetrePrincipale extends Application {
 
 	private int tailleImageX = 40;
 	private int tailleImageY = 40;
+
+	private int depRockford = 8; 	//sert pour l'affichage du gif de deplacement de rockford
 
 
 	// YL : Les declarations ci-dessous devront etre remplacees par des classes et
@@ -107,10 +112,10 @@ public class FenetrePrincipale extends Application {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
 
-		Image image = new Image("/EcranAccueil.png");
+		/*Image image = new Image("/EcranAccueil.png");
 		ImageView imageView = new ImageView(image);
-		dialog.setGraphic(imageView);
-		
+		dialog.setGraphic(imageView);*/
+
 		dialog.setTitle("Et c'est gagne !");
 		dialog.setHeaderText("Vous avez fini le jeu, felicitation !");
 
@@ -136,9 +141,9 @@ public class FenetrePrincipale extends Application {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
 
-		Image image = new Image("/EcranAccueil.png");
+		/*Image image = new Image("/EcranAccueil.png");
 		ImageView imageView = new ImageView(image);
-		dialog.setGraphic(imageView);
+		dialog.setGraphic(imageView);*/
 		
 		dialog.setTitle("Bien joue !");
 		dialog.setHeaderText("Vous avez gagne, vous pouvez continuer !");
@@ -178,9 +183,9 @@ public class FenetrePrincipale extends Application {
 
 		Alert dialog = new Alert(AlertType.CONFIRMATION);
 
-		Image image = new Image("/EcranAccueil.png");
+		/*Image image = new Image("/EcranAccueil.png");
 		ImageView imageView = new ImageView(image);
-		dialog.setGraphic(imageView);
+		dialog.setGraphic(imageView);*/
 		
 		dialog.setTitle("Defaite");
 		dialog.setContentText("Voulez-vous rejouer ?");
@@ -217,6 +222,10 @@ public class FenetrePrincipale extends Application {
 	private void initImages() {
 		tabImage = new HashMap<Integer, Image>();
 		Image image;
+		image = new Image(getClass().getResourceAsStream("/MouvementRockfordDroite (1).gif"),tailleImageX,tailleImageY,false,false);
+		tabImage.put(10, image);
+		image = new Image(getClass().getResourceAsStream("/MouvementRockfordGauche (1).gif"),tailleImageX,tailleImageY,false,false);
+		tabImage.put(9, image);
 		image = new Image(getClass().getResourceAsStream("/Luciole.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(8, image);
 		image = new Image(getClass().getResourceAsStream("/Sortie.gif"),tailleImageX,tailleImageY,false,false);
@@ -244,9 +253,15 @@ public class FenetrePrincipale extends Application {
 		for (int i = 0; i < grille.getXMAX(); i++) {
 			for (int j = 0; j < grille.getYMAX(); j++) {
 				Case c = grille.getCaseDuTab(i,j);
+				Image image = tabImage.get(c.caseEnInt());;
 			
-				Image image = tabImage.get(c.caseEnInt());
+				if(c.estOccupee() && c.getEstIci() instanceof Rockford) {
+					if(!rockfordPeutSeDepl) {
+						image = tabImage.get(c.caseEnInt() + depRockford);
+					}					
 
+				}
+					
 				getGrillePane().getGraphicsContext2D().drawImage(image, i * tailleImageX, j * tailleImageY);
 			}
 		}
@@ -286,16 +301,28 @@ public class FenetrePrincipale extends Application {
 	private final class HandlerClavier implements EventHandler<KeyEvent> {
 		public void handle(KeyEvent ke) {
 
+			KeyCombination shiftZ = new KeyCodeCombination(KeyCode.Z, KeyCodeCombination.SHIFT_DOWN);
+			KeyCombination shiftS = new KeyCodeCombination(KeyCode.S, KeyCodeCombination.SHIFT_DOWN);
+			KeyCombination shiftQ = new KeyCodeCombination(KeyCode.Q, KeyCodeCombination.SHIFT_DOWN);
+			KeyCombination shiftD = new KeyCodeCombination(KeyCode.D, KeyCodeCombination.SHIFT_DOWN);
+
 			// YL : il faudra naturellement remanier cette fonction pour qu'elle
 			// utilise vos classes...
 
 			if(rockfordPeutSeDepl) {
+
 				switch (ke.getCode()) {
 					case Z: {
 						try {
-							if(yRockford - 1 >= 0) {
+							if(shiftZ.match(ke)) {
+								grille.actionPerso(xRockford, yRockford, xRockford, yRockford - 1);
+								depRockford = 9;
+							}
+
+							else if(yRockford - 1 >= 0) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford - 1)) {
 									yRockford -= 1;	
+									depRockford = 9;
 								}
 									
 								
@@ -308,9 +335,15 @@ public class FenetrePrincipale extends Application {
 					}
 					case S: {
 						try {
-							if(yRockford + 1 < grille.getYMAX()) {
+							if(shiftS.match(ke)) {
+								grille.actionPerso(xRockford, yRockford, xRockford, yRockford + 1);
+								depRockford = 8;
+							}
+
+							else if(yRockford + 1 < grille.getYMAX()) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford + 1)) {
 									yRockford += 1;
+									depRockford = 8;
 								}
 									
 							}
@@ -322,9 +355,15 @@ public class FenetrePrincipale extends Application {
 					}
 					case D: {
 						try {
-							if(xRockford + 1 < grille.getXMAX()) {
+							if(shiftD.match(ke)) {
+								grille.actionPerso(xRockford, yRockford, xRockford + 1, yRockford);
+								depRockford = 9;
+							}
+
+							else if(xRockford + 1 < grille.getXMAX()) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford + 1, yRockford)) {
 									xRockford += 1;
+									depRockford = 9;
 								}
 									
 							}
@@ -336,9 +375,15 @@ public class FenetrePrincipale extends Application {
 					}
 					case Q: {
 						try {
-							if(xRockford - 1 >= 0) {
+							if(shiftQ.match(ke)) {
+								grille.actionPerso(xRockford, yRockford, xRockford - 1, yRockford);
+								depRockford = 8;
+							}
+
+							else if(xRockford - 1 >= 0) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford - 1, yRockford)) {
 									xRockford -= 1;
+									depRockford = 8;
 								}
 									
 							}
@@ -394,7 +439,7 @@ public class FenetrePrincipale extends Application {
 	 * @param primaryStage la scène
 	 */
 	private void sortie() {
-		KeyFrame sortie = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+		KeyFrame sortie = new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -416,7 +461,7 @@ public class FenetrePrincipale extends Application {
 	 * et, etant une keyframe qui boucle tres rapidement, je verifie ici si on a gagne ou perdu
 	 */
 	private void chuteItem() {
-		KeyFrame chuteItem = new KeyFrame(Duration.seconds(0.18), new EventHandler<ActionEvent>() {
+		KeyFrame chuteItem = new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -435,7 +480,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	private void deplacementMonstre() {
-		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.35), new EventHandler<ActionEvent>() {
+		KeyFrame deplMonstre = new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
