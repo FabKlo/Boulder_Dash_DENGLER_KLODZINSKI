@@ -69,7 +69,6 @@ public class FenetrePrincipale extends Application {
 	private int xRockford;
 	private int yRockford;
 	private boolean rockfordPeutSeDepl = true;
-	private boolean gameOver = false;
 
 	private Sortie laSortie;
 	
@@ -83,8 +82,6 @@ public class FenetrePrincipale extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-
-			gameOver = false;
 
 			primaryStage.setTitle("Boulder Dash");
 
@@ -451,9 +448,7 @@ public class FenetrePrincipale extends Application {
 			public void handle(ActionEvent event) {
 
 				dessinerGrille();
-				if(!gameOver) {
-					changementFenetre(primaryStage);
-				}
+				changementFenetre(primaryStage);
 	
 			}
 	
@@ -532,7 +527,6 @@ public class FenetrePrincipale extends Application {
 	private void changementFenetre(Stage primaryStage) {
 
 		if(grille.mortRockford(xRockford, yRockford)) {
-			gameOver = true;
 			timelineChute.stop();
 			timelineMonstre.stop();
 			timelineSortie.stop();
@@ -547,7 +541,6 @@ public class FenetrePrincipale extends Application {
 			timelineSortie.stop();
 			if(laSortie.estOccupee() && laSortie.getEstIci() instanceof Rockford) {
 				try {
-					gameOver = true;
 					timelineDessin.stop();
 					timelineChute.stop();
 					timelineMonstre.stop();
