@@ -2,6 +2,8 @@ package ui;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import lagrille.Grille;
 import modele.obs.Observable;
 import modele.obs.Observateur;
@@ -27,6 +29,8 @@ public class AfficheurDiamantMap implements Observateur {
         compteur = Grille.allDiamant.size();
 
 		nbrDiamant.setText(LABEL+compteur);
+		nbrDiamant.setFont(Font.loadFont ("file:font/Boulder_Dash_Font.ttf" , 30));
+		nbrDiamant.setTextFill(Color.WHITE);
 	}
     
 

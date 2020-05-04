@@ -11,13 +11,16 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lagrille.Grille;
 import lescases.Case;
 import lescases.Sortie;
 import modele.exceptions.BoulderMortException;
-import ui.PanneauFooter;
+import ui.PanneauVie;
+import ui.PanneauTime;
+import ui.PanneauDiams;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
@@ -30,13 +33,19 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class FenetrePrincipale extends Application {
 	private Canvas grillePane;
 	private BorderPane root;
 	private Scene scene;
-	private PanneauFooter panneauFooter;
+	private PanneauVie panneauVie;
+	private PanneauDiams panneauDiams;
+	private PanneauTime panneauTime;
 
 	private Timeline timelineChute;
 	private Timeline timelineMonstre;
@@ -60,8 +69,10 @@ public class FenetrePrincipale extends Application {
 	private int xRockford;
 	private int yRockford;
 	private boolean rockfordPeutSeDepl = true;
+	private boolean gameOver = false;
 
 	private Sortie laSortie;
+	
 
 	// --->
 
@@ -73,11 +84,15 @@ public class FenetrePrincipale extends Application {
 	public void start(Stage primaryStage) {
 		try {
 
+			gameOver = false;
+
 			primaryStage.setTitle("Boulder Dash");
 
 			root = new BorderPane(grillePane);
 
-			scene = new Scene(root,1920,1000);
+			root.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
+
+			scene = new Scene(root, 1920, 1000);
 
 			scene.setOnKeyPressed(new HandlerClavier());
 
@@ -85,19 +100,13 @@ public class FenetrePrincipale extends Application {
 			initGrille();
 			dessinerGrille();
 
-			
-
 			initFooter();
 
 			dessin(primaryStage);
 			sortie();
 			chuteItem();
 			deplacementMonstre();
-			
 
-			
-			//primaryStage.setMinHeight(1000);
-			//primaryStage.setMinWidth(1910);
 			primaryStage.setScene(scene);
 			primaryStage.centerOnScreen();
 			primaryStage.show();
@@ -319,14 +328,14 @@ public class FenetrePrincipale extends Application {
 						try {
 							if(shiftZ.match(ke)) {
 								grille.actionPerso(xRockford, yRockford, xRockford, yRockford - 1);
-								depRockford = 9;
+								//depRockford = 9;
 							}
 
 							else if(yRockford - 1 >= 0) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford - 1)) {
 									ke.consume();
 									yRockford -= 1;	
-									depRockford = 9;
+									//depRockford = 9;
 								}
 									
 								
@@ -341,14 +350,14 @@ public class FenetrePrincipale extends Application {
 						try {
 							if(shiftS.match(ke)) {
 								grille.actionPerso(xRockford, yRockford, xRockford, yRockford + 1);
-								depRockford = 8;
+								//depRockford = 8;
 							}
 
 							else if(yRockford + 1 < grille.getYMAX()) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford + 1)) {
 									ke.consume();
 									yRockford += 1;
-									depRockford = 8;
+									//depRockford = 8;
 								}
 									
 							}
@@ -408,14 +417,28 @@ public class FenetrePrincipale extends Application {
 				rockfordPeutSeDepl = false;
 			}
 			
-			//dessinerGrille();
-
 		}
 	}
 
 	private void initFooter() {
-		panneauFooter = new PanneauFooter(grille, ((Rockford)(grille.getCaseDuTab(xRockford, yRockford).getEstIci())));
-		((BorderPane) root).setBottom(panneauFooter);
+		panneauVie = new PanneauVie((Rockford)(grille.getCaseDuTab(xRockford, yRockford).getEstIci()));
+
+		panneauDiams = new PanneauDiams(grille, ((Rockford)(grille.getCaseDuTab(xRockford, yRockford).getEstIci())));
+
+		panneauTime = new PanneauTime();
+		panneauTime.setAlignment(Pos.CENTER);
+
+		HBox h = new HBox();
+		VBox v = new VBox();
+
+		h.getChildren().addAll(panneauVie, panneauDiams);
+		h.setAlignment(Pos.CENTER);
+
+		v.getChildren().addAll(panneauTime,h);
+		v.setSpacing(25);
+		v.setAlignment(Pos.BOTTOM_CENTER);
+
+		((BorderPane) root).setTop(v);
 	}
 
 	/**
@@ -428,7 +451,9 @@ public class FenetrePrincipale extends Application {
 			public void handle(ActionEvent event) {
 
 				dessinerGrille();
-				changementFenetre(primaryStage);
+				if(!gameOver) {
+					changementFenetre(primaryStage);
+				}
 	
 			}
 	
@@ -507,10 +532,14 @@ public class FenetrePrincipale extends Application {
 	private void changementFenetre(Stage primaryStage) {
 
 		if(grille.mortRockford(xRockford, yRockford)) {
+			gameOver = true;
 			timelineChute.stop();
 			timelineMonstre.stop();
 			timelineSortie.stop();
 			timelineDessin.stop();
+			panneauTime.getTimer().getTimeline().stop();
+			panneauVie.getTimer().getTimeline().stop();
+			panneauDiams.getTimer().getTimeline().stop();
 			initPerdu(primaryStage);
 		}
 			
@@ -518,9 +547,13 @@ public class FenetrePrincipale extends Application {
 			timelineSortie.stop();
 			if(laSortie.estOccupee() && laSortie.getEstIci() instanceof Rockford) {
 				try {
+					gameOver = true;
 					timelineDessin.stop();
 					timelineChute.stop();
 					timelineMonstre.stop();
+					panneauTime.getTimer().getTimeline().stop();
+					panneauVie.getTimer().getTimeline().stop();
+					panneauDiams.getTimer().getTimeline().stop();
 					initSuivant(primaryStage);
 				} catch (IOException e) {
 					e.printStackTrace();

@@ -7,7 +7,6 @@ import entitesvivantes.Rockford;
 import lagrille.Grille;
 import lescases.Acier;
 import lescases.Diamant;
-import lescases.Vide;
 import modele.exceptions.BoulderMortException;
 
 public class ChuteDuDiamantCORSurMonstre extends ChuteObjGraviteCOR {
@@ -32,7 +31,7 @@ public class ChuteDuDiamantCORSurMonstre extends ChuteObjGraviteCOR {
         if(grille.getCaseDuTab(cs,ls + 1).getEstIci().getVie() <= 0) {
 
             if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Luciole) {
-                grille.setCaseDuTab(cs, ls+1,new Vide(cs, ls+1));
+                grille.setCaseDuTab(cs, ls+1,new Diamant(cs, ls+1));
             }
 
             else if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Papillon) {

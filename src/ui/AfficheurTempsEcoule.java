@@ -2,6 +2,8 @@ package ui;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import modele.obs.Observable;
 import modele.obs.Observateur;
 
@@ -23,7 +25,9 @@ public class AfficheurTempsEcoule implements Observateur {
 		// YL : astuces pour formater un reel avec 1 seul chiffre apres la virgule
 		String strSecondes = String.format("%.1f", secondes);
 		
-		labelTempsEcoule.setText(LABEL+strSecondes);
+		labelTempsEcoule.setText(LABEL+strSecondes+"	");
+		labelTempsEcoule.setFont(Font.loadFont ("file:font/Boulder_Dash_Font.ttf" , 50));
+		labelTempsEcoule.setTextFill(Color.WHITE);
 	}
 	
 	

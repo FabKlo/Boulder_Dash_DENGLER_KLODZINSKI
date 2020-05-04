@@ -41,6 +41,14 @@ public class Timer extends Observable {
 		}	
 	}
 
+	public Timeline getTimeline() {
+		return timeline;
+	}
+
+	public void setTimeline(Timeline timeline) {
+		this.timeline = timeline;
+	}
+
 }
 
 

@@ -38,9 +38,8 @@ public class Grille {
     private ChuteObjGraviteCOR corObjGravite = ChuteObjGraviteCOR.initCOR();
     private ActionDeRockfordCOR corActionRock = ActionDeRockfordCOR.initCOR();
 
-
     public Grille() {
-        niveau = 2;
+        niveau = 6;
     }
 
     /**
@@ -274,62 +273,8 @@ public class Grille {
                         e.printStackTrace();
                     }
                     break;
-
-
-
-
-
-                /*case Monstre.DROITE:
-                    try {
-                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() + 1,
-                                m.getPositionY()))
-                            m.setDirection(Monstre.BAS);
-
-                    } catch (BoulderMortException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    break;
-
-                case Monstre.BAS:
-                    try {
-                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
-                                m.getPositionY() + 1))
-                            m.setDirection(Monstre.GAUCHE);
-                    } catch (BoulderMortException e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
-                    
-                case Monstre.GAUCHE:
-                    try {
-                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX() - 1,
-                                m.getPositionY()))
-                            m.setDirection(Monstre.HAUT);
-                    } catch (BoulderMortException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-
-                case Monstre.HAUT:
-                    try {
-                        if (!deplacerMonstre(m.getPositionX(), m.getPositionY(), m.getPositionX(),
-                                m.getPositionY() - 1))
-                            m.setDirection(Monstre.DROITE);
-                    } catch (BoulderMortException e) {
-                        e.printStackTrace();
-                    }
-
-                    break;
-
-                default:*/
-
             }
         }
-
-        //searchAllPers();
     }
 
     /**
@@ -364,6 +309,7 @@ public class Grille {
         if(tableau[x][y].estOccupee()) {
             if(tableau[x][y].getEstIci() instanceof Rockford) {
                 if(tableau[x][y].getEstIci().getVie() <= 0) {
+                    tableau[x][y] = new Vide(x, y);
                     return true;
                 }
             }
