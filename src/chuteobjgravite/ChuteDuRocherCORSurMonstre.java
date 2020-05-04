@@ -46,6 +46,10 @@ public class ChuteDuRocherCORSurMonstre extends ChuteObjGraviteCOR {
                                     grille.getCaseDuTab(cs + i, ls + 1 + j).getEstIci() instanceof Rockford)) {
                                         grille.setCaseDuTab(cs + i, ls+1+j,new Diamant(cs+i, ls+1+j));
                                     }
+                                    else if(grille.getCaseDuTab(cs + i, ls + 1 + j).getEstIci() instanceof Rockford) {
+                                        Rockford temp = (Rockford)(grille.getCaseDuTab(cs + i, ls + 1 + j).getEstIci());
+                                        temp.setCompteurDiamant(temp.getCompteurDiamant()+1);
+                                    }
                                 }
                             }
                         }

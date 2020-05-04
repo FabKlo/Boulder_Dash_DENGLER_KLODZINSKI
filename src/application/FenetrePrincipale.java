@@ -140,7 +140,7 @@ public class FenetrePrincipale extends Application {
 		});
 
 	}
-
+	
 	/**
 	 * fenetre qui s'ouvre quand un niveau est fini, et propose de lancer le suivant ou de quitter le jeu
 	 * @param primaryStage la scene
@@ -406,6 +406,9 @@ public class FenetrePrincipale extends Application {
 						}
 						break;
 					}
+					case P: {
+						grille.getCaseDuTab(xRockford, yRockford).getEstIci().setVie(0);
+					}
 					default:
 						return;
 
@@ -497,7 +500,6 @@ public class FenetrePrincipale extends Application {
 				rockfordPeutSeDepl = true;
 	
 			}
-	
 		});
 	
 		timelineChute = new Timeline(chuteItem);
@@ -539,6 +541,7 @@ public class FenetrePrincipale extends Application {
 			
 		else if (laSortie.isPorteOuverte()) {
 			timelineSortie.stop();
+			
 			if(laSortie.estOccupee() && laSortie.getEstIci() instanceof Rockford) {
 				try {
 					timelineDessin.stop();

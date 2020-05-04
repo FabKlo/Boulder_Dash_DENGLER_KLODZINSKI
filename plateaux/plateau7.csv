@@ -1,5 +1,5 @@
 COLLECTER_DIAMANT;;;;;;;;;
-NBR_DIAMANT;4;;;;;;;;;
+NBR_DIAMANT;36;;;;;;;;;
 NB_LIG;22;;;;;;;;
 NB_COL;40;;;;;;;;
 A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;A;
@@ -12,7 +12,7 @@ A;T;R;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;R;T;T;T;T;T;T;T;T;T;R;T;T;T;T;A;
 A;T;T;R;T;T;T;T;T;R;T;T;T;T;T;T;T;T;T;T;T;R;T;T;R;T;T;T;T;T;T;T;T;T;T;T;T;T;R;A;
 A;T;T;T;T;T;T;R;T;T;T;T;T;T;R;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;R;T;T;A;
 A;T;T;T;T;T;T;T;T;V;V;T;T;T;R;T;T;V;V;T;T;T;T;T;T;V;V;T;T;T;T;T;T;V;V;T;T;T;T;A;
-A;T;T;T;T;T;T;T;T;V;L;T;T;T;R;T;T;V;L;T;T;T;T;T;T;V;L;T;T;T;T;T;T;V;L;T;R;T;T;A;
+A;T;T;T;T;T;T;T;T;V;P;T;T;T;R;T;T;V;P;T;T;T;T;T;T;V;P;T;T;T;T;T;T;V;P;T;R;T;T;A;
 A;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;A;
 A;T;T;T;R;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;A;
 A;T;T;T;R;T;T;T;T;T;R;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;T;A;
