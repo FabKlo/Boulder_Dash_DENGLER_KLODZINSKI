@@ -11,6 +11,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -37,6 +38,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class FenetrePrincipale extends Application {
@@ -51,6 +53,8 @@ public class FenetrePrincipale extends Application {
 	private Timeline timelineMonstre;
 	private Timeline timelineSortie;
 	private Timeline timelineDessin;
+
+	private double secondes;
 
 	private int tailleImageX = 40;
 	private int tailleImageY = 40;
@@ -71,6 +75,8 @@ public class FenetrePrincipale extends Application {
 	private boolean rockfordPeutSeDepl = true;
 
 	private Sortie laSortie;
+
+	private Stage primaryStage;
 	
 
 	// --->
@@ -79,9 +85,108 @@ public class FenetrePrincipale extends Application {
 		return grillePane;
 	}
 
+	/**
+	 * initialise un nouveau niveau et le montre
+	 * @param primaryStage
+	 */
+	public void initStart(Stage primaryStage) {
+		try {
+
+			secondes = 0;
+
+			primaryStage.setTitle("Boulder Dash");
+
+			root = new BorderPane(grillePane);
+
+			root.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
+
+			scene = new Scene(root, 1920, 1000);
+
+			scene.setOnKeyPressed(new HandlerClavier());
+
+			initImages();
+			initGrille();
+			initFooter();
+			dessinerGrille();
+
+			dessin(primaryStage);
+			sortie();
+			chuteItem();
+			deplacementMonstre();
+
+			primaryStage.setScene(scene);
+			primaryStage.centerOnScreen();
+			primaryStage.show();
+
+		} catch (Exception e) {
+			initGagner(primaryStage);
+		}
+	}
+
+	/**
+	 * Change le stage pour montrer le menu
+	 * @param primaryStage
+	 * @throws IOException
+	 */
+	public void initMenu(Stage primaryStage) throws IOException {
+
+			FXMLLoader l = new FXMLLoader(getClass().getResource("Menu.fxml"));
+			MenuController ac = new MenuController(primaryStage, this);
+			l.setController(ac);		
+
+			Pane root;
+			root = l.load();
+			Scene scene = new Scene(root,1920,1000);			
+		
+			scene.getStylesheets().add(getClass().getResource("Bouton.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+	}
+
+	/**
+	 * Reprend la partie en cours
+	 * @param primaryStage
+	 */
+	public void continu(Stage primaryStage) {
+
+		try {
+
+			primaryStage.setTitle("Boulder Dash");
+
+			root = new BorderPane(grillePane);
+
+			root.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
+
+			scene = new Scene(root, 1920, 1000);
+
+			scene.setOnKeyPressed(new HandlerClavier());
+
+			initFooter();
+			dessinerGrille();
+
+			dessin(primaryStage);
+			sortie();
+			chuteItem();
+			deplacementMonstre();
+
+			primaryStage.setScene(scene);
+			primaryStage.centerOnScreen();
+			primaryStage.show();
+
+			
+
+		} catch (Exception e) {
+			initGagner(primaryStage);
+		}
+
+	}
+
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+
+			this.primaryStage = primaryStage;
 
 			primaryStage.setTitle("Boulder Dash");
 
@@ -127,6 +232,7 @@ public class FenetrePrincipale extends Application {
 
 		dialog.setTitle("Et c'est gagne !");
 		dialog.setHeaderText("Vous avez fini le jeu, felicitation !");
+		dialog.getDialogPane().setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
 
 		ButtonType quitter = new ButtonType("Quitter", ButtonData.CANCEL_CLOSE);
 		dialog.getButtonTypes().setAll(quitter);
@@ -153,35 +259,45 @@ public class FenetrePrincipale extends Application {
 		/*Image image = new Image("/EcranAccueil.png");
 		ImageView imageView = new ImageView(image);
 		dialog.setGraphic(imageView);*/
-		
-		dialog.setTitle("Bien joue !");
-		dialog.setHeaderText("Vous avez gagne, vous pouvez continuer !");
 
-		ButtonType suivant = new ButtonType("continuer");
-		ButtonType quitter = new ButtonType("Quitter", ButtonData.CANCEL_CLOSE);
-		dialog.getButtonTypes().setAll(suivant,quitter);
-		
-		dialog.show();
-		
-		final Button bntSuivant = (Button) dialog.getDialogPane().lookupButton(suivant);
-		final Button bntQuit = (Button) dialog.getDialogPane().lookupButton(quitter);
-		
-		bntSuivant.setOnAction( event -> {
-			dialog.close();
+		grille.setNiveau(grille.getNiveau()+1);
+
+		if(grille.getNiveau() == 9)
+			initGagner(primaryStage);
+
+		else {
+
+			dialog.setTitle("Bien joue !");
+			dialog.setHeaderText("Vous avez gagne, vous pouvez continuer !");
+			dialog.getDialogPane().setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
+	
+			ButtonType suivant = new ButtonType("continuer");
+			ButtonType quitter = new ButtonType("Quitter", ButtonData.CANCEL_CLOSE);
+			dialog.getButtonTypes().setAll(suivant,quitter);
 			
-			grille.setNiveau(grille.getNiveau()+1);
-			try {
-				start(primaryStage);
-
-			} catch (Exception e) {
-				initGagner(primaryStage);
-			}
-
-		});
-		
-		bntQuit.setOnAction( event -> {
-			System.exit(0);
-		});
+			dialog.show();
+			
+			final Button bntSuivant = (Button) dialog.getDialogPane().lookupButton(suivant);
+			final Button bntQuit = (Button) dialog.getDialogPane().lookupButton(quitter);
+	
+			
+			
+			bntSuivant.setOnAction( event -> {
+				dialog.close();
+				
+				try {
+					initStart(primaryStage);
+	
+				} catch (Exception e) {
+					initGagner(primaryStage);
+				}
+	
+			});
+			
+			bntQuit.setOnAction( event -> {
+				System.exit(0);
+			});
+		}
 	}
 
 	/**
@@ -203,6 +319,13 @@ public class FenetrePrincipale extends Application {
 		ButtonType oui = new ButtonType("Oui");
 		ButtonType non = new ButtonType("Non", ButtonData.CANCEL_CLOSE);
 		dialog.getButtonTypes().setAll(oui,non);
+
+		dialog.getDialogPane().getStylesheets().add(
+			getClass().getResource("AlertDialog.css").toExternalForm());
+		dialog.getDialogPane().getStyleClass().add("myDialog");
+
+		//dialog.getDialogPane().setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
+		
 		
 		dialog.show();
 		
@@ -212,7 +335,7 @@ public class FenetrePrincipale extends Application {
 		btnOui.setOnAction( event -> {
 			dialog.close();
 			try {
-				start(primaryStage);
+				initStart(primaryStage);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -294,7 +417,6 @@ public class FenetrePrincipale extends Application {
 
 		laSortie = grille.chercheSortie();
 		
-
 		int lGrille = tailleImageX * grille.getXMAX();
 		int hGrille = tailleImageY * grille.getYMAX();
 		grillePane = new Canvas(lGrille, hGrille);
@@ -321,18 +443,35 @@ public class FenetrePrincipale extends Application {
 			if(rockfordPeutSeDepl) {
 
 				switch (ke.getCode()) {
+					case ESCAPE: {
+
+						timelineChute.stop();
+						timelineDessin.stop();
+						timelineMonstre.stop();
+						timelineSortie.stop();
+						panneauTime.getTimer().getTimeline().stop();
+						panneauVie.getTimer().getTimeline().stop();
+						panneauDiams.getTimer().getTimeline().stop();
+						secondes = panneauTime.getAfficheur().getSecondes();
+
+
+						try {
+							initMenu(primaryStage);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}	
+						break;
+					}
 					case Z: {
 						try {
 							if(shiftZ.match(ke)) {
 								grille.actionPerso(xRockford, yRockford, xRockford, yRockford - 1);
-								//depRockford = 9;
 							}
 
 							else if(yRockford - 1 >= 0) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford - 1)) {
 									ke.consume();
 									yRockford -= 1;	
-									//depRockford = 9;
 								}
 									
 								
@@ -347,14 +486,12 @@ public class FenetrePrincipale extends Application {
 						try {
 							if(shiftS.match(ke)) {
 								grille.actionPerso(xRockford, yRockford, xRockford, yRockford + 1);
-								//depRockford = 8;
 							}
 
 							else if(yRockford + 1 < grille.getYMAX()) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford, yRockford + 1)) {
 									ke.consume();
 									yRockford += 1;
-									//depRockford = 8;
 								}
 									
 							}
@@ -420,12 +557,19 @@ public class FenetrePrincipale extends Application {
 		}
 	}
 
+	/**
+	 * Initialise les informations à avoir
+	 */
 	private void initFooter() {
 		panneauVie = new PanneauVie((Rockford)(grille.getCaseDuTab(xRockford, yRockford).getEstIci()));
 
 		panneauDiams = new PanneauDiams(grille, ((Rockford)(grille.getCaseDuTab(xRockford, yRockford).getEstIci())));
 
-		panneauTime = new PanneauTime();
+		if(secondes != 0)
+			panneauTime = new PanneauTime(secondes);
+		else
+			panneauTime = new PanneauTime(0);
+
 		panneauTime.setAlignment(Pos.CENTER);
 
 		HBox h = new HBox();

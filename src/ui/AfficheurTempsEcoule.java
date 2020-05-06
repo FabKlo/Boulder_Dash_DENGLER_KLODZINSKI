@@ -8,13 +8,14 @@ import modele.obs.Observable;
 import modele.obs.Observateur;
 
 public class AfficheurTempsEcoule implements Observateur {
-	private	double	secondes = 0;
+	private	double	secondes;
 	private	Label labelTempsEcoule = new Label("");
 	
 	private final static String LABEL = "Temps ecoule : ";
 
-	public AfficheurTempsEcoule(Pane panneau) {
+	public AfficheurTempsEcoule(Pane panneau, double secondes) {
 		panneau.getChildren().add(labelTempsEcoule);
+		this.secondes = secondes;
 	}
 
 	@Override
@@ -28,6 +29,14 @@ public class AfficheurTempsEcoule implements Observateur {
 		labelTempsEcoule.setText(LABEL+strSecondes+"	");
 		labelTempsEcoule.setFont(Font.loadFont ("file:font/Boulder_Dash_Font.ttf" , 50));
 		labelTempsEcoule.setTextFill(Color.WHITE);
+	}
+
+	public double getSecondes() {
+		return secondes;
+	}
+
+	public void setSecondes(double secondes) {
+		this.secondes = secondes;
 	}
 	
 	

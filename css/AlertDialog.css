@@ -1,0 +1,18 @@
+.myDialog{
+    background-color: #1202f1;
+}
+.myDialog > *.button-bar > *.container{
+    background-color: #e200c4;
+}
+.myDialog > *.label.content{
+    font-size: 14px;
+    font-weight: bold;
+}
+.myDialog:header *.header-panel{
+    background-color: #a59c31;
+}
+.myDialog:header *.header-panel *.label{
+    font-size: 18px;
+    font-style: italic;
+    fill: #292929;
+}
