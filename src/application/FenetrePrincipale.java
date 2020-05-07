@@ -24,11 +24,7 @@ import ui.PanneauTime;
 import ui.PanneauDiams;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
+
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -91,6 +87,8 @@ public class FenetrePrincipale extends Application {
 	 */
 	public void initStart(Stage primaryStage) {
 		try {
+
+			this.primaryStage = primaryStage;
 
 			secondes = 0;
 
@@ -186,7 +184,22 @@ public class FenetrePrincipale extends Application {
 	public void start(Stage primaryStage) {
 		try {
 
-			this.primaryStage = primaryStage;
+			FXMLLoader l = new FXMLLoader(getClass().getResource("MenuPrincipal.fxml"));
+			MenuPrincipalController ac = new MenuPrincipalController(primaryStage, this);
+			l.setController(ac);		
+
+			Pane root;
+			root = l.load();
+			Scene scene = new Scene(root,1920,1000);			
+		
+			scene.getStylesheets().add(getClass().getResource("Bouton.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+		}
+
+			/*this.primaryStage = primaryStage;
 
 			primaryStage.setTitle("Boulder Dash");
 
@@ -215,7 +228,7 @@ public class FenetrePrincipale extends Application {
 
 		} catch (Exception e) {
 			initGagner(primaryStage);
-		}
+		}*/
 	}
 
 	/**
@@ -224,79 +237,54 @@ public class FenetrePrincipale extends Application {
 	 */
 	private void initGagner(Stage primaryStage) {
 
-		Alert dialog = new Alert(AlertType.CONFIRMATION);
-
-		/*Image image = new Image("/EcranAccueil.png");
-		ImageView imageView = new ImageView(image);
-		dialog.setGraphic(imageView);*/
-
-		dialog.setTitle("Et c'est gagne !");
-		dialog.setHeaderText("Vous avez fini le jeu, felicitation !");
-		dialog.getDialogPane().setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
-
-		ButtonType quitter = new ButtonType("Quitter", ButtonData.CANCEL_CLOSE);
-		dialog.getButtonTypes().setAll(quitter);
 		
-		dialog.show();
-		
-		final Button btnQuit = (Button) dialog.getDialogPane().lookupButton(quitter);
-		
-		btnQuit.setOnAction( event -> {
-			System.exit(0);
-		});
+		try {
+			FXMLLoader l = new FXMLLoader(getClass().getResource("EcranFinJeu.fxml"));
+			EcranFinJeuController ac = new EcranFinJeuController(primaryStage, this);
+			l.setController(ac);		
+
+			Pane root;
+			root = l.load();
+			Scene scene = new Scene(root,1920,1000);			
+	
+			scene.getStylesheets().add(getClass().getResource("Bouton.css").toExternalForm());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 	
 	/**
-	 * fenetre qui s'ouvre quand un niveau est fini, et propose de lancer le suivant ou de quitter le jeu
+	 * fenetre qui s'ouvre quand un niveau est fini, et propose de lancer le niveau suivant ou de quitter le jeu
 	 * @param primaryStage la scene
-	 * @throws IOException
 	 */
-	private void initSuivant(Stage primaryStage) throws IOException {
+	private void initSuivant(Stage primaryStage) {
 
-		Alert dialog = new Alert(AlertType.CONFIRMATION);
-
-		/*Image image = new Image("/EcranAccueil.png");
-		ImageView imageView = new ImageView(image);
-		dialog.setGraphic(imageView);*/
-
-		grille.setNiveau(grille.getNiveau()+1);
-
-		if(grille.getNiveau() == 9)
+		if(grille.getNiveau() + 1 == 4)
 			initGagner(primaryStage);
 
 		else {
+			
+			try {
+				FXMLLoader l = new FXMLLoader(getClass().getResource("EcranVictoire.fxml"));
+				EcranVictoireController ac = new EcranVictoireController(primaryStage, this);
+				l.setController(ac);		
 
-			dialog.setTitle("Bien joue !");
-			dialog.setHeaderText("Vous avez gagne, vous pouvez continuer !");
-			dialog.getDialogPane().setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
-	
-			ButtonType suivant = new ButtonType("continuer");
-			ButtonType quitter = new ButtonType("Quitter", ButtonData.CANCEL_CLOSE);
-			dialog.getButtonTypes().setAll(suivant,quitter);
-			
-			dialog.show();
-			
-			final Button bntSuivant = (Button) dialog.getDialogPane().lookupButton(suivant);
-			final Button bntQuit = (Button) dialog.getDialogPane().lookupButton(quitter);
-	
-			
-			
-			bntSuivant.setOnAction( event -> {
-				dialog.close();
+				Pane root;
+				root = l.load();
+				Scene scene = new Scene(root,1920,1000);			
+		
+				scene.getStylesheets().add(getClass().getResource("Bouton.css").toExternalForm());
+				primaryStage.setScene(scene);
+				primaryStage.show();
 				
-				try {
-					initStart(primaryStage);
-	
-				} catch (Exception e) {
-					initGagner(primaryStage);
-				}
-	
-			});
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
-			bntQuit.setOnAction( event -> {
-				System.exit(0);
-			});
 		}
 	}
 
@@ -304,48 +292,19 @@ public class FenetrePrincipale extends Application {
 	 * fenetre qui s'ouvre quand l'on echoue dans le niveau, et propose de recommencer ou de quitter
 	 * @param primaryStage  la scene
 	 */
-	private void initPerdu(Stage primaryStage) {
+	private void initPerdu(Stage primaryStage) throws IOException {
 
-		Alert dialog = new Alert(AlertType.CONFIRMATION);
+		FXMLLoader l = new FXMLLoader(getClass().getResource("EcranDefaite.fxml"));
+		EcranDefaiteController ac = new EcranDefaiteController(primaryStage, this);
+		l.setController(ac);		
 
-		/*Image image = new Image("/EcranAccueil.png");
-		ImageView imageView = new ImageView(image);
-		dialog.setGraphic(imageView);*/
-		
-		dialog.setTitle("Defaite");
-		dialog.setContentText("Voulez-vous rejouer ?");
-		dialog.setHeaderText("PERDU !");
-
-		ButtonType oui = new ButtonType("Oui");
-		ButtonType non = new ButtonType("Non", ButtonData.CANCEL_CLOSE);
-		dialog.getButtonTypes().setAll(oui,non);
-
-		dialog.getDialogPane().getStylesheets().add(
-			getClass().getResource("AlertDialog.css").toExternalForm());
-		dialog.getDialogPane().getStyleClass().add("myDialog");
-
-		//dialog.getDialogPane().setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
-		
-		
-		dialog.show();
-		
-		final Button btnOui = (Button) dialog.getDialogPane().lookupButton(oui);
-		final Button btnNon = (Button) dialog.getDialogPane().lookupButton(non);
-		
-		btnOui.setOnAction( event -> {
-			dialog.close();
-			try {
-				initStart(primaryStage);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		});
-		
-		btnNon.setOnAction( event -> {
-			System.exit(0);
-		});
-
+		Pane root;
+		root = l.load();
+		Scene scene = new Scene(root,1920,1000);			
+	
+		scene.getStylesheets().add(getClass().getResource("Bouton.css").toExternalForm());
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 
 	/**
@@ -595,7 +554,11 @@ public class FenetrePrincipale extends Application {
 			public void handle(ActionEvent event) {
 
 				dessinerGrille();
-				changementFenetre(primaryStage);
+				try {
+					changementFenetre(primaryStage);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 	
 			}
 	
@@ -670,7 +633,7 @@ public class FenetrePrincipale extends Application {
 
 	}
 
-	private void changementFenetre(Stage primaryStage) {
+	private void changementFenetre(Stage primaryStage) throws IOException {
 
 		if(grille.mortRockford(xRockford, yRockford)) {
 			timelineChute.stop();
@@ -687,17 +650,13 @@ public class FenetrePrincipale extends Application {
 			timelineSortie.stop();
 			
 			if(laSortie.estOccupee() && laSortie.getEstIci() instanceof Rockford) {
-				try {
-					timelineDessin.stop();
-					timelineChute.stop();
-					timelineMonstre.stop();
-					panneauTime.getTimer().getTimeline().stop();
-					panneauVie.getTimer().getTimeline().stop();
-					panneauDiams.getTimer().getTimeline().stop();
-					initSuivant(primaryStage);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				timelineDessin.stop();
+				timelineChute.stop();
+				timelineMonstre.stop();
+				panneauTime.getTimer().getTimeline().stop();
+				panneauVie.getTimer().getTimeline().stop();
+				panneauDiams.getTimer().getTimeline().stop();
+				initSuivant(primaryStage);
 			}	
 		}
 	}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="154.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Rockford.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="225.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guider Rockford au travers des grottes à la recherche de diamants afin d'activer la sortie." wrappingWidth="1132.5938720703125">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="152.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Terre.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="223.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Boue: Rockford peut creuser dans la boue. Les autres créatures ne peuvent pas se déplacer à travers elle." wrappingWidth="1203.182373046875">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="151.0" layoutY="319.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Rocher.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="219.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Un gros rocher qui peut facilement bloquer votre chemin. Un rocher tombe quand il y a de l'espace vide situé en dessous, alors faites attention quand il y a des rochers au dessus de vous; vous perdez une vie quand il vous écrase! Il est également possible pour Rockford de déplacer des blocs en les poussant." wrappingWidth="1203.1822509765625">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="150.0" layoutY="443.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Diamant.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="222.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Très important! Pour compléter une grotte, vous devez trouver une certaine quantité de diamants." wrappingWidth="756.7823486328125">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="150.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Acier.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="229.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Un mur d'acier indestructible." wrappingWidth="756.7823486328125">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="150.0" layoutY="619.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Luciole.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="223.0" layoutY="637.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C'est une de vos ennemis. Vous perdez une vie lorsque vous la touchez, mais vous pouvez aussi la détruire en laissant tomber un rocher sur elle. Les lucioles se déplacent le long des bords." wrappingWidth="1182.38232421875">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="150.0" layoutY="717.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Papillon.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="217.0" layoutY="734.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L'autre ennemi. Comme la luciole, le papillon est mortel au toucher. La différence la plus importante est que les papillons se transforment en diamants lorsqu'ils sont détruits ! Les papillons se déplacent le long des bords." wrappingWidth="1182.38232421875">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="150.0" layoutY="842.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/Sortie.gif" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="217.0" layoutY="868.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La sortie vous sera révélée lorsque vous aurez recueilli un nombre suffisant de diamants.  Y entrer vous emmenera au niveau suivant." wrappingWidth="1182.38232421875">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="715.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: BoulderDash6128; -fx-font-size: 70;" text="Regles" />
+      <Button fx:id="menu" layoutX="1701.0" layoutY="928.0" mnemonicParsing="false" onAction="#goMenu" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" style="-fx-font-family: BoulderDash6128; -fx-font-size: 40;" stylesheets="@Bouton.css" text="Menu" textFill="WHITE" />
+   </children>
+</Pane>

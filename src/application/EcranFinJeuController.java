@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class MenuController {
+public class EcranFinJeuController {
     
     @FXML 
     private Stage primaryStage;
@@ -20,22 +20,16 @@ public class MenuController {
     private FenetrePrincipale fen;
 
     @FXML
-    private Button reprendre, recommencer, quitter, menu;
+    private Button quitter, menu;
 
 
-    public MenuController(Stage primaryStage, FenetrePrincipale f) {
+    public EcranFinJeuController(Stage primaryStage, FenetrePrincipale f) {
        this.primaryStage = primaryStage;
        this.fen = f;
     }
 
     public void mouseMoved(MouseEvent event) throws IOException {
         switch (((Button) event.getSource()).getId()) {
-            case "reprendre":
-                reprendre.setTextFill(Color.DARKCYAN);
-                break;
-            case "recommencer":
-                recommencer.setTextFill(Color.DARKVIOLET);
-                break;
             case "quitter":
                 quitter.setTextFill(Color.BLUE);
                 break;
@@ -50,12 +44,6 @@ public class MenuController {
     
     public void mouseExited(MouseEvent event) throws IOException {
         switch (((Button) event.getSource()).getId()) {
-            case "reprendre":
-                reprendre.setTextFill(Color.WHITE);
-                break;
-            case "recommencer":
-                recommencer.setTextFill(Color.WHITE);
-                break;
             case "quitter":
                 quitter.setTextFill(Color.WHITE);
                 break;
@@ -64,14 +52,6 @@ public class MenuController {
                 break;
         }
         
-    }
-
-    public void continu(ActionEvent event) throws IOException {
-        fen.continu(primaryStage);
-    }
-
-    public void restart(ActionEvent event) throws IOException {
-        fen.initStart(primaryStage);
     }
 
     public void quit(ActionEvent event) throws IOException {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="WHITE" layoutX="725.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: BoulderDash6128; -fx-font-size: 70;" text="Niveaux" />
+      <Button fx:id="menu" layoutX="1703.0" layoutY="926.0" mnemonicParsing="false" onAction="#goMenu" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" style="-fx-font-family: BoulderDash6128; -fx-font-size: 40;" stylesheets="@Bouton.css" text="Menu" textFill="WHITE" />
+      <Button fx:id="niveau1" layoutX="119.0" layoutY="198.0" mnemonicParsing="false" onAction="#levelOne" prefHeight="340.0" prefWidth="570.0" stylesheets="@Bouton.css">
+         <graphic>
+            <ImageView fitHeight="343.0" fitWidth="575.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/Niveau1.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="niveau2" layoutX="1186.0" layoutY="199.0" mnemonicParsing="false" onAction="#levelTwo" prefHeight="340.0" prefWidth="570.0" stylesheets="@Bouton.css">
+         <graphic>
+            <ImageView fitHeight="343.0" fitWidth="575.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/Niveau2.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="niveau3" layoutX="647.0" layoutY="571.0" mnemonicParsing="false" onAction="#levelThree" prefHeight="340.0" prefWidth="570.0" stylesheets="@Bouton.css">
+         <graphic>
+            <ImageView fitHeight="343.0" fitWidth="575.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/Niveau3.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</Pane>

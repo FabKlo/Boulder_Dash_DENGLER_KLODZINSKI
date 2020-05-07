@@ -39,7 +39,7 @@ public class Grille {
     private ActionDeRockfordCOR corActionRock = ActionDeRockfordCOR.initCOR();
 
     public Grille() {
-        niveau = 6;
+        niveau = 1;
     }
 
     /**
