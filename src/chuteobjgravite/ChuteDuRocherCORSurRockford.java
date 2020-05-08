@@ -5,6 +5,7 @@ import lagrille.Grille;
 import lescases.Rocher;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 /**
  * DeplacerRockfordCORVersVide
@@ -34,7 +35,8 @@ public class ChuteDuRocherCORSurRockford extends ChuteObjGraviteCOR {
             grille.setCaseDuTab(cs,ls,new Vide(cs,ls));
             grille.verifVieAll();
             //System.out.println("tomber sur rockford");
-
+            if(grille.getCaseDuTab(cs,ls+1).getEstIci().getVie()>0)
+                Musique.initBruitage(Musique.DMG);
             return true; 
         }
         else {

@@ -5,6 +5,7 @@ import entitesvivantes.Rockford;
 import lagrille.Grille;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 /**
  * DeplacerRockfordCORVersVide
@@ -33,6 +34,10 @@ public class DeplacerRockfordCORVersMonstre extends DeplacerRockfordCOR {
             grille.verifVieAll();
             grille.getCaseDuTab(cs,ls).setEstIci(null);
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(temp);
+
+            if(grille.getCaseDuTab(ct,lt).getEstIci().getVie()>0)
+                Musique.initBruitage(Musique.DMG);
+
 
             /*System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
             ", personnage dessus : " + grille.getCaseDuTab(ct,lt).getEstIci());

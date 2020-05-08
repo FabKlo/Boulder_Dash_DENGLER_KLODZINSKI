@@ -4,6 +4,7 @@ import lagrille.Grille;
 import lescases.Acier;
 import lescases.Rocher;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 public class ChuteDuRocherCORSurAcier extends ChuteObjGraviteCOR {
 
@@ -29,6 +30,9 @@ public class ChuteDuRocherCORSurAcier extends ChuteObjGraviteCOR {
             return false;
         }
 
+        if(((Rocher)(grille.getCaseDuTab(cs,ls))).isEnMouvement()) {
+            Musique.initBruitage(Musique.ROCHER);
+        }
         ((Rocher)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false);
         return true;
     }

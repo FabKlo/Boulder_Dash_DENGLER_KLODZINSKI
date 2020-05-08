@@ -4,6 +4,7 @@ import lagrille.Grille;
 import lescases.Diamant;
 import lescases.Sortie;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 public class ChuteDuDiamantCORSurSortie extends ChuteObjGraviteCOR {
 
@@ -28,6 +29,10 @@ public class ChuteDuDiamantCORSurSortie extends ChuteObjGraviteCOR {
             return false;
         }
 
+        if(((Diamant)(grille.getCaseDuTab(cs,ls))).isEnMouvement()) {
+            Musique.initBruitage(Musique.DIAMANT);
+        }
+        
         ((Diamant)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false);
         return true;
     }

@@ -4,6 +4,7 @@ import entitesvivantes.Rockford;
 import lagrille.Grille;
 import lescases.Diamant;
 import lescases.Vide;
+import toutlessongs.Musique;
 
 /**
  * DeplacerRockfordCORVersVide
@@ -31,6 +32,7 @@ public class DeplacerRockfordCORVersDiamant extends DeplacerRockfordCOR {
             grille.setCaseDuTab(ct,lt,new Vide(ct,lt));
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(temp);
             grille.setCaseDuTab(cs,ls,new Vide(cs,ls));
+            Musique.initBruitage(Musique.PIECE);
             //System.out.println("nbr de diamant APRES recup de rockford en x =" +ct+", y = " +lt+" : " +temp.getCompteurDiamant());
             return true;
         }

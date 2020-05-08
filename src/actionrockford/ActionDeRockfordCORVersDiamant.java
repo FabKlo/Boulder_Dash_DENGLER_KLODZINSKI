@@ -5,6 +5,7 @@ import lagrille.Grille;
 import lescases.Diamant;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 public class ActionDeRockfordCORVersDiamant extends ActionDeRockfordCOR {
 
@@ -26,6 +27,7 @@ public class ActionDeRockfordCORVersDiamant extends ActionDeRockfordCOR {
             Rockford temp = (Rockford) grille.getCaseDuTab(cs,ls).getEstIci();
             temp.setCompteurDiamant(temp.getCompteurDiamant() + 1);
             grille.setCaseDuTab(ct,lt,new Vide(ct,lt));
+            Musique.initBruitage(Musique.PIECE);
             return true;
         }
         return false;

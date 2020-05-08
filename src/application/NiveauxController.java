@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import toutlessongs.Musique;
 
 public class NiveauxController {
 
@@ -23,6 +24,7 @@ public class NiveauxController {
     private FenetrePrincipale fen;
 
     public NiveauxController(Stage primaryStage, FenetrePrincipale f) {
+        Musique.initMusiqueDeFond(Musique.NIVEAU);
         this.primaryStage = primaryStage;
         this.fen = f;
     }
@@ -59,6 +61,8 @@ public class NiveauxController {
     }
 
     public void goMenu(ActionEvent event) throws IOException {
+
+        Musique.initMusiqueDeFond(Musique.TITRE);
 
         FXMLLoader l = new FXMLLoader(getClass().getResource("MenuPrincipal.fxml"));
         MenuPrincipalController ac = new MenuPrincipalController(primaryStage, fen);

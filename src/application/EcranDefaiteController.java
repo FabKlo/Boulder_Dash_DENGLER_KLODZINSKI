@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import toutlessongs.Musique;
 
 public class EcranDefaiteController {
     
@@ -24,6 +25,7 @@ public class EcranDefaiteController {
 
 
     public EcranDefaiteController(Stage primaryStage, FenetrePrincipale f) {
+        Musique.initMusiqueDeFond(Musique.MORT);
        this.primaryStage = primaryStage;
        this.fen = f;
     }
@@ -62,6 +64,7 @@ public class EcranDefaiteController {
 
 
     public void restart(ActionEvent event) throws IOException {
+        //Musique.initMusiqueDeFond("world"+fen.getGrille().getNiveau());
         fen.initStart(primaryStage);
     }
 
@@ -71,6 +74,7 @@ public class EcranDefaiteController {
 
     public void goMenu(ActionEvent event) throws IOException {
 
+        Musique.initMusiqueDeFond(Musique.TITRE);
         FXMLLoader l = new FXMLLoader(getClass().getResource("MenuPrincipal.fxml"));
         MenuPrincipalController ac = new MenuPrincipalController(primaryStage, fen);
         l.setController(ac);		

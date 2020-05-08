@@ -8,7 +8,9 @@ import lagrille.Grille;
 import lescases.Acier;
 import lescases.Diamant;
 import lescases.Rocher;
+import lescases.Vide;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 public class ChuteDuRocherCORSurMonstre extends ChuteObjGraviteCOR {
 
@@ -32,10 +34,27 @@ public class ChuteDuRocherCORSurMonstre extends ChuteObjGraviteCOR {
         grille.getCaseDuTab(cs,ls + 1).getEstIci().setVie(grille.getCaseDuTab(cs, ls+1).getEstIci().getVie()-1);
         if(grille.getCaseDuTab(cs,ls + 1).getEstIci().getVie() <= 0) {
             if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Luciole) {
-                grille.setCaseDuTab(cs, ls+1,new Diamant(cs,ls+1));
+                Musique.initBruitage(Musique.EXPLOSION);
+                for(int i = -1; i <= 1; i++) {
+                    for(int j = -1; j <= 1; j++) {
+                        
+                        if(ls + 1 + j >= 0 && ls + 1 + j < grille.getYMAX()) {
+                            if(cs + i >= 0 && cs + 1 < grille.getXMAX()) {
+                                if(!(grille.getCaseDuTab(cs + i, ls + 1 + j) instanceof Acier)) {
+                                    if(!(grille.getCaseDuTab(cs + i, ls + 1 + j).estOccupee() && 
+                                    grille.getCaseDuTab(cs + i, ls + 1 + j).getEstIci() instanceof Rockford)) {
+                                        grille.setCaseDuTab(cs + i, ls+1+j,new Vide(cs+i, ls+1+j));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             else if(grille.getCaseDuTab(cs,ls + 1).getEstIci() instanceof Papillon) {
+                Musique.initBruitage(Musique.EXPLOSION);
+
                 for(int i = -1; i <= 1; i++) {
                     for(int j = -1; j <= 1; j++) {
                         

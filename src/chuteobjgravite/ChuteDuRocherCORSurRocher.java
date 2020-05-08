@@ -7,6 +7,7 @@ import lagrille.Grille;
 import lescases.Rocher;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 public class ChuteDuRocherCORSurRocher extends ChuteObjGraviteCOR {
 
@@ -74,6 +75,8 @@ public class ChuteDuRocherCORSurRocher extends ChuteObjGraviteCOR {
         } else {
             if(grille.getCaseDuTab(cs + temp, ls) instanceof Vide &&
             grille.getCaseDuTab(cs + temp, ls + 1) instanceof Vide) {
+                
+                Musique.initBruitage(Musique.ROCHER);
 
                 if(!(grille.getCaseDuTab(cs + temp, ls).estOccupee())) {
                     grille.setCaseDuTab(cs + temp, ls, grille.getCaseDuTab(cs,ls));
@@ -87,10 +90,13 @@ public class ChuteDuRocherCORSurRocher extends ChuteObjGraviteCOR {
                     return true;
                 }
             } else {
+                Musique.initBruitage(Musique.ROCHER);
                 ((Rocher)(grille.getCaseDuTab(cs,ls))).setEnMouvement(false); 
                 temp = 0;
                 return true;
             }
+
+            
         }
 
 

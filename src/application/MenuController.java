@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import toutlessongs.Musique;
 
 public class MenuController {
     
@@ -24,6 +25,8 @@ public class MenuController {
 
 
     public MenuController(Stage primaryStage, FenetrePrincipale f) {
+        Musique.musiqueDeFond.pause();
+        Musique.initBruitage(Musique.START);
        this.primaryStage = primaryStage;
        this.fen = f;
     }
@@ -67,6 +70,7 @@ public class MenuController {
     }
 
     public void continu(ActionEvent event) throws IOException {
+        Musique.musiqueDeFond.play();
         fen.continu(primaryStage);
     }
 
@@ -79,6 +83,8 @@ public class MenuController {
     }
 
     public void goMenu(ActionEvent event) throws IOException {
+
+        Musique.initMusiqueDeFond(Musique.TITRE);
 
         FXMLLoader l = new FXMLLoader(getClass().getResource("MenuPrincipal.fxml"));
         MenuPrincipalController ac = new MenuPrincipalController(primaryStage, fen);

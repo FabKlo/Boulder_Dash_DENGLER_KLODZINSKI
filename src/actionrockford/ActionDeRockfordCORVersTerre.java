@@ -5,6 +5,7 @@ import lagrille.Grille;
 import lescases.Terre;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 public class ActionDeRockfordCORVersTerre extends ActionDeRockfordCOR {
 
@@ -23,6 +24,7 @@ public class ActionDeRockfordCORVersTerre extends ActionDeRockfordCOR {
 
         if(grille.getCaseDuTab(ct,lt).getEstIci() == null) {
             grille.setCaseDuTab(ct,lt,new Vide(ct,lt));
+            Musique.initBruitage(Musique.TERRE);
             return true;
         }
         

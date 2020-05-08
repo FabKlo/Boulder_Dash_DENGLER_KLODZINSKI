@@ -4,6 +4,7 @@ import entitesvivantes.Rockford;
 import lagrille.Grille;
 import lescases.Terre;
 import lescases.Vide;
+import toutlessongs.Musique;
 
 /**
  * DeplacerRockfordCORVersVide
@@ -26,8 +27,8 @@ public class DeplacerRockfordCORVersTerre extends DeplacerRockfordCOR {
         if(grille.getCaseDuTab(ct,lt).getEstIci() == null) {
             grille.setCaseDuTab(ct,lt,new Vide(ct,lt));
             grille.getCaseDuTab(ct,lt).mettrePersoSurCase(grille.getCaseDuTab(cs,ls).getEstIci());
-            //grille.transfoCaseEnVide(ct,lt);
             grille.getCaseDuTab(cs,ls).setEstIci(null);
+            Musique.initBruitage(Musique.TERRE);
             /*System.out.println("tableau["+ct+"]["+lt+"] = " + grille.getCaseDuTab(ct,lt).getClass().getSimpleName() +
             ", personnage dessus : " + grille.getCaseDuTab(ct,lt).getEstIci());
             System.out.println("tableau["+cs+"]["+ls+"] = " + grille.getCaseDuTab(cs,ls).getClass().getSimpleName() +

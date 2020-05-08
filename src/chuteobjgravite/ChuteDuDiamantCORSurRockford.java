@@ -5,6 +5,7 @@ import lagrille.Grille;
 import lescases.Diamant;
 import lescases.Vide;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 
 /**
  * DeplacerRockfordCORVersVide
@@ -40,6 +41,8 @@ public class ChuteDuDiamantCORSurRockford extends ChuteObjGraviteCOR {
             //System.out.println("diams rockford : "+((Rockford)(grille.getCaseDuTab(cs,ls+1).getEstIci())).getCompteurDiamant());
 
             grille.verifVieAll();
+            if(oui.getVie()>0)
+                Musique.initBruitage(Musique.DMG);
             return true; 
         }
         else {

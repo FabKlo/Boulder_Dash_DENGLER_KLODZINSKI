@@ -19,6 +19,7 @@ import lagrille.Grille;
 import lescases.Case;
 import lescases.Sortie;
 import modele.exceptions.BoulderMortException;
+import toutlessongs.Musique;
 import ui.PanneauVie;
 import ui.PanneauTime;
 import ui.PanneauDiams;
@@ -36,6 +37,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+
 
 public class FenetrePrincipale extends Application {
 	private Canvas grillePane;
@@ -64,6 +66,7 @@ public class FenetrePrincipale extends Application {
 	// <----
 
 	private HashMap<Integer, Image> tabImage;
+
 	public Grille grille = new Grille();
 
 	private int xRockford;
@@ -103,6 +106,7 @@ public class FenetrePrincipale extends Application {
 			scene.setOnKeyPressed(new HandlerClavier());
 
 			initImages();
+
 			initGrille();
 			initFooter();
 			dessinerGrille();
@@ -116,6 +120,18 @@ public class FenetrePrincipale extends Application {
 			primaryStage.centerOnScreen();
 			primaryStage.show();
 
+			switch(grille.getNiveau()) {
+				case 1:
+					Musique.initMusiqueDeFond(Musique.WORLD1);
+					break;
+				case 2:
+					Musique.initMusiqueDeFond(Musique.WORLD2);
+					break;
+				case 3:
+					Musique.initMusiqueDeFond(Musique.WORLD3);
+					break;
+			}
+
 		} catch (Exception e) {
 			initGagner(primaryStage);
 		}
@@ -126,8 +142,11 @@ public class FenetrePrincipale extends Application {
 	 * @param primaryStage
 	 * @throws IOException
 	 */
-	public void initMenu(Stage primaryStage) throws IOException {
+	public void initMenu(Stage primaryStage) {
 
+		try {
+			Musique.musiqueDeFond.pause();
+			
 			FXMLLoader l = new FXMLLoader(getClass().getResource("Menu.fxml"));
 			MenuController ac = new MenuController(primaryStage, this);
 			l.setController(ac);		
@@ -139,6 +158,10 @@ public class FenetrePrincipale extends Application {
 			scene.getStylesheets().add(getClass().getResource("Bouton.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -183,6 +206,10 @@ public class FenetrePrincipale extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+
+			Musique.initAllMusiques();
+			
+			Musique.initMusiqueDeFond(Musique.TITRE);
 
 			FXMLLoader l = new FXMLLoader(getClass().getResource("MenuPrincipal.fxml"));
 			MenuPrincipalController ac = new MenuPrincipalController(primaryStage, this);
@@ -307,6 +334,7 @@ public class FenetrePrincipale extends Application {
 		primaryStage.show();
 	}
 
+
 	/**
 	 * initialise la Hashmap avec toutes les images necessaires
 	 */
@@ -344,7 +372,7 @@ public class FenetrePrincipale extends Application {
 		for (int i = 0; i < grille.getXMAX(); i++) {
 			for (int j = 0; j < grille.getYMAX(); j++) {
 				Case c = grille.getCaseDuTab(i,j);
-				Image image = tabImage.get(c.caseEnInt());;
+				Image image = tabImage.get(c.caseEnInt());
 			
 				if(c.estOccupee() && c.getEstIci() instanceof Rockford) {
 					if(!rockfordPeutSeDepl) {
@@ -413,12 +441,8 @@ public class FenetrePrincipale extends Application {
 						panneauDiams.getTimer().getTimeline().stop();
 						secondes = panneauTime.getAfficheur().getSecondes();
 
+						initMenu(primaryStage);
 
-						try {
-							initMenu(primaryStage);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}	
 						break;
 					}
 					case Z: {
