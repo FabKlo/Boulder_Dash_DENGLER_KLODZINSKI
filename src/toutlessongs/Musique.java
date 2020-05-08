@@ -7,6 +7,12 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * Class qui initialise toutes les musiques et bruitages 
+ * necessaires au jeu
+ * Les 2 variables musiqueDeFond et bruitage sont en static et donc accessible partout
+ * dans le code, et existent en une seule fois pour pas superposer les sons
+ */
 public class Musique {
 
     public static final String TITRE = "Titre";
@@ -32,7 +38,6 @@ public class Musique {
 
 
     public Musique() {
-        initMusiques();
     }
 
     public static void initMusiqueDeFond(String s) {

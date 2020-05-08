@@ -146,7 +146,7 @@ public class FenetrePrincipale extends Application {
 
 		try {
 			Musique.musiqueDeFond.pause();
-			
+
 			FXMLLoader l = new FXMLLoader(getClass().getResource("Menu.fxml"));
 			MenuController ac = new MenuController(primaryStage, this);
 			l.setController(ac);		
@@ -224,38 +224,8 @@ public class FenetrePrincipale extends Application {
 			primaryStage.show();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
-			/*this.primaryStage = primaryStage;
-
-			primaryStage.setTitle("Boulder Dash");
-
-			root = new BorderPane(grillePane);
-
-			root.setBackground(new Background(new BackgroundFill(javafx.scene.paint.Color.BLACK, null, null)));
-
-			scene = new Scene(root, 1920, 1000);
-
-			scene.setOnKeyPressed(new HandlerClavier());
-
-			initImages();
-			initGrille();
-			dessinerGrille();
-
-			initFooter();
-
-			dessin(primaryStage);
-			sortie();
-			chuteItem();
-			deplacementMonstre();
-
-			primaryStage.setScene(scene);
-			primaryStage.centerOnScreen();
-			primaryStage.show();
-
-		} catch (Exception e) {
-			initGagner(primaryStage);
-		}*/
 	}
 
 	/**

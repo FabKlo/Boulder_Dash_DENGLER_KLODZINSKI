@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text fill="#003cff" layoutX="735.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: BoulderDash6128; -fx-font-size: 70;" text="Game Over" />
+      <Text fill="#003cff" layoutX="643.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: BoulderDash6128; -fx-font-size: 70;" text="C'est gagne !" />
       <Button fx:id="menu" layoutX="87.0" layoutY="466.0" mnemonicParsing="false" onAction="#goMenu" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" style="-fx-font-family: BoulderDash6128; -fx-font-size: 70;" stylesheets="@Bouton.css" text="Retour au menu" textFill="WHITE" />
       <Button fx:id="quitter" layoutX="1264.0" layoutY="475.0" mnemonicParsing="false" onAction="#quit" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" prefHeight="111.0" prefWidth="621.0" style="-fx-font-family: BoulderDash6128; -fx-font-size: 70;" stylesheets="@Bouton.css" text="Quitter" textFill="WHITE">
          <font>
