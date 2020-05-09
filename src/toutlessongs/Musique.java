@@ -97,15 +97,15 @@ public class Musique {
 		tabMusique.put(WORLD1, media);
 		sound = new Media(new File("sounds/MarioBros_World2.mp3").toURI().toString());
         media = new MediaPlayer(sound);
-        media.setVolume(0.05);
+        media.setVolume(0.1);
 		tabMusique.put(WORLD2, media);
 		sound = new Media(new File("sounds/MarioBros_World3.mp3").toURI().toString());
         media = new MediaPlayer(sound);
-        media.setVolume(0.05);
+        media.setVolume(0.1);
 		tabMusique.put(WORLD3, media);
 		sound = new Media(new File("sounds/MarioBros_ChoixNiveau.mp3").toURI().toString());
         media = new MediaPlayer(sound);
-        media.setVolume(0.05);
+        media.setVolume(0.1);
 		tabMusique.put(NIVEAU, media);
 		sound = new Media(new File("sounds/MarioBros_Death.mp3").toURI().toString());
         media = new MediaPlayer(sound);

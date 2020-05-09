@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="522.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/zqsd.png" />
+            <Image url="images/zqsd.png" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="829.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Déplace Rockford vers la direction associée : ">

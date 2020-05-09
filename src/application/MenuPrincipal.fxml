@@ -11,7 +11,7 @@
    <children>
       <ImageView fitHeight="603.0" fitWidth="1152.0" layoutX="506.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/TitleScreens.png" />
+            <Image url="images/TitleScreens.png" />
          </image>
       </ImageView>
       <Button fx:id="choixNiveau" layoutX="22.0" layoutY="679.0" mnemonicParsing="false" onAction="#choiceLevel" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" style="-fx-font-family: BoulderDash6128; -fx-font-size: 50;" stylesheets="@Bouton.css" text="Choix Niveau" textFill="WHITE">

@@ -100,7 +100,6 @@ public class Grille {
                 if(tableau[i][j] instanceof Sortie) {
                     return (Sortie)(tableau[i][j]);
                 }
-                
             }
         }
 

@@ -40,6 +40,7 @@ import javafx.scene.layout.VBox;
 
 
 public class FenetrePrincipale extends Application {
+	
 	private Canvas grillePane;
 	private BorderPane root;
 	private Scene scene;
@@ -91,6 +92,7 @@ public class FenetrePrincipale extends Application {
 	public void initStart(Stage primaryStage) {
 		try {
 
+
 			this.primaryStage = primaryStage;
 
 			secondes = 0;
@@ -130,6 +132,8 @@ public class FenetrePrincipale extends Application {
 				case 3:
 					Musique.initMusiqueDeFond(Musique.WORLD3);
 					break;
+				default:
+					Musique.initMusiqueDeFond(Musique.WORLD1);
 			}
 
 		} catch (Exception e) {
@@ -138,7 +142,7 @@ public class FenetrePrincipale extends Application {
 	}
 
 	/**
-	 * Change le stage pour montrer le menu
+	 * Change le stage pour montrer le menu pause
 	 * @param primaryStage
 	 * @throws IOException
 	 */
@@ -311,27 +315,27 @@ public class FenetrePrincipale extends Application {
 	private void initImages() {
 		tabImage = new HashMap<Integer, Image>();
 		Image image;
-		image = new Image(getClass().getResourceAsStream("/MouvementRockfordDroite (1).gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/MouvementRockfordDroite (1).gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(10, image);
-		image = new Image(getClass().getResourceAsStream("/MouvementRockfordGauche (1).gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/MouvementRockfordGauche (1).gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(9, image);
-		image = new Image(getClass().getResourceAsStream("/Luciole.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Luciole.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(8, image);
-		image = new Image(getClass().getResourceAsStream("/Sortie.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Sortie.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(7, image);
-		image = new Image(getClass().getResourceAsStream("/Terre.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Terre.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(6, image);
-		image = new Image(getClass().getResourceAsStream("/Rocher.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Rocher.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(5, image);
-		image = new Image(getClass().getResourceAsStream("/Papillon.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Papillon.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(4, image);
-		image = new Image(getClass().getResourceAsStream("/Diamant.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Diamant.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(3, image);
-		image = new Image(getClass().getResourceAsStream("/Acier.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Acier.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(2, image);
-		image = new Image(getClass().getResourceAsStream("/Rockford.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Rockford.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(1, image);
-		image = new Image(getClass().getResourceAsStream("/Vide.gif"),tailleImageX,tailleImageY,false,false);
+		image = new Image(getClass().getResourceAsStream("/images/Vide.gif"),tailleImageX,tailleImageY,false,false);
 		tabImage.put(0, image);
 	}
 
@@ -361,6 +365,7 @@ public class FenetrePrincipale extends Application {
 	 * Initialise aussi la taille de la fenetre, et les coordonnees de Rockford
 	 * @throws IOException
 	 */
+
 	private void initGrille() throws IOException {
 
 		grille.creerGrille();
@@ -456,16 +461,15 @@ public class FenetrePrincipale extends Application {
 					}
 					case D: {
 						try {
+							depRockford = 9;
 							if(shiftD.match(ke)) {
-								grille.actionPerso(xRockford, yRockford, xRockford + 1, yRockford);
-								depRockford = 9;
+								grille.actionPerso(xRockford, yRockford, xRockford + 1, yRockford);	
 							}
 
 							else if(xRockford + 1 < grille.getXMAX()) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford + 1, yRockford)) {
 									ke.consume();
 									xRockford += 1;
-									depRockford = 9;
 								}
 									
 							}
@@ -477,16 +481,15 @@ public class FenetrePrincipale extends Application {
 					}
 					case Q: {
 						try {
+							depRockford = 8;
 							if(shiftQ.match(ke)) {
-								grille.actionPerso(xRockford, yRockford, xRockford - 1, yRockford);
-								depRockford = 8;
+								grille.actionPerso(xRockford, yRockford, xRockford - 1, yRockford);	
 							}
 
 							else if(xRockford - 1 >= 0) {
 								if(grille.deplacerPerso(xRockford, yRockford, xRockford - 1, yRockford)) {
 									ke.consume();
 									xRockford -= 1;
-									depRockford = 8;
 								}
 									
 							}

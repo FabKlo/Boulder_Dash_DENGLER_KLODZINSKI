@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="154.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/Rockford.gif" />
+            <Image url="images/Rockford.gif" />
          </image>
       </ImageView>
       <Text fill="WHITE" layoutX="225.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guider Rockford au travers des grottes à la recherche de diamants afin d'activer la sortie." wrappingWidth="1132.5938720703125">
